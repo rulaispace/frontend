@@ -1,0 +1,68 @@
+{
+	"account" : {
+		"username": "zhangsan",
+		"password": "12345667",
+		"showPassword": false
+	},
+	"user" : {
+		"token":"00100121131",
+		"isValid": false,
+		"userId" : "zhangsan",
+		"userName" : "张三",
+		"rule":"admin"
+	},
+	"empolyee":{
+		"schedules":[{
+			"user":"张三",
+			"dailySchedules":[{
+				"date":"2019-01-14",
+				"timeSchedules":[{
+					"beginTime":"12:00:00",
+					"endTime":"13:00:00",
+					"task":"吃饭"
+				},{	
+					"beginTime":"13:30:00",
+					"endTime":"14:30:00",
+					"task":"睡觉",
+				},{
+					"beginTime":"15:00:00",
+					"endTime":"17:00:00",
+					"task":"打豆豆",
+				}]
+			}]
+		}],
+		"announcements":[],
+		"techDocuments":[],
+		"regulations":[],
+		"calendar":{},
+		"notifications":[],
+		"notification":{
+			"title":"关于组织架构调整的说明",
+			"type":"变更",
+			"appendix":[{
+				"name" : "中央人民政府特批文件.pdf",
+				"url" : "http://www.someurl.com/download.do?file=中央人民政府特批文件.pdf"
+			},{
+				"name" : "关于公司治理架构调整的说明性纲要.pdf",
+				"url" : "http://www.someurl.com/download.do?file=关于公司治理架构调整的说明性纲要.pdf"			
+			}],
+			"contentDefaultRoot": "让群众充分参与到改革当中来，参与协商讨论有关土地确权、流转、承包、征收等涉及群众切身利益的问题，取得意想不到的良好效果。"
+		}
+	},
+	"admin":{
+		"organization" : {
+
+		},
+		"users" : [],
+		"resources" : [],
+		"announcements": [],
+		"techDocuments" : [],
+		"regulations" : []
+	}
+	
+}
+
+
+
+
+
