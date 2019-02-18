@@ -1,7 +1,7 @@
 import React from "react"
 import {render} from "react-dom"
-import StoryFactory from "./redux/story-factory"
-import Dashboard from './layout/dashboard'
+import StoryFactory from "./common/redux/story-factory"
+import Dashboard from './biz/layout/dashboard'
 
 const store = new StoryFactory({enableLocalStorage: false}).create()
 
