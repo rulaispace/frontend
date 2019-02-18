@@ -1,19 +1,19 @@
 import React from 'react'
 import LoginForm from "./login-form";
-import StoryFactory from "../../common/redux/story-factory";
+import StoreFactory from "../../common/redux/store-factory";
 import {mount, shallow} from "enzyme";
 import {destroySystem, restoreSystem} from "../../common/fetch/fetch";
 
 
 describe('Test LoginForm', () => {
-    const initStore = () => new StoryFactory({
+    const initStore = () => StoreFactory.create({
         overrideState: {
             account: {
                 open: true,
             },
         },
         enableLocalStorage: false,
-    }).create()
+    }).get()
 
 
     it('The structure of this component is stable.', () => {
@@ -35,7 +35,7 @@ describe('Test LoginForm', () => {
         expect(store.getState().account.open).toBeFalsy()
     })
     it('Login in', () => {
-        const store = new StoryFactory({
+        const store = StoreFactory.create({
             overrideState: {
                 account: {
                     username: 'zhangsan',
@@ -44,7 +44,7 @@ describe('Test LoginForm', () => {
                 },
             },
             enableLocalStorage: false,
-        }).create()
+        }).get()
 
         const component = mount(<LoginForm store={store}/>)
         component.find('Button[id="login-button"]').prop('onClick')()
@@ -54,7 +54,7 @@ describe('Test LoginForm', () => {
     it('Login in fail', () => {
         destroySystem()
 
-        const store = new StoryFactory({
+        const store = StoreFactory.create({
             overrideState: {
                 account: {
                     username: 'zhangsan',
@@ -63,7 +63,7 @@ describe('Test LoginForm', () => {
                 },
             },
             enableLocalStorage: false,
-        }).create()
+        }).get()
 
         const component = mount(<LoginForm store={store}/>)
         component.find('Button[id="login-button"]').prop('onClick')()

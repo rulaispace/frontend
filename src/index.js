@@ -1,9 +1,9 @@
 import React from "react"
 import {render} from "react-dom"
-import StoryFactory from "./common/redux/story-factory"
+import StoreFactory from "./common/redux/store-factory"
 import Dashboard from './biz/layout/dashboard'
 
-const store = new StoryFactory({enableLocalStorage: false}).create()
+const store = StoreFactory.create({enableLocalStorage: false}).get()
 
 const refresh = () => {
     return render(

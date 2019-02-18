@@ -1,4 +1,4 @@
-import StoryFactory from "./story-factory";
+import StoreFactory from "./store-factory";
 import ObjectStorage from "./object-storage";
 import MessageReducer from "../message/reducer";
 
@@ -6,7 +6,7 @@ describe('Test storage factory', () => {
     const storageKey = 'Jest_Store_Factory_Key'
 
     it('Test initial state of store', () => {
-        const state = new StoryFactory().create().getState()
+        const state = StoreFactory.create().get().getState()
         expect(state).toHaveProperty('layout')
         expect(state).toHaveProperty('message')
         expect(state).toHaveProperty('account')
@@ -20,11 +20,11 @@ describe('Test storage factory', () => {
         expect(state).toHaveProperty('schedule')
     })
     it('Test initial state when local storage is empty', () => {
-        const localStorage = new ObjectStorage(storageKey)
+        const localStorage = ObjectStorage.create(storageKey)
         localStorage.clear()
 
 
-        const state = new StoryFactory({localStorage: localStorage}).create().getState()
+        const state = StoreFactory.create({localStorage: localStorage}).get().getState()
         expect(state).toHaveProperty('layout')
         expect(state).toHaveProperty('message')
         expect(state).toHaveProperty('account')
@@ -38,25 +38,25 @@ describe('Test storage factory', () => {
         expect(state).toHaveProperty('schedule')
     })
     it('Test initial state when local storage is not empty', () => {
-        const localStorage = new ObjectStorage(storageKey)
+        const localStorage = ObjectStorage.create(storageKey)
         localStorage.clear()
         localStorage.update({'document': 'some value'})
 
 
-        const state = new StoryFactory({localStorage: localStorage}).create().getState()
+        const state = StoreFactory.create({localStorage: localStorage}).get().getState()
         expect(state).toHaveProperty('document', 'some value')
     })
     it('Test state with override state', () => {
-        const state = new StoryFactory({
+        const state = StoreFactory.create({
             overrideState: {
                 'document': 'some value'
             },
             enableLocalStorage: false,
-        }).create().getState()
+        }).get().getState()
         expect(state).toHaveProperty('document', 'some value')
     })
     it('Test normal redux dispatch', () => {
-        const store = new StoryFactory({enableLocalStorage: false}).create()
+        const store = StoreFactory.create({enableLocalStorage: false}).get()
         store.dispatch(MessageReducer.show('登录失败', 'Jest test'))
         expect(store.getState()).toHaveProperty('message.title', '登录失败')
     })

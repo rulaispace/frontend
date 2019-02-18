@@ -3,8 +3,32 @@ import thunk from 'redux-thunk'
 import {init} from './init-state'
 import {deepOverride} from '../utils/object'
 import ObjectStorage from "./object-storage";
-import ReducerFactory from "./reducer-factory";
 import Any from "../utils/any";
+import MessageReducer from "../message/reducer";
+import AccountReducer from "../../biz/account/reducer";
+import LayoutReducer from "../../biz/layout/reducer";
+import NotificationReducer from "../../biz/content/notification/reducer";
+import DocumentReducer from "../../biz/content/document/reducer";
+import OrganizationReducer from "../../biz/content/organization/reducer";
+import ScheduleReducer from "../../biz/content/schedule/reducer";
+import ResourceReducer from "../../biz/content/resource/reducer";
+import RuleReducer from "../../biz/content/rule/reducer";
+import AnnouncementReducer from "../../biz/content/announcement/reducer";
+import RegulationReducer from "../../biz/content/regulation/reducer";
+
+const DefaultReduxReducers = {
+    message: MessageReducer.reduce,
+    account: AccountReducer.reduce,
+    layout: LayoutReducer.reduce,
+    notification: NotificationReducer.reduce,
+    document: DocumentReducer.reduce,
+    organization: OrganizationReducer.reduce,
+    schedule: ScheduleReducer.reduce,
+    resource: ResourceReducer.reduce,
+    rule: RuleReducer.reduce,
+    announcement: AnnouncementReducer.reduce,
+    regulation: RegulationReducer.reduce,
+}
 
 function createLoggerMiddleWare() {
     return (
@@ -58,7 +82,7 @@ const StoreFactory = {
         )(
             createStore
         )(
-            combineReducers(ReducerFactory.reducers()),
+            combineReducers(DefaultReduxReducers),
             this.usingLocalStorage() ? this.localStorage.read() : deepOverride(init, this.overrideState)
         )
     }
