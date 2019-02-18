@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
 import Reducer from './reducer';
-import AccountReducer from '../account/reducer'
+import accountReducer from '../account/reducer'
 import config from './config'
 
 function RightIcons({token, logout, login}) {
@@ -76,8 +76,8 @@ export default function TopBar({classes, store}) {
                 </Typography>
                 <RightIcons
                     token={token}
-                    login={() => {store.dispatch(AccountReducer.open())}}
-                    logout={() => {store.dispatch(AccountReducer.logout())}}
+                    login={() => {store.dispatch(accountReducer.createAction(accountReducer.types.open))}}
+                    logout={() => {store.dispatch(accountReducer.createAction(accountReducer.types.logout))}}
                 />
             </Toolbar>
         </AppBar>

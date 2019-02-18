@@ -18,7 +18,7 @@ import RegulationReducer from "../../biz/content/regulation/reducer";
 
 const DefaultReduxReducers = {
     message: MessageReducer.reduce,
-    account: AccountReducer.reduce,
+    account: AccountReducer.proxy(),
     layout: LayoutReducer.reduce,
     notification: NotificationReducer.reduce,
     document: DocumentReducer.reduce,
@@ -54,7 +54,40 @@ function createSaverMiddleWare(storeLocalStorage) {
     )
 }
 
-const StoreFactory = {
+const StoreFactory = Any.extend({
+    create: function(
+        {
+            overrideState = {},
+            enableLocalStorage = true,
+            localStorage= ObjectStorage.create()
+        } = {}
+    ) {
+        this.overrideState = overrideState
+        this.enableLocalStorage = enableLocalStorage
+        this.localStorage = localStorage
+
+        return this
+    },
+
+    usingLocalStorage: function() {
+        return this.enableLocalStorage && !this.localStorage.isEmpty()
+    },
+
+    get() {
+        return applyMiddleware(
+            createLoggerMiddleWare(),
+            thunk,
+            createSaverMiddleWare(this.localStorage)
+        )(
+            createStore
+        )(
+            combineReducers(DefaultReduxReducers),
+            this.usingLocalStorage() ? this.localStorage.read() : deepOverride(init, this.overrideState)
+        )
+    }
+})
+
+/*const StoreFactory = {
     create: function(
         {
             overrideState = {},
@@ -86,6 +119,6 @@ const StoreFactory = {
             this.usingLocalStorage() ? this.localStorage.read() : deepOverride(init, this.overrideState)
         )
     }
-}
+}*/
 
 export default StoreFactory

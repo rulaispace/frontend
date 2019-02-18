@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import post from '../../common/fetch/fetch'
 
-import Reducer from './reducer'
+import reducer from './reducer'
 import MessageReducer from '../../common/message/reducer'
 
 export default class LoginForm extends React.Component {
@@ -26,7 +26,7 @@ export default class LoginForm extends React.Component {
     }
 
     loginSuccess(payload) {
-        this.store.dispatch(Reducer.login(payload))
+        this.store.dispatch(reducer.createAction(reducer.types.login, payload))
     }
 
     loginFailed(err) {
@@ -45,7 +45,7 @@ export default class LoginForm extends React.Component {
 
         return (
             <div>
-                <Dialog open={account.open} onClose={() => {this.store.dispatch(Reducer.close())}} aria-labelledby='form-dialog-title'>
+                <Dialog open={account.open} onClose={() => {this.store.dispatch(reducer.createAction(reducer.types.close))}} aria-labelledby='form-dialog-title'>
                     <DialogTitle id='form-dialog-title'>登录系统</DialogTitle>
                     <DialogContent>
                         <TextField
@@ -75,7 +75,7 @@ export default class LoginForm extends React.Component {
                         <Button id='login-button' onClick={this.submit} color='primary'>
                             登录
                         </Button>
-                        <Button id='close-button' onClick={() => {this.store.dispatch(Reducer.close())}} color='primary'>
+                        <Button id='close-button' onClick={() => {this.store.dispatch(reducer.createAction(reducer.types.close))}} color='primary'>
                             取消
                         </Button>
                     </DialogActions>

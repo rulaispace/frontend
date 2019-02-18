@@ -1,38 +1,75 @@
-export default class Reducer {
+import ReducerBase from "../../common/redux/reducer-base";
+
+const types = {
+    open: 'ACCOUNT_FORM_OPEN',
+    close: 'ACCOUNT_FORM_CLOSE',
+    login: 'ACCOUNT_LOGIN',
+    logout: 'ACCOUNT_LOGOUT'
+}
+
+const reducers = [
+    {
+        type: types.open,
+        action: () => ({type: types.open,}),
+        reduce: (state={}) => ({...state, open:true})
+    }, {
+        type: types.close,
+        action: () => ({type: types.close,}),
+        reduce: (state={}) => ({...state, open:false})
+    }, {
+        type: types.login,
+        action: (payload) => ({type: types.login, payload}),
+        reduce: (state={}, payload={}) => ({...state, ...payload, open:false})
+    }, {
+        type: types.logout,
+        action: () => ({type: types.logout}),
+        reduce: () => ({open:false})
+    }
+]
+
+const Reducer = ReducerBase.extend({
+    create: function() {
+        return ReducerBase.create.call(this, types, reducers)
+    }
+})
+
+export default Reducer.create()
+
+/*export default class reducer {
     static open() {
-        return {type: Reducer.OPEN}
+        return {type: reducer.OPEN}
     }
 
     static close() {
-        return {type: Reducer.CLOSE}
+        return {type: reducer.CLOSE}
     }
 
     static login(payload) {
         return {
-            type:Reducer.LOGIN,
+            type:reducer.LOGIN,
             payload,
         }
     }
 
     static logout() {
         return {
-            type: Reducer.LOGOUT,
+            type: reducer.LOGOUT,
         }
     }
 
     static reduce(state={}, action) {
         switch (action.type) {
-            case Reducer.OPEN:
+            case reducer.OPEN:
                 return {
                     ...state,
                     open: true
                 }
-            case Reducer.CLOSE:
+            case reducer.CLOSE:
                 return {
                     ...state,
                     open: false
                 }
-            case Reducer.LOGIN: {
+            case reducer.LOGIN: {
                 const {payload} = action
                 return {
                     ...state,
@@ -40,7 +77,7 @@ export default class Reducer {
                     open: false
                 }
             }
-            case Reducer.LOGOUT: {
+            case reducer.LOGOUT: {
                 return {
                     open: false
                 }
@@ -49,9 +86,10 @@ export default class Reducer {
                 return state
         }
     }
-}
+}*/
 
+/*
 Reducer.OPEN = 'ACCOUNT_FORM_OPEN'
 Reducer.CLOSE = 'ACCOUNT_FORM_CLOSE'
 Reducer.LOGIN = 'ACCOUNT_LOGIN'
-Reducer.LOGOUT = 'ACCOUNT_LOGOUT'
+Reducer.LOGOUT = 'ACCOUNT_LOGOUT'*/
