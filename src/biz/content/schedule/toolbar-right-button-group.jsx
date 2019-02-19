@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types";
 import IconStore from "../../../common/utils/icon-store";
-import Naming from '../../../common/utils/name'
+import IconNameSet from '../../../common/config/icon-name-config'
 import Button from "@material-ui/core/Button";
 
 export default function ToolbarRightButtonGroup({state, classes}) {
@@ -18,13 +18,13 @@ export default function ToolbarRightButtonGroup({state, classes}) {
         return (
             <div className={classes[rightButtonGroupClassName]}>
                 <Button className={classes.contentDefaultMinIconButton}>
-                    <IconStore iconKey={Naming.ICON_SKIP_PRE}/>
+                    <IconStore iconKey={IconNameSet.skipPre}/>
                 </Button>
                 <Button size='small' color='primary' className={classes.contentDefaultMinIconButton}>
                     今天
                 </Button>
                 <Button className={classes.contentDefaultMinIconButton}>
-                    <IconStore iconKey={Naming.ICON_SKIP_NEXT}/>
+                    <IconStore iconKey={IconNameSet.skipNext}/>
                 </Button>
                 <Button size='small' color='primary'>
                     按周展示

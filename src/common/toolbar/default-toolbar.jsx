@@ -5,10 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'
 import IconStore from "../utils/icon-store";
 import {deepOverride} from "../utils/object";
-import Naming from "../utils/name";
 import JSON from "circular-json";
 import DefaultRightButtonGroup from "./default-right-button-group";
 import DefaultInput from "./default-input";
+import IconNameSet from "../config/icon-name-config";
 
 const DefaultToolbarState = {
     feature: {
@@ -28,7 +28,7 @@ const DefaultToolbarState = {
         RightButtonGroupFactory: DefaultRightButtonGroup,
     },
     leftButton: {
-        key: Naming.ICON_MENU,
+        key: IconNameSet.menu,
         rootClassName: 'toolbarDefaultLeftButton',
         onClick: (state)=> {
             alert(JSON.stringify(state))
@@ -40,7 +40,7 @@ const DefaultToolbarState = {
         rootClassName: 'toolbarDefaultTitle',
     },
     input: {
-        iconKey: Naming.ICON_SEARCH,
+        iconKey: IconNameSet.search,
         inputRef: React.createRef(),
         className: 'toolbarDefaultInput',
         iconClassName: 'toolbarDefaultInputIcon',

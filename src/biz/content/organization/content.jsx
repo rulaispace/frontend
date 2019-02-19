@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Reducer from './reducer'
-import Naming from '../../../common/utils/name'
 import DefaultToolbar from '../../../common/toolbar/default-toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import DefaultNestedList from "../../../common/list/default-nested-list";
 import Paper from "@material-ui/core/Paper";
+import IconNameSet from '../../../common/config/icon-name-config'
 
 const ToolbarState = () => ({
     feature: {
@@ -15,20 +15,20 @@ const ToolbarState = () => ({
         showRightButtonGroup: true,
     },
     input: {
-        iconKey: Naming.ICON_ATTACHMENT,
+        iconKey: IconNameSet.attachment,
         placeholder: '输入关键字查询',
         disabled: true,
     },
     rightButtonGroup: {
         group: [
             {
-                key: Naming.ICON_FOLDER,
+                key: IconNameSet.folder,
                 onClick: ()=> {
                     this.onQuery()
                 },
             },
             {
-                key: Naming.ICON_UPLOAD,
+                key: IconNameSet.upload,
                 onClick: ()=> {
                     this.onReset()
                 },

@@ -1,22 +1,22 @@
-import Naming from "../../common/utils/name";
+import MenuNameSet from "../../common/config/menu-name-config";
 
-export default {
+const config = {
     user: {
         items: [
             {
-                key: Naming.MENU_NOTIFICATION,
+                key: MenuNameSet.notification,
                 label: '个人通知',
             },
             {
-                key: Naming.MENU_SCHEDULE,
+                key: MenuNameSet.schedule,
                 label: '日程管理',
             },
             {
-                key: Naming.MENU_DOCUMENT,
+                key: MenuNameSet.document,
                 label: '公司文献',
             },
             {
-                key: Naming.MENU_CALENDAR,
+                key: MenuNameSet.calendar,
                 label: '考勤与请假',
             },
         ]
@@ -25,29 +25,31 @@ export default {
         header: '管理员',
         items: [
             {
-                key: Naming.MENU_ORG,
+                key: MenuNameSet.org,
                 label: '组织架构管理',
             },
             {
-                key: Naming.MENU_RULE,
+                key: MenuNameSet.rule,
                 label: '系统权限开通',
             },
             {
-                key: Naming.MENU_RESOURCE,
+                key: MenuNameSet.resource,
                 label: '资源管理',
             },
             {
-                key: Naming.MENU_ANNOUNCEMENT,
+                key: MenuNameSet.announcement,
                 label: '公告管理',
             },
             {
-                key: Naming.MENU_TECH_DOCUMENT,
+                key: MenuNameSet.techDocument,
                 label: '技术文献管理',
             },
             {
-                key: Naming.MENU_REGULATION,
+                key: MenuNameSet.regulation,
                 label: '公司章程管理',
             },
         ]
     },
 }
+
+export default config

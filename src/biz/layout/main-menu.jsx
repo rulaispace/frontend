@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import LayoutReducer from './reducer'
-import config from './config'
 import IconStore from "../../common/utils/icon-store"
 
 import Drawer from '@material-ui/core/Drawer'
@@ -13,7 +12,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
-
+import config from "./config";
 
 function MenuItemList({state, navigateTo}) {
     const {header, items} = state

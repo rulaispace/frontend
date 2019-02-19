@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import PropTypes from "prop-types";
-import Naming from "../../../common/utils/name";
+import IconNameSet from '../../../common/config/icon-name-config'
 import DefaultToolbar from "../../../common/toolbar/default-toolbar";
 import ToolbarRightButtonGroup from "./toolbar-right-button-group";
 import DefaultTable from "../../../common/table/default-table";
@@ -14,13 +14,13 @@ const ToolbarState = () => ({
         showInput: false,
         showInputIcon: false,
         showRightButtonGroup: true,
-        type: Naming.SCHEDULE_DAY_TYPE,
+        type: IconNameSet.SCHEDULE_DAY_TYPE,
     },
     factory: {
         RightButtonGroupFactory: ToolbarRightButtonGroup,
     },
     input: {
-        iconKey: Naming.ICON_FILTER_LIST,
+        iconKey: IconNameSet.filterList,
         placeholder: '选择成员过滤',
         defaultValue: '',
     },

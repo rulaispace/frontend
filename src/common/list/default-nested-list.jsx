@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
 import {deepOverride} from '../utils/object'
 import ListSubheader from '@material-ui/core/ListSubheader'
-import Naming from '../utils/name'
 import DefaultListItem from './default-list-item'
 import DefaultCollapseList from './default-collapse-list'
 import DefaultTextIcon from './default-text-icon'
 import DefaultRightButtonGroup from './default-right-button-group'
+import IconNameSet from "../config/icon-name-config";
 
 const DefaultNestedListState = {
     feature: {
         listClassName: 'nestedListDefaultList',
         title: '上海通用汽车有限公司',
-        collapsedIconKey: Naming.ICON_ARROW_RIGHT,
-        expandedIconKey: Naming.ICON_ARROW_DOWN,
+        collapsedIconKey: IconNameSet.arrowRight,
+        expandedIconKey: IconNameSet.arrowDown,
         expand: () => {
             alert('Should expand the item.')
         },

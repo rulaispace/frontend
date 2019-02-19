@@ -1,4 +1,3 @@
-import Naming from './name'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -31,73 +30,75 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SkipPreIcon from '@material-ui/icons/SkipPreviousOutlined'
 import SkipNextIcon from '@material-ui/icons/SkipNextOutlined'
+import IconNameSet from "../config/icon-name-config";
+import MenuNameSet from "../config/menu-name-config";
 
 export default function IconStore({iconKey, fontSize, className}) {
     switch (iconKey) {
-        case Naming.MENU_CALENDAR:
+        case MenuNameSet.calendar:
             return <CalendarViewDayIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_NOTIFICATION:
+        case MenuNameSet.notification:
             return <NotificationIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_DOCUMENT:
+        case MenuNameSet.document:
             return <FolderIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_SCHEDULE:
+        case MenuNameSet.schedule:
             return <ScheduleIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_ORG:
+        case MenuNameSet.org:
             return <HomeIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_RULE:
+        case MenuNameSet.rule:
             return <SecurityIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_RESOURCE:
+        case MenuNameSet.resource:
             return <DevicesIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_ANNOUNCEMENT:
+        case MenuNameSet.announcement:
             return <AnnouncementIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_TECH_DOCUMENT:
+        case MenuNameSet.techDocument:
             return <ComputerIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.MENU_REGULATION:
+        case MenuNameSet.regulation:
             return <FolderSpecialIcon fontSize={fontSize?fontSize:'default'} className={className}/>
 
         // 图标元素
-        case Naming.ICON_MENU:
+        case IconNameSet.menu:
             return <MenuIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_SEARCH:
+        case IconNameSet.search:
             return <SearchIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_MAIL:
+        case IconNameSet.mail:
             return <MailIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_NOTIFICATION:
+        case IconNameSet.notification:
             return <NotificationIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_ACCOUNT:
+        case IconNameSet.account:
             return <AccountIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_RESET:
+        case IconNameSet.reset:
             return <ResetIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_COMMIT:
+        case IconNameSet.commit:
             return <CommitIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_ATTACHMENT:
+        case IconNameSet.attachment:
             return <FileIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_FOLDER:
+        case IconNameSet.folder:
             return <FolderIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_UPLOAD:
+        case IconNameSet.upload:
             return <UploadIcon fontSize={fontSize?fontSize:'default'} className={className}/>
 
-        case Naming.ICON_ARROW_RIGHT:
+        case IconNameSet.arrowRight:
             return <ArrowRightIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_ARROW_DOWN:
+        case IconNameSet.arrowDown:
             return <ArrowDownIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_GROUP:
+        case IconNameSet.group:
             return <GroupIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_GROUP_ADD:
+        case IconNameSet.groupAdd:
             return <GroupAddIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_PERSON:
+        case IconNameSet.person:
             return <PersonIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_PERSON_ADD:
+        case IconNameSet.personAdd:
             return <PersonAddIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_EDIT:
+        case IconNameSet.edit:
             return <EditIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_DELETE:
+        case IconNameSet.delete:
             return <DeleteIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_FILTER_LIST:
+        case IconNameSet.filterList:
             return <FilterListIcon fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_SKIP_PRE:
+        case IconNameSet.skipPre:
             return <SkipPreIcon  fontSize={fontSize?fontSize:'default'} className={className}/>
-        case Naming.ICON_SKIP_NEXT:
+        case IconNameSet.skipNext:
             return <SkipNextIcon  fontSize={fontSize?fontSize:'default'} className={className}/>
         default:
             return null

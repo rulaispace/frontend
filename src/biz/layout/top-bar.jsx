@@ -10,11 +10,11 @@ import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
 import Reducer from './reducer';
 import accountReducer from '../account/reducer'
-import config from './config'
+import config from "./config";
 
 function RightIcons({token, logout, login}) {
-    return token ? <IconButton color='inherit' onClick={logout}><PersonIcon /></IconButton>
-        : <IconButton color='inherit' onClick={login}><LockIcon /></IconButton>
+    return token ? (<IconButton color='inherit' onClick={logout}><PersonIcon /></IconButton>)
+        : (<IconButton color='inherit' onClick={login}><LockIcon /></IconButton>)
 }
 
 RightIcons.propTypes = {
