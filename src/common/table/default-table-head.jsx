@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
-import TableRow from "@material-ui/core/es/TableRow/TableRow";
+import TableRow from "@material-ui/core/TableRow";
 
 export default class DefaultTableHead extends React.Component {
     constructor(props) {

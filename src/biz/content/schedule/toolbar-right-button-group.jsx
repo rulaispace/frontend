@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from "prop-types";
 import IconStore from "../../../common/utils/icon-store";
-import Button from "@material-ui/core/es/Button/Button";
 import Naming from '../../../common/utils/name'
+import Button from "@material-ui/core/Button";
 
 export default function ToolbarRightButtonGroup({state, classes}) {
     const {

@@ -41,11 +41,20 @@ export default class LoginForm extends React.Component {
     }
 
     render() {
-        const {account} = this.store.getState()
+        const store = this.store
+        const {account} = store.getState()
 
         return (
             <div>
-                <Dialog open={account.open} onClose={() => {this.store.dispatch(reducer.createAction(reducer.types.close))}} aria-labelledby='form-dialog-title'>
+                <Dialog
+                    open={account.open}
+                    onClose={
+                        () => {
+                            store.dispatch(reducer.createAction(reducer.types.close))
+                        }
+                    }
+                    aria-labelledby='form-dialog-title'
+                >
                     <DialogTitle id='form-dialog-title'>登录系统</DialogTitle>
                     <DialogContent>
                         <TextField
@@ -75,7 +84,15 @@ export default class LoginForm extends React.Component {
                         <Button id='login-button' onClick={this.submit} color='primary'>
                             登录
                         </Button>
-                        <Button id='close-button' onClick={() => {this.store.dispatch(reducer.createAction(reducer.types.close))}} color='primary'>
+                        <Button
+                            id='close-button'
+                            onClick={
+                                () => {
+                                    store.dispatch(reducer.createAction(reducer.types.close))
+                                }
+                            }
+                            color='primary'
+                        >
                             取消
                         </Button>
                     </DialogActions>

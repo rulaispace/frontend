@@ -207,7 +207,7 @@ describe('Test object override function', () => {
 
         expect(overrideArrayWithObject).toThrowError()
     })
-    it('Throw error when source array element do not have the property named `key`', () => {
+    it('When source array element do not have the property named `key`', () => {
         const origin = [
             {name: 'zhangsan'},
             {name: 'lisi'}
@@ -218,14 +218,9 @@ describe('Test object override function', () => {
                 name: 'wangbagaozi',
             }
         ]
-
-        function overrideArrayWithObject() {
-            deepOverride(origin, delta)
-        }
-
-        expect(overrideArrayWithObject).toThrowError()
+        expect(deepOverride(origin, delta).length).toBe(3)
     })
-    it('Throw error when delta array element do not have the property named `key`', () => {
+    it('When delta array element do not have the property named `key`', () => {
         const origin = [
             {
                 key: 'key1',
@@ -241,11 +236,6 @@ describe('Test object override function', () => {
                 name: 'wangbagaozi',
             }
         ]
-
-        function overrideArrayWithObject() {
-            deepOverride(origin, delta)
-        }
-
-        expect(overrideArrayWithObject).toThrowError()
+        expect(deepOverride(origin, delta).length).toBe(3)
     })
 })

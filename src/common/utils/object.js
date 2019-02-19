@@ -46,9 +46,12 @@ function arrayDeepOverride(source, delta) {
 
     if (!Array.isArray(delta)) throw new TypeError('the type of delta is not an array.')
 
+    let cur = 0
     const pairs = delta.reduce((result, item) => {
-            const {key} = item
-            if (!key) throw new TypeError('deep override element in array should have property named `key`')
+            let {key} = item
+            if (!key) {
+                key = 'CIX-' + (++cur)
+            }
 
             return {
                 ...result,
@@ -59,8 +62,10 @@ function arrayDeepOverride(source, delta) {
             }
         },
         (source.reduce((result, item) => {
-            const {key} = item
-            if (!key) throw new TypeError('deep override element in array should have property named `key`')
+            let {key} = item
+            if (!key) {
+                key = 'CIX-' + (++cur)
+            }
 
             return {
                 ...result,

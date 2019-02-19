@@ -20,28 +20,28 @@ export const init = {
         query: '通知',
         dataList: [
             {
-                idKey: 'NOTI-001',
+                key: 'NOTI-001',
                 title: '春节放假通知',
                 type: '变更',
                 announcer: '王小二',
                 announceDate: '2019-01-01',
             },
             {
-                idKey: 'NOTI-002',
+                key: 'NOTI-002',
                 title: '内部管理会会议纪要',
                 type: '通知',
                 announcer: '张小三',
                 announceDate: '2018-12-31',
             },
             {
-                idKey: 'NOTI-003',
+                key: 'NOTI-003',
                 title: '[重要]2019年员工体检安排',
                 type: '通知',
                 announcer: '白佬',
                 announceDate: '2018-11-03',
             },
             {
-                idKey: 'NOTI-004',
+                key: 'NOTI-004',
                 title: '[日程]第28届运动会日程',
                 type: '变更',
                 announcer: '郭碧婷',
@@ -53,27 +53,27 @@ export const init = {
         query: '',
         dataList: [
             {
-                idKey: 'DOC-001',
+                key: 'DOC-001',
                 title: '人文管理',
                 operator: '下载',
             },
             {
-                idKey: 'DOC-002',
+                key: 'DOC-002',
                 title: '效率提升',
                 operator: '下载',
             },
             {
-                idKey: 'DOC-003',
+                key: 'DOC-003',
                 title: '主页下载',
                 operator: '下载',
             },
             {
-                idKey: 'DOC-004',
+                key: 'DOC-004',
                 title: '员工主页-技术文献管理',
                 operator: '下载',
             },
             {
-                idKey: 'DOC-005',
+                key: 'DOC-005',
                 title: '员工主页-组织架构管理',
                 operator: '下载',
             },
@@ -83,7 +83,7 @@ export const init = {
         query: '',
         dataList: [
             {
-                idKey: 'RES-001',
+                key: 'RES-001',
                 name: '会议室1',
                 code: 'ROOM-1',
                 createDate: '2019-01-01',
@@ -91,7 +91,7 @@ export const init = {
                 operator: ['修改', '删除'],
             },
             {
-                idKey: 'RES-002',
+                key: 'RES-002',
                 name: '会议室2',
                 code: 'ROOM-2',
                 createDate: '2019-01-01',
@@ -99,7 +99,7 @@ export const init = {
                 operator: ['修改', '删除'],
             },
             {
-                idKey: 'RES-003',
+                key: 'RES-003',
                 name: '会议室3',
                 code: 'ROOM-3',
                 createDate: '2019-01-01',
@@ -107,7 +107,7 @@ export const init = {
                 operator: ['修改', '删除'],
             },
             {
-                idKey: 'RES-004',
+                key: 'RES-004',
                 name: '会议室4',
                 code: 'ROOM-4',
                 createDate: '2019-01-01',
@@ -115,7 +115,7 @@ export const init = {
                 operator: ['修改', '删除'],
             },
             {
-                idKey: 'RES-005',
+                key: 'RES-005',
                 name: '会议室5',
                 code: 'ROOM-5',
                 createDate: '2019-01-01',
@@ -123,7 +123,7 @@ export const init = {
                 operator: ['修改', '删除'],
             },
             {
-                idKey: 'RES-006',
+                key: 'RES-006',
                 name: '会议室6',
                 code: 'ROOM-6',
                 createDate: '2019-01-01',
@@ -136,7 +136,7 @@ export const init = {
         query: '',
         dataList: [
             {
-                idKey: 'RULE-001',
+                key: 'RULE-001',
                 userName: '王小二',
                 department: '办公室',
                 createDate: '2019-01-01',
@@ -144,7 +144,7 @@ export const init = {
                 operator: ['重置密码', '冻结'],
             },
             {
-                idKey: 'RULE-002',
+                key: 'RULE-002',
                 userName: '董晓庆',
                 department: '企划部',
                 createDate: '2019-01-01',
@@ -157,7 +157,7 @@ export const init = {
         query: '',
         dataList: [
             {
-                idKey: 'ANC-001',
+                key: 'ANC-001',
                 name: '春节放假通知',
                 type: '变更',
                 releaseDate: '2019-01-01',
@@ -165,7 +165,7 @@ export const init = {
                 operator: ['修改', '发布', '删除'],
             },
             {
-                idKey: 'ANC-002',
+                key: 'ANC-002',
                 name: '内部管理会会议纪要',
                 type: '通知',
                 releaseDate: '2019-01-01',
@@ -178,7 +178,7 @@ export const init = {
         query: '',
         dataList: [
             {
-                idKey: 'REG-001',
+                key: 'REG-001',
                 name: '请假制度',
                 type: '人事制度',
                 releaseDate: '2019-01-01',
@@ -186,7 +186,7 @@ export const init = {
                 operator: ['修改', '发布', '删除'],
             },
             {
-                idKey: 'REG-002',
+                key: 'REG-002',
                 name: '会议室使用安排',
                 type: '管理制度',
                 releaseDate: '2019-01-01',
@@ -200,62 +200,62 @@ export const init = {
     schedule: {
         dataList: [
             {
-                idKey: 'SCDL-0001',
+                key: 'SCDL-0001',
                 time: 8,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0002',
+                key: 'SCDL-0002',
                 time: 9,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0003',
+                key: 'SCDL-0003',
                 time: 10,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0004',
+                key: 'SCDL-0004',
                 time: 11,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0005',
+                key: 'SCDL-0005',
                 time: 12,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0006',
+                key: 'SCDL-0006',
                 time: 13,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0007',
+                key: 'SCDL-0007',
                 time: 14,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0008',
+                key: 'SCDL-0008',
                 time: 15,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0009',
+                key: 'SCDL-0009',
                 time: 16,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0010',
+                key: 'SCDL-0010',
                 time: 17,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0011',
+                key: 'SCDL-0011',
                 time: 18,
                 event: '晨会',
             },
             {
-                idKey: 'SCDL-0012',
+                key: 'SCDL-0012',
                 time: 19,
                 event: '晨会',
             },
