@@ -1,4 +1,4 @@
-const MenuNameSet = {
+const menuNames = {
     welcome: 'menu_welcome',
     // 普通用户菜单
     notification: 'menu_notification',
@@ -15,4 +15,4 @@ const MenuNameSet = {
     regulation: 'menu_regulation',
 }
 
-export default MenuNameSet
+export default menuNames

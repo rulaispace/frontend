@@ -1,7 +1,7 @@
 export const init = {
     layout: {
         open: true,
-        navigator: 'resource',
+        navigator: 'announcement',
     },
     message: {
         title: '系统消息：',
@@ -154,7 +154,7 @@ export const init = {
         ]
     },
     announcement: {
-        query: '',
+        query: '放假',
         dataList: [
             {
                 key: 'ANC-001',

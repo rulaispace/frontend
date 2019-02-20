@@ -5,12 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'
 import IconStore from "../utils/icon-store";
 import {deepOverride} from "../utils/object";
-import JSON from "circular-json";
 import DefaultRightButtonGroup from "./default-right-button-group";
 import DefaultInput from "./default-input";
-import IconNameSet from "../config/icon-name-config";
+import iconNames from "../config/icon-name-config";
 
-const DefaultToolbarState = {
+const defaultToolbarState = {
     feature: {
         rootClassName: 'toolbarDefaultRoot',
         variant: 'dense',
@@ -28,10 +27,10 @@ const DefaultToolbarState = {
         RightButtonGroupFactory: DefaultRightButtonGroup,
     },
     leftButton: {
-        key: IconNameSet.menu,
+        key: iconNames.menu,
         rootClassName: 'toolbarDefaultLeftButton',
         onClick: (state)=> {
-            alert(JSON.stringify(state))
+            console.log('Nothing...' + state)
         },
     },
     title: {
@@ -40,12 +39,13 @@ const DefaultToolbarState = {
         rootClassName: 'toolbarDefaultTitle',
     },
     input: {
-        iconKey: IconNameSet.search,
+        iconKey: iconNames.search,
         inputRef: React.createRef(),
         className: 'toolbarDefaultInput',
         iconClassName: 'toolbarDefaultInputIcon',
         inputRootClassName: 'toolbarDefaultInputRoot',
         inputInputClassName: 'toolbarDefaultInputInput',
+        onChange: f=>f,
         disabled: false,
     },
     rightButtonGroup: {
@@ -58,7 +58,7 @@ export default class DefaultToolbar extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = deepOverride(DefaultToolbarState, props.state)
+        this.state = deepOverride(defaultToolbarState, props.state)
         this.classes = props.classes
     }
 

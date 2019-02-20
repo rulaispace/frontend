@@ -1,22 +1,22 @@
-import MenuNameSet from "../../common/config/menu-name-config";
+import menuNames from "../../common/config/menu-name-config";
 
 const config = {
     user: {
         items: [
             {
-                key: MenuNameSet.notification,
+                key: menuNames.notification,
                 label: '个人通知',
             },
             {
-                key: MenuNameSet.schedule,
+                key: menuNames.schedule,
                 label: '日程管理',
             },
             {
-                key: MenuNameSet.document,
+                key: menuNames.document,
                 label: '公司文献',
             },
             {
-                key: MenuNameSet.calendar,
+                key: menuNames.calendar,
                 label: '考勤与请假',
             },
         ]
@@ -25,27 +25,27 @@ const config = {
         header: '管理员',
         items: [
             {
-                key: MenuNameSet.org,
+                key: menuNames.org,
                 label: '组织架构管理',
             },
             {
-                key: MenuNameSet.rule,
+                key: menuNames.rule,
                 label: '系统权限开通',
             },
             {
-                key: MenuNameSet.resource,
+                key: menuNames.resource,
                 label: '资源管理',
             },
             {
-                key: MenuNameSet.announcement,
+                key: menuNames.announcement,
                 label: '公告管理',
             },
             {
-                key: MenuNameSet.techDocument,
+                key: menuNames.techDocument,
                 label: '技术文献管理',
             },
             {
-                key: MenuNameSet.regulation,
+                key: menuNames.regulation,
                 label: '公司章程管理',
             },
         ]

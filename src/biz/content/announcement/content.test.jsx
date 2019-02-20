@@ -9,7 +9,7 @@ describe('Test Announcement Content', () => {
     const initStore = () => StoreFactory.create({
         overrideState: {
             announcement: {
-                query: '',
+                query: '放假',
                 dataList: [
                     {
                         key: 'ANC-001',
@@ -32,7 +32,6 @@ describe('Test Announcement Content', () => {
         },
         enableLocalStorage: false,
     }).get()
-
     it('The structure of this content', () => {
         const store = initStore()
 

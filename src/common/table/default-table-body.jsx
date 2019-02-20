@@ -15,24 +15,35 @@ export default class DefaultTableBody extends React.Component {
         const {
             feature: {
                 pageable,
+                withFilter,
             },
             pagination: {
                 page,
                 rowsPerPage,
             },
+            filter,
             body,
         } = this.state
 
+        const dataList = withFilter ? (body.filter((row) => {
+            for (const columnName in row) {
+                if (filter[columnName]) {
+                    return row[columnName].indexOf(filter[columnName]) != -1
+                }
+            }
+            return true
+        })) : body
+
         const rowList = pageable ? (
-            body.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        ) : body
+            dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        ) : dataList
 
         return (
             <TableBody>
-                {rowList.map(row => {
+                {rowList.map((row, i) => {
                     return (
                         <DefaultTableRow
-                            key={row.idKey}
+                            key={i}
                             state={{
                                 ...this.state,
                                 body: null,

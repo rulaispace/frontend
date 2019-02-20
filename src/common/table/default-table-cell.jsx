@@ -56,7 +56,6 @@ export default class DefaultTableCell extends React.Component {
 
         return (
             <TableCell
-                key={row[id]}
                 className={this.classes[cellStyles(row, this.state.col)]}
                 align={numeric ? 'center' : 'left'}
                 padding={disablePadding ? 'none' : 'default'}

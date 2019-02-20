@@ -1,4 +1,4 @@
-const IconNameSet = {
+const iconNames = {
     // 一些图标的名称定义
     menu: 'icon_menu',
     search: 'icon_search',
@@ -30,7 +30,7 @@ const IconNameSet = {
     SCHEDULE_MONTH_TYPE: 'schedule_month_type',
 }
 
-export default IconNameSet
+export default iconNames
 
 
 

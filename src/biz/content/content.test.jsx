@@ -22,7 +22,7 @@ describe('Test Announcement Content', () => {
         const component = mount(<ReactDOM store={store}/>)
         expect(component).toMatchSnapshot();
     })
-    it('Setup with notification', () => {
+    /*it('Setup with notification', () => {
         const store = StoreFactory.create({
             overrideState: {
                 layout: {
@@ -133,5 +133,5 @@ describe('Test Announcement Content', () => {
 
         const component = mount(<ReactDOM store={store}/>)
         expect(component).toMatchSnapshot();
-    })
+    })*/
 })

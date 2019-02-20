@@ -7,14 +7,14 @@ import DefaultListItem from './default-list-item'
 import DefaultCollapseList from './default-collapse-list'
 import DefaultTextIcon from './default-text-icon'
 import DefaultRightButtonGroup from './default-right-button-group'
-import IconNameSet from "../config/icon-name-config";
+import iconNames from "../config/icon-name-config";
 
 const DefaultNestedListState = {
     feature: {
         listClassName: 'nestedListDefaultList',
         title: '上海通用汽车有限公司',
-        collapsedIconKey: IconNameSet.arrowRight,
-        expandedIconKey: IconNameSet.arrowDown,
+        collapsedIconKey: iconNames.arrowRight,
+        expandedIconKey: iconNames.arrowDown,
         expand: () => {
             alert('Should expand the item.')
         },

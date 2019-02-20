@@ -1,34 +1,22 @@
-export default class Reducer {
-    static query(value) {
-        return {
-            type: Reducer.QUERY,
-            value: value,
-        }
-    }
+import ReducerBase from "../../../common/redux/reducer-base";
 
-    static reset() {
-        return {
-            type: Reducer.RESET,
-        }
-    }
-
-    static reduce(state={}, action) {
-        switch (action.type) {
-            case Reducer.QUERY:
-                return {
-                    ...state,
-                    query: action.value,
-                }
-            case Reducer.RESET:
-                return {
-                    ...state,
-                    query: '',
-                }
-            default :
-                return state
-        }
-    }
+const types = {
+    query: 'resourceQuery',
+    reset: 'resourceQueryReset',
 }
 
-Reducer.QUERY = 'RESOURCE_QUERY'
-Reducer.RESET = 'RESOURCE_RESET'
+const reducers = [
+    {
+        type: types.query,
+        action: ReducerBase.defaultAction(types.query),
+        reduce: (state={}, payload) => ({...state, query:payload.condition})
+    }
+]
+
+const reducer = ReducerBase.extend({
+    create: function() {
+        return ReducerBase.create.call(this, types, reducers)
+    }
+}).create()
+
+export default reducer

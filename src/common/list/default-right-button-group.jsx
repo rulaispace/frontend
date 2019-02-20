@@ -3,31 +3,31 @@ import IconStore from "../utils/icon-store";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
-import IconNameSet from "../config/icon-name-config";
+import iconNames from "../config/icon-name-config";
 
 export default function DefaultRightButtonGroup({state, classes}) {
     return state.type==='department' ? (
         <ListItemSecondaryAction>
             <IconButton >
-                <IconStore iconKey={IconNameSet.groupAdd} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.groupAdd} fontSize={'small'}/>
             </IconButton>
             <IconButton >
-                <IconStore iconKey={IconNameSet.personAdd} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.personAdd} fontSize={'small'}/>
             </IconButton>
             <IconButton >
-                <IconStore iconKey={IconNameSet.edit} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.edit} fontSize={'small'}/>
             </IconButton>
             <IconButton >
-                <IconStore iconKey={IconNameSet.delete} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.delete} fontSize={'small'}/>
             </IconButton>
         </ListItemSecondaryAction>
     ) : (
         <ListItemSecondaryAction>
             <IconButton >
-                <IconStore iconKey={IconNameSet.edit} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.edit} fontSize={'small'}/>
             </IconButton>
             <IconButton >
-                <IconStore iconKey={IconNameSet.delete} fontSize={'small'}/>
+                <IconStore iconKey={iconNames.delete} fontSize={'small'}/>
             </IconButton>
         </ListItemSecondaryAction>
     )

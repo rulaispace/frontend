@@ -6,7 +6,7 @@ import DefaultTableBody from "./default-table-body";
 import {deepOverride} from "../../common/utils/object";
 import DefaultTablePagination from "./default-table-pagination";
 
-const DefaultTableState = {
+const defaultTableState = {
     // default value for all switch
     feature: {
         rootClassName: 'tableDefaultRoot',
@@ -29,17 +29,18 @@ const DefaultTableState = {
     ],
 }
 
-const DefaultTableHeaderState = {
+const defaultTableHeaderState = {
     numeric: false,
     disablePadding: false,
     linkable: false,
 }
 
-const decorate = ({feature, pagination, header, body}) => ({
-    feature: deepOverride(DefaultTableState.feature, feature),
-    pagination: deepOverride(DefaultTableState.pagination, pagination),
-    header: header.map(col => deepOverride(DefaultTableHeaderState, col)),
+const decorate = ({feature, pagination, filter, header, body}) => ({
+    feature: deepOverride(defaultTableState.feature, feature),
+    pagination: deepOverride(defaultTableState.pagination, pagination),
+    header: header.map(col => deepOverride(defaultTableHeaderState, col)),
     body,
+    filter,
 })
 
 export default class DefaultTable extends React.Component {

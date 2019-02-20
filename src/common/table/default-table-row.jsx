@@ -12,15 +12,13 @@ export default class DefaultTableRow extends React.Component {
     }
 
     render() {
-        const {header, row} = this.state
+        const {header} = this.state
 
         return (
-            <TableRow
-                key={row.idKey}
-            >
-                {header.map((col) => (
+            <TableRow>
+                {header.map((col, i) => (
                     <DefaultTableCell
-                        key={row[col.id]}
+                        key={i}
                         state={{
                             ...this.state,
                             header: null,

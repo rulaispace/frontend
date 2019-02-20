@@ -26,7 +26,7 @@ const DefaultReduxReducers = {
     schedule: ScheduleReducer.reduce,
     resource: ResourceReducer.reduce,
     rule: RuleReducer.reduce,
-    announcement: AnnouncementReducer.reduce,
+    announcement: AnnouncementReducer.proxy(),
     regulation: RegulationReducer.reduce,
 }
 
@@ -86,39 +86,4 @@ const StoreFactory = Any.extend({
         )
     }
 })
-
-/*const StoreFactory = {
-    create: function(
-        {
-            overrideState = {},
-            enableLocalStorage = true,
-            localStorage= ObjectStorage.create()
-        } = {}
-    ) {
-        const self = Any.create.call(this)
-        self.overrideState = overrideState
-        self.enableLocalStorage = enableLocalStorage
-        self.localStorage = localStorage
-
-        return self
-    },
-
-    usingLocalStorage: function() {
-        return this.enableLocalStorage && !this.localStorage.isEmpty()
-    },
-
-    get() {
-        return applyMiddleware(
-            createLoggerMiddleWare(),
-            thunk,
-            createSaverMiddleWare(this.localStorage)
-        )(
-            createStore
-        )(
-            combineReducers(DefaultReduxReducers),
-            this.usingLocalStorage() ? this.localStorage.read() : deepOverride(init, this.overrideState)
-        )
-    }
-}*/
-
 export default StoreFactory

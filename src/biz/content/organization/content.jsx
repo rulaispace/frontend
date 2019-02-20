@@ -5,7 +5,7 @@ import DefaultToolbar from '../../../common/toolbar/default-toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import DefaultNestedList from "../../../common/list/default-nested-list";
 import Paper from "@material-ui/core/Paper";
-import IconNameSet from '../../../common/config/icon-name-config'
+import iconNames from '../../../common/config/icon-name-config'
 
 const ToolbarState = () => ({
     feature: {
@@ -15,20 +15,20 @@ const ToolbarState = () => ({
         showRightButtonGroup: true,
     },
     input: {
-        iconKey: IconNameSet.attachment,
+        iconKey: iconNames.attachment,
         placeholder: '输入关键字查询',
         disabled: true,
     },
     rightButtonGroup: {
         group: [
             {
-                key: IconNameSet.folder,
+                key: iconNames.folder,
                 onClick: ()=> {
                     this.onQuery()
                 },
             },
             {
-                key: IconNameSet.upload,
+                key: iconNames.upload,
                 onClick: ()=> {
                     this.onReset()
                 },

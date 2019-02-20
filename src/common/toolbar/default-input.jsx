@@ -17,6 +17,7 @@ export default function DefaultInput({state, classes}) {
             inputInputClassName,
 
             inputRef: inputReactRef,
+            onChange: inputOnChange,
             placeholder: inputPlaceholder,
             defaultValue: inputDefaultValue,
             disabled: inputDisabled,
@@ -36,6 +37,12 @@ export default function DefaultInput({state, classes}) {
                     defaultValue={inputDefaultValue}
                     inputRef={inputReactRef}
                     disabled={inputDisabled}
+                    onChange={
+                        (e) => {
+                            e.preventDefault()
+                            inputOnChange(inputReactRef.current.value)
+                        }
+                    }
                     classes={{
                         root: classes[inputRootClassName],
                         input: classes[inputInputClassName],

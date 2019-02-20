@@ -1,4 +1,4 @@
-const ReducerNameSet = {
+const reducerNames = {
     message: 'message',
     account: 'account',
     layout: 'layout',
@@ -12,4 +12,4 @@ const ReducerNameSet = {
     regulation: 'regulation',
 }
 
-export default ReducerNameSet
+export default reducerNames
