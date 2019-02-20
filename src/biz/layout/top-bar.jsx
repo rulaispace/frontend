@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
-import Reducer from './reducer';
+import menuReducer from './reducer';
 import accountReducer from '../account/reducer'
 import config from "./config";
 
@@ -35,9 +35,9 @@ export default function TopBar({classes, store}) {
     } = store.getState()
 
 
-    const {user, admin} = config
+    const {userMenu, adminMenu} = config
     let subTitle = token ?
-        ([...user.items, ...admin.items].reduce(
+        ([...userMenu.items, ...adminMenu.items].reduce(
             (title, {key, label}) => {
                 return title ? title : ((key==='menu_'+navigator) ? label : null)
             }, null
@@ -56,7 +56,7 @@ export default function TopBar({classes, store}) {
                     color='inherit'
                     aria-label='Open drawer'
                     onClick={() => {
-                        store.dispatch(Reducer.open())
+                        store.dispatch(menuReducer.createAction(menuReducer.types.open))
                     }}
                     className={classNames(
                         classes.menuButton,

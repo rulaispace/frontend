@@ -3,7 +3,7 @@ import {deepOverride} from "../utils/object";
 
 const API_PROTOCOL = "http://"
 const BACKEND_SERVER_DOMAIN = "localhost:8080"
-export let IS_MOCK_MODE = true
+export let IS_MOCK_MODE = false
 export let IS_BROKEN = false
 
 export function setMockMode(flag=true) {

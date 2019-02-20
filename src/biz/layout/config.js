@@ -1,10 +1,11 @@
 import menuNames from "../../common/config/menu-name-config";
 
 const config = {
-    user: {
+    userMenu: {
         items: [
             {
                 key: menuNames.notification,
+                loadingUrl: 'notification/query',
                 label: '个人通知',
             },
             {
@@ -21,7 +22,7 @@ const config = {
             },
         ]
     },
-    admin: {
+    adminMenu: {
         header: '管理员',
         items: [
             {

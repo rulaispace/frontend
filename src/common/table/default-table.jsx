@@ -39,7 +39,7 @@ const decorate = ({feature, pagination, filter, header, body}) => ({
     feature: deepOverride(defaultTableState.feature, feature),
     pagination: deepOverride(defaultTableState.pagination, pagination),
     header: header.map(col => deepOverride(defaultTableHeaderState, col)),
-    body,
+    body: body ? body : [],
     filter,
 })
 
@@ -53,6 +53,7 @@ export default class DefaultTable extends React.Component {
 
     render() {
         const state = decorate(this.state)
+        console.log('The data in table: ' + JSON.stringify(state))
         const {
             feature: {
                 pageable,

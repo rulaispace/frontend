@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import LayoutReducer from './reducer'
+import reducer from './reducer'
 import IconStore from "../../common/utils/icon-store"
 
 import Drawer from '@material-ui/core/Drawer'
@@ -14,21 +14,21 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import config from "./config";
 
-function MenuItemList({state, navigateTo}) {
+function MenuItemList({state, navigate}) {
     const {header, items} = state
     return (
         <div>
             {header ? (<ListSubheader inset>{header}</ListSubheader>) : null}
-            {items.map(({key, label}) => (
+            {items.map(({key: name, label}) => (
                 <ListItem
                     button
-                    key={key}
+                    key={name}
                     onClick={() => {
-                        navigateTo(key)
+                        navigate(name)
                     }}
                 >
                     <ListItemIcon>
-                        <IconStore iconKey={key}/>
+                        <IconStore iconKey={name}/>
                     </ListItemIcon>
                     <ListItemText  primary={label}/>
                 </ListItem>
@@ -39,21 +39,19 @@ function MenuItemList({state, navigateTo}) {
 
 MenuItemList.propTypes = {
     state: PropTypes.object.isRequired,
-    navigateTo: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+}
+
+
+function navigate(store) {
+    return (name) => {
+        store.dispatch(reducer.createAction(reducer.types.navigate, {name}))
+    }
 }
 
 export default function MainMenu({classes, store}) {
-    const {
-        account: {
-            rule = 'user'
-        }
-    } = store.getState()
-
-    const {user, admin} = config
-
-    const navigateTo = (key) => {
-        store.dispatch(LayoutReducer.navigateTo(key))
-    }
+    const {rule} = store.getState().account
+    const {userMenu, adminMenu} = config
 
     return (
         <Drawer
@@ -66,7 +64,7 @@ export default function MainMenu({classes, store}) {
             <div className={classes.toolbarIcon}>
                 <IconButton
                     onClick={() => {
-                        store.dispatch(LayoutReducer.close())
+                        store.dispatch(reducer.close())
                     }}
                 >
                     <ChevronLeftIcon />
@@ -74,10 +72,10 @@ export default function MainMenu({classes, store}) {
             </div>
 
             <Divider />
-            <MenuItemList state={user} navigateTo={navigateTo}/>
 
-            {'admin'===rule ? <Divider /> : null}
-            {'admin'===rule ? <MenuItemList state={admin} navigateTo={navigateTo} /> : null}
+            {('admin' === rule || 'user' === rule) ? (<MenuItemList state={userMenu} navigate={navigate(store)}/>) : null}
+            {'admin'===rule ? (<Divider />) : null}
+            {'admin'===rule ? (<MenuItemList state={adminMenu} navigate={navigate} />) : null}
         </Drawer>
     )
 }

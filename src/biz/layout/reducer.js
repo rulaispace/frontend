@@ -1,42 +1,42 @@
-export default class Reducer {
-    static open() {
-        return {type: Reducer.OPEN}
-    }
+import ReducerBase from '../../common/redux/reducer-base'
 
-    static close() {
-        return {type: Reducer.CLOSE}
-    }
-
-    static navigateTo(title) {
-        return {
-            type: Reducer.NAVIGATE_TO,
-            title: title ? title.replace('menu_', '') : 'welcome',
-        }
-    }
-
-    static reduce(state={}, action) {
-        switch (action.type) {
-            case Reducer.OPEN:
-                return {
-                    ...state,
-                    open: true,
-                }
-            case Reducer.CLOSE:
-                return {
-                    ...state,
-                    open: false,
-                }
-            case Reducer.NAVIGATE_TO:
-                return {
-                    ...state,
-                    navigator: action.title
-                }
-            default:
-                return state
-        }
-    }
+const types = {
+    navigate: 'navigate',
+    open: 'menuOpen',
+    close: 'menuClose',
+    loaded: 'dataLoaded',
 }
 
-Reducer.OPEN = 'MAIN_MENU_OPEN'
-Reducer.CLOSE = 'MAIN_MENU_CLOSE'
-Reducer.NAVIGATE_TO = 'NAVIGATE_TO'
+const reducers = [
+    {
+        type: types.navigate,
+        action: ReducerBase.defaultAction(types.navigate),
+        reduce: (state={}, payload) => (
+            {
+                ...state,
+                navigator:payload.name,
+                loading: true,
+            }
+        )
+    }, {
+        type: types.open,
+        action: ReducerBase.defaultAction(types.open),
+        reduce: (state={}) => ({...state, open:true})
+    }, {
+        type: types.close,
+        action: ReducerBase.defaultAction(types.close),
+        reduce: (state={}) => ({...state, open:false})
+    }, {
+        type: types.loaded,
+        action: ReducerBase.defaultAction(types.loaded),
+        reduce: (state={}) => ({...state, loading:false})
+    }
+]
+
+const reducer = ReducerBase.extend({
+    create: function() {
+        return ReducerBase.create.call(this, types, reducers)
+    }
+}).create()
+
+export default reducer

@@ -6,9 +6,11 @@ export default function Content({classes}) {
     return (
         <main className={classes.contentDefaultRoot}>
             <div className={classes.contentDefaultAppbarSpacer} />
-            <Typography variant='h4' gutterBottom component='h2'>
-                Welcome
+
+            <Typography variant='h4' gutterBottom component='h2' align={'center'}>
+                欢迎使用企业管理系统！
             </Typography>
+
         </main>
     )
 }

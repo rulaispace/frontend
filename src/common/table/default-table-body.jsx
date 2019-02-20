@@ -28,7 +28,7 @@ export default class DefaultTableBody extends React.Component {
         const dataList = withFilter ? (body.filter((row) => {
             for (const columnName in row) {
                 if (filter[columnName]) {
-                    return row[columnName].indexOf(filter[columnName]) != -1
+                    return row[columnName].indexOf(filter[columnName]) !== -1
                 }
             }
             return true

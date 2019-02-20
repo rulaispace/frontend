@@ -1,34 +1,21 @@
-export default class Reducer {
-    static query(value) {
-        return {
-            type: Reducer.QUERY,
-            value: value,
-        }
-    }
+import ReducerBase from "../../../common/redux/reducer-base";
 
-    static reset() {
-        return {
-            type: Reducer.RESET,
-        }
-    }
-
-    static reduce(state={}, action) {
-        switch (action.type) {
-            case Reducer.QUERY:
-                return {
-                    ...state,
-                    query: action.value,
-                }
-            case Reducer.RESET:
-                return {
-                    ...state,
-                    query: '',
-                }
-            default :
-                return state
-        }
-    }
+const types = {
+    load: 'notificationDataLoad',
 }
 
-Reducer.QUERY = 'ANNOUNCEMENT_QUERY'
-Reducer.RESET = 'ANNOUNCEMENT_RESET'
+const reducers = [
+    {
+        type: types.load,
+        action: ReducerBase.defaultAction(types.load),
+        reduce: (state={}, payload) => ({...state, dataList:payload})
+    }
+]
+
+const reducer = ReducerBase.extend({
+    create: function() {
+        return ReducerBase.create.call(this, types, reducers)
+    }
+}).create()
+
+export default reducer

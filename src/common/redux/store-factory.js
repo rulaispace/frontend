@@ -19,8 +19,8 @@ import RegulationReducer from "../../biz/content/regulation/reducer";
 const DefaultReduxReducers = {
     message: MessageReducer.reduce,
     account: AccountReducer.proxy(),
-    layout: LayoutReducer.reduce,
-    notification: NotificationReducer.reduce,
+    layout: LayoutReducer.proxy(),
+    notification: NotificationReducer.proxy(),
     document: DocumentReducer.reduce,
     organization: OrganizationReducer.reduce,
     schedule: ScheduleReducer.reduce,
@@ -34,10 +34,10 @@ function createLoggerMiddleWare() {
     return (
         store => next => action => {
             console.groupCollapsed('dispatching', action.type)
-            console.log('pre state', JSON.stringify(store.getState()))
-            console.log('action', JSON.stringify(action))
+            console.log('###PRE STATE###', JSON.stringify(store.getState(), null, 4))
+            console.log('###ACTION###', JSON.stringify(action, null, 4))
             let result = next(action)
-            console.log('next state', JSON.stringify(store.getState()))
+            console.log('###NEXT STATE###', JSON.stringify(store.getState(), null, 4))
             console.groupEnd()
             return result
         }

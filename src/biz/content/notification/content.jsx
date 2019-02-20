@@ -4,6 +4,10 @@ import AppBar from '@material-ui/core/AppBar'
 import DefaultTable from '../../../common/table/default-table'
 import DefaultToolbar from '../../../common/toolbar/default-toolbar'
 import Paper from "@material-ui/core/Paper";
+import layoutReducer from '../../layout/reducer'
+import post from "../../../common/fetch/fetch";
+import reducer from "./reducer";
+import MessageReducer from "../../../common/message/reducer";
 
 const ToolbarState = () => ({
     feature: {
@@ -65,20 +69,42 @@ export default class Content extends React.Component {
         super(props)
 
         this.toolbarState = ToolbarState()
-        this.tableState = TableState()
-
         this.classes = props.classes
         this.store = props.store
-    }
 
-    render() {
+        this.loadSuccess = this.loadSuccess.bind(this)
+        this.loadFailed = this.loadFailed.bind(this)
+
+        if (this.store.getState().layout.loading) {
+            post('notification/query', {}, this.loadSuccess, this.loadFailed)
+        }
+
         const {
             notification: {
                 dataList,
             }
         } = this.store.getState()
+        this.tableState = {
+            ...TableState(),
+            body: dataList
+        }
 
+    }
 
+    loadSuccess(payload) {
+        this.store.dispatch(layoutReducer.createAction(layoutReducer.types.loaded))
+        this.store.dispatch(reducer.createAction(reducer.types.load, payload))
+    }
+
+    loadFailed(err) {
+        this.store.dispatch(layoutReducer.createAction(layoutReducer.types.loaded))
+
+        const {details} = err
+        this.store.dispatch(MessageReducer.show('登录失败：', details))
+    }
+
+    render() {
+        this.tableState.body = this.store.getState().notification.dataList
         return (
             <main className={this.classes.contentDefaultRoot}>
                 <div className={this.classes.contentDefaultAppbarSpacer} />
@@ -88,10 +114,7 @@ export default class Content extends React.Component {
                     </AppBar>
                 </div>
                 <Paper className={this.classes.contentDefaultBody}>
-                    <DefaultTable classes={this.classes} state={({
-                        ...this.tableState,
-                        body: dataList,
-                    })} />
+                    <DefaultTable classes={this.classes} state={this.tableState} />
                 </Paper>
             </main>
         )

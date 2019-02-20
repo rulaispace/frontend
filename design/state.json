@@ -4,7 +4,7 @@
 		"password": "12345667",
 		"showPassword": false
 	},
-	"user" : {
+	"userMenu": {
 		"token":"00100121131",
 		"isValid": false,
 		"userId" : "zhangsan",
@@ -13,7 +13,7 @@
 	},
 	"empolyee":{
 		"schedules":[{
-			"user":"张三",
+			"userMenu":"张三",
 			"dailySchedules":[{
 				"date":"2019-01-14",
 				"timeSchedules":[{
@@ -23,11 +23,11 @@
 				},{	
 					"beginTime":"13:30:00",
 					"endTime":"14:30:00",
-					"task":"睡觉",
+					"task":"睡觉"
 				},{
 					"beginTime":"15:00:00",
 					"endTime":"17:00:00",
-					"task":"打豆豆",
+					"task":"打豆豆"
 				}]
 			}]
 		}],
@@ -49,7 +49,7 @@
 			"contentDefaultRoot": "让群众充分参与到改革当中来，参与协商讨论有关土地确权、流转、承包、征收等涉及群众切身利益的问题，取得意想不到的良好效果。"
 		}
 	},
-	"admin":{
+	"adminMenu":{
 		"organization" : {
 
 		},
