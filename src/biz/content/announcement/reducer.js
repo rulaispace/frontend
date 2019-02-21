@@ -1,7 +1,7 @@
 import ReducerBase from "../../../common/redux/reducer-base";
 
 const types = {
-    query: 'resourceQuery',
+    query: 'announcementQuery',
     reset: 'resourceQueryReset',
 }
 

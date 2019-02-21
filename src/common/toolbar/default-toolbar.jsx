@@ -4,10 +4,10 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'
 import IconStore from "../utils/icon-store";
-import {deepOverride} from "../utils/object";
 import DefaultRightButtonGroup from "./default-right-button-group";
 import DefaultInput from "./default-input";
 import iconNames from "../config/icon-name-config";
+import {modifyWithDef} from "../utils/store-state-modifier";
 
 const defaultToolbarState = {
     feature: {
@@ -22,16 +22,9 @@ const defaultToolbarState = {
         showInputButton: false,
         showRightButtonGroup: false,
     },
-    factory: {
-        InputFactory: DefaultInput,
-        RightButtonGroupFactory: DefaultRightButtonGroup,
-    },
     leftButton: {
         key: iconNames.menu,
         rootClassName: 'toolbarDefaultLeftButton',
-        onClick: (state)=> {
-            console.log('Nothing...' + state)
-        },
     },
     title: {
         label: 'Material-UI',
@@ -45,21 +38,26 @@ const defaultToolbarState = {
         iconClassName: 'toolbarDefaultInputIcon',
         inputRootClassName: 'toolbarDefaultInputRoot',
         inputInputClassName: 'toolbarDefaultInputInput',
-        onChange: f=>f,
         disabled: false,
     },
     rightButtonGroup: {
         rootClassName: 'toolbarDefaultRightButtonGroup',
-        group: [],
     }
+}
+
+const defaultHandlers = {
+    InputFactory: DefaultInput,
+    RightButtonGroupFactory: DefaultRightButtonGroup,
 }
 
 export default class DefaultToolbar extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = deepOverride(defaultToolbarState, props.state)
         this.classes = props.classes
+
+        this.handlers = modifyWithDef(props.handlers, defaultHandlers)
+        this.state = modifyWithDef(props.state, defaultToolbarState)
     }
 
     render() {
@@ -71,10 +69,6 @@ export default class DefaultToolbar extends React.Component {
                 growClassName,
                 showLeftButton,
                 showTitle,
-            },
-            factory: {
-                InputFactory,
-                RightButtonGroupFactory,
             },
             leftButton : {
                 key: leftButtonIconKey,
@@ -88,6 +82,10 @@ export default class DefaultToolbar extends React.Component {
             },
         } = this.state
 
+        const {
+            InputFactory,
+            RightButtonGroupFactory,
+        } = this.handlers
 
         return (
             <Toolbar className={this.classes[toolbarRoot]} variant={toolbarVariant} disableGutters={disableGutters}>
@@ -117,7 +115,7 @@ export default class DefaultToolbar extends React.Component {
                     </Typography>
                 ) : null}
                 {/** 主输入框 **/}
-                <InputFactory state={this.state} classes={this.classes} />
+                <InputFactory state={this.state} classes={this.classes} handlers={this.handlers}/>
 
                 <div className={this.classes[growClassName]} />
 
@@ -131,4 +129,5 @@ export default class DefaultToolbar extends React.Component {
 DefaultToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

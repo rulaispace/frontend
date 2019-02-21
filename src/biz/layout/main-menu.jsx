@@ -14,17 +14,25 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import config from "./config";
 
-function MenuItemList({state, navigate}) {
+import post from '../../common/fetch/fetch'
+import StoreFactory from "../../common/redux/store-factory";
+import MessageReducer from "../../common/message/reducer";
+
+import JSON from 'circular-json'
+
+function MenuItemList({state, onClick}) {
     const {header, items} = state
     return (
         <div>
             {header ? (<ListSubheader inset>{header}</ListSubheader>) : null}
-            {items.map(({key: name, label}) => (
+            {items.map(({key: name, label, loadingUrl}) => (
                 <ListItem
                     button
                     key={name}
-                    onClick={() => {
-                        navigate(name)
+                    loadingUrl={loadingUrl}
+                    onClick={(e) => {
+                        e.preventDefault()
+                        onClick(name, loadingUrl)
                     }}
                 >
                     <ListItemIcon>
@@ -39,13 +47,31 @@ function MenuItemList({state, navigate}) {
 
 MenuItemList.propTypes = {
     state: PropTypes.object.isRequired,
-    navigate: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 
-function navigate(store) {
-    return (name) => {
-        store.dispatch(reducer.createAction(reducer.types.navigate, {name}))
+function menuClicked(store) {
+    return (name, loadingUrl) => {
+        const loadSuccess = function(store) {
+            return function(payload) {
+                const childReducer = StoreFactory.getReducer(name)
+                console.log(JSON.stringify(childReducer.types))
+                store.dispatch(childReducer.createAction(childReducer.types.loading, payload))
+                store.dispatch(reducer.createAction(reducer.types.navigate, {name}))
+            }
+        }
+
+        const loadFail = function(store) {
+            return function(err) {
+                const {details} = err
+                store.dispatch(MessageReducer.show('数据加载失败：', details))
+            }
+        }
+
+        store.getState().layout.navigator = null;
+        console.log(JSON.stringify(store.getState(), null, 2))
+        post(loadingUrl, {}, loadSuccess(store), loadFail(store))
     }
 }
 
@@ -73,9 +99,9 @@ export default function MainMenu({classes, store}) {
 
             <Divider />
 
-            {('admin' === rule || 'user' === rule) ? (<MenuItemList state={userMenu} navigate={navigate(store)}/>) : null}
+            {('admin' === rule || 'user' === rule) ? (<MenuItemList state={userMenu} onClick={menuClicked(store)}/>) : null}
             {'admin'===rule ? (<Divider />) : null}
-            {'admin'===rule ? (<MenuItemList state={adminMenu} navigate={navigate} />) : null}
+            {'admin'===rule ? (<MenuItemList state={adminMenu} onClick={menuClicked(store)} />) : null}
         </Drawer>
     )
 }

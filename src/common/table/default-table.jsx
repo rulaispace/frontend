@@ -5,6 +5,7 @@ import DefaultTableHead from "./default-table-head";
 import DefaultTableBody from "./default-table-body";
 import {deepOverride} from "../../common/utils/object";
 import DefaultTablePagination from "./default-table-pagination";
+import {modifyWithDef} from "../utils/store-state-modifier";
 
 const defaultTableState = {
     // default value for all switch
@@ -20,40 +21,32 @@ const defaultTableState = {
     pagination: {
         page: 0,
         rowsPerPage: 5,
-    },
-    header: [
-
-    ],
-    body: [
-
-    ],
+    }
 }
 
-const defaultTableHeaderState = {
+const defaultHeaderColState = {
     numeric: false,
     disablePadding: false,
     linkable: false,
 }
 
-const decorate = ({feature, pagination, filter, header, body}) => ({
-    feature: deepOverride(defaultTableState.feature, feature),
-    pagination: deepOverride(defaultTableState.pagination, pagination),
-    header: header.map(col => deepOverride(defaultTableHeaderState, col)),
-    body: body ? body : [],
-    filter,
-})
+
+function modify(state) {
+    let result = modifyWithDef(state, defaultTableState)
+    result.header = result.header.map(col => modifyWithDef(col, defaultHeaderColState))
+    return result;
+}
 
 export default class DefaultTable extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = props.state
+        this.state = modify(props.state)
         this.classes = props.classes
     }
 
     render() {
-        const state = decorate(this.state)
-        console.log('The data in table: ' + JSON.stringify(state))
+        console.log('The data in table: ' + JSON.stringify(this.state))
         const {
             feature: {
                 pageable,
@@ -61,19 +54,19 @@ export default class DefaultTable extends React.Component {
                 contentClassName,
                 tableClassName,
             },
-        } = state
+        } = this.state
 
         return (
             <div className={this.classes[rootClassName]}>
                 <div className={this.classes[contentClassName]}>
                     <Table className={this.classes[tableClassName]}>
-                        <DefaultTableHead state={state} classes={this.classes} />
-                        <DefaultTableBody state={state} classes={this.classes} />
+                        <DefaultTableHead state={this.state} classes={this.classes} />
+                        <DefaultTableBody state={this.state} classes={this.classes} />
                     </Table>
                 </div>
                 {
                     pageable ? (
-                        <DefaultTablePagination state={state} classes={this.classes}/>
+                        <DefaultTablePagination state={this.state} classes={this.classes}/>
                     ) : null
                 }
             </div>

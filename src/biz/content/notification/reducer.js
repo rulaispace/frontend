@@ -1,14 +1,27 @@
 import ReducerBase from "../../../common/redux/reducer-base";
 
 const types = {
-    load: 'notificationDataLoad',
+    loading: 'loadingNotificationData',
+    filter: 'filterNotificationData',
 }
 
 const reducers = [
     {
-        type: types.load,
-        action: ReducerBase.defaultAction(types.load),
-        reduce: (state={}, payload) => ({...state, dataList:payload})
+        type: types.loading,
+        action: ReducerBase.defaultAction(types.loading),
+        reduce: (state={}, payload) => {
+            state.table.body = payload
+            return state
+        }
+    }, {
+        type: types.filter,
+        action: ReducerBase.defaultAction(types.filter),
+        reduce: (state={}, payload) => {
+            state.toolbar.input.defaultValue = payload.value
+            state.table.filter.title = payload.value
+
+            return state
+        }
     }
 ]
 

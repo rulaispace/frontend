@@ -3,7 +3,7 @@ import IconStore from "../utils/icon-store";
 import PropTypes from "prop-types";
 import InputBase from "@material-ui/core/InputBase";
 
-export default function DefaultInput({state, classes}) {
+export default function DefaultInput({state, classes, handlers}) {
     const {
         feature: {
             showInput,
@@ -17,12 +17,15 @@ export default function DefaultInput({state, classes}) {
             inputInputClassName,
 
             inputRef: inputReactRef,
-            onChange: inputOnChange,
             placeholder: inputPlaceholder,
             defaultValue: inputDefaultValue,
             disabled: inputDisabled,
         },
     } = state
+
+    const {
+        searchInputChanged: inputOnChange,
+    } = handlers
 
     if (showInput) {
         return (
@@ -58,4 +61,5 @@ export default function DefaultInput({state, classes}) {
 DefaultInput.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

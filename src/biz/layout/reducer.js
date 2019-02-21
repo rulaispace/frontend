@@ -4,7 +4,7 @@ const types = {
     navigate: 'navigate',
     open: 'menuOpen',
     close: 'menuClose',
-    loaded: 'dataLoaded',
+    clear: 'clearNavigator'
 }
 
 const reducers = [
@@ -30,6 +30,10 @@ const reducers = [
         type: types.loaded,
         action: ReducerBase.defaultAction(types.loaded),
         reduce: (state={}) => ({...state, loading:false})
+    }, {
+        type: types.clear,
+        action: ReducerBase.defaultAction(types.clear),
+        reduce: (state={}) => ({...state, navigator:null})
     }
 ]
 
