@@ -3,25 +3,28 @@ import PropTypes from 'prop-types'
 import Table from '@material-ui/core/Table'
 import DefaultTableHead from "./default-table-head";
 import DefaultTableBody from "./default-table-body";
-import {deepOverride} from "../../common/utils/object";
 import DefaultTablePagination from "./default-table-pagination";
 import {modifyWithDef} from "../utils/store-state-modifier";
 
-const defaultTableState = {
+const defaultState = {
     // default value for all switch
     feature: {
         rootClassName: 'tableDefaultRoot',
         contentClassName: 'tableDefaultContent',
         tableClassName: 'tableDefault',
-        cellStyles: () => 'tableCellDefault',
         pageable: false,
         sortable: false,
+        withFilter: false,
     },
     // default value for paginate
     pagination: {
         page: 0,
         rowsPerPage: 5,
     }
+}
+
+const defaultHandlers = {
+    cellStyles: () => 'tableCellDefault',
 }
 
 const defaultHeaderColState = {
@@ -32,7 +35,7 @@ const defaultHeaderColState = {
 
 
 function modify(state) {
-    let result = modifyWithDef(state, defaultTableState)
+    let result = modifyWithDef(state, defaultState)
     result.header = result.header.map(col => modifyWithDef(col, defaultHeaderColState))
     return result;
 }
@@ -40,13 +43,12 @@ function modify(state) {
 export default class DefaultTable extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = modify(props.state)
         this.classes = props.classes
+        this.state = modify(props.state)
+        this.handlers = modifyWithDef(props.handlers, defaultHandlers)
     }
 
     render() {
-        console.log('The data in table: ' + JSON.stringify(this.state))
         const {
             feature: {
                 pageable,
@@ -60,8 +62,8 @@ export default class DefaultTable extends React.Component {
             <div className={this.classes[rootClassName]}>
                 <div className={this.classes[contentClassName]}>
                     <Table className={this.classes[tableClassName]}>
-                        <DefaultTableHead state={this.state} classes={this.classes} />
-                        <DefaultTableBody state={this.state} classes={this.classes} />
+                        <DefaultTableHead state={this.state} classes={this.classes} handlers={this.handlers}/>
+                        <DefaultTableBody state={this.state} classes={this.classes} handlers={this.handlers}/>
                     </Table>
                 </div>
                 {
@@ -77,4 +79,5 @@ export default class DefaultTable extends React.Component {
 DefaultTable.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

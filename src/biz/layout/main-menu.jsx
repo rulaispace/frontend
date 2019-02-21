@@ -29,7 +29,6 @@ function MenuItemList({state, onClick}) {
                 <ListItem
                     button
                     key={name}
-                    loadingUrl={loadingUrl}
                     onClick={(e) => {
                         e.preventDefault()
                         onClick(name, loadingUrl)
@@ -56,7 +55,6 @@ function menuClicked(store) {
         const loadSuccess = function(store) {
             return function(payload) {
                 const childReducer = StoreFactory.getReducer(name)
-                console.log(JSON.stringify(childReducer.types))
                 store.dispatch(childReducer.createAction(childReducer.types.loading, payload))
                 store.dispatch(reducer.createAction(reducer.types.navigate, {name}))
             }
@@ -70,7 +68,6 @@ function menuClicked(store) {
         }
 
         store.getState().layout.navigator = null;
-        console.log(JSON.stringify(store.getState(), null, 2))
         post(loadingUrl, {}, loadSuccess(store), loadFail(store))
     }
 }

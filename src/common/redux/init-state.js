@@ -1,3 +1,5 @@
+import iconNames from "../config/icon-name-config";
+
 export const init = {
     layout: {
         open: true,
@@ -39,32 +41,24 @@ export const init = {
                     linkable: true,
                     label: '标题',
                     width: '40%',
-                    onClick: f=>f,
-                    filter: f=>f,
                 },
                 {
                     id: 'type',
                     linkable: false,
                     label: '类型',
                     width: '20%',
-                    onClick: f=>f,
-                    filter: f=>f,
                 },
                 {
                     id: 'announcer',
                     linkable: false,
                     label: '发布人',
                     width: '20%',
-                    onClick: f=>f,
-                    filter: f=>f,
                 },
                 {
                     id: 'announceDate',
                     linkable: false,
                     label: '发布日期',
                     width: '20%',
-                    onClick: f=>f,
-                    filter: f=>f,
                 }
             ],
         }
@@ -77,5 +71,45 @@ export const init = {
     regulation: {},
     organization: {
     },
-    schedule: {}
+    schedule: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: false,
+                showInputIcon: false,
+                showRightButtonGroup: true,
+                type: iconNames.SCHEDULE_DAY_TYPE,
+            },
+            input: {
+                iconKey: iconNames.filterList,
+                placeholder: '选择成员过滤',
+                defaultValue: '',
+            },
+        },
+        table: {
+            feature: {
+                pageable: false,
+            },
+            pagination: {
+            },
+            header: [
+                {
+                    id: 'time',
+                    numeric: true,
+                    disablePadding: true,
+                    label: '时间',
+                    width: '8%',
+                },
+                {
+                    id: 'event',
+                    disablePadding: false,
+                    width: '92%',
+                    linkable: true,
+                    onClick: () => {
+                        alert('I am clicked.')
+                    },
+                },
+            ]
+        }
+    }
 }

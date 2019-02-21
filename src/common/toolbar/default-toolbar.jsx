@@ -33,7 +33,6 @@ const defaultToolbarState = {
     },
     input: {
         iconKey: iconNames.search,
-        inputRef: React.createRef(),
         className: 'toolbarDefaultInput',
         iconClassName: 'toolbarDefaultInputIcon',
         inputRootClassName: 'toolbarDefaultInputRoot',
@@ -48,6 +47,7 @@ const defaultToolbarState = {
 const defaultHandlers = {
     InputFactory: DefaultInput,
     RightButtonGroupFactory: DefaultRightButtonGroup,
+    inputRef: React.createRef(),
 }
 
 export default class DefaultToolbar extends React.Component {
@@ -55,7 +55,6 @@ export default class DefaultToolbar extends React.Component {
         super(props)
 
         this.classes = props.classes
-
         this.handlers = modifyWithDef(props.handlers, defaultHandlers)
         this.state = modifyWithDef(props.state, defaultToolbarState)
     }

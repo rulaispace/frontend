@@ -10,6 +10,7 @@ export default class DefaultTableHead extends React.Component {
 
         this.state = props.state
         this.classes = props.classes
+        this.handlers = props.handlers
     }
 
     render() {
@@ -39,4 +40,5 @@ export default class DefaultTableHead extends React.Component {
 DefaultTableHead.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

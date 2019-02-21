@@ -15,8 +15,6 @@ export default function DefaultInput({state, classes, handlers}) {
             iconClassName: inputIconClassName,
             inputRootClassName,
             inputInputClassName,
-
-            inputRef: inputReactRef,
             placeholder: inputPlaceholder,
             defaultValue: inputDefaultValue,
             disabled: inputDisabled,
@@ -24,6 +22,7 @@ export default function DefaultInput({state, classes, handlers}) {
     } = state
 
     const {
+        inputRef: inputReactRef,
         searchInputChanged: inputOnChange,
     } = handlers
 

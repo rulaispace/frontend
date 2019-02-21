@@ -9,6 +9,7 @@ export default class DefaultTableRow extends React.Component {
 
         this.state = props.state
         this.classes = props.classes
+        this.handlers = props.handlers
     }
 
     render() {
@@ -24,7 +25,9 @@ export default class DefaultTableRow extends React.Component {
                             header: null,
                             col,
                         }}
-                        classes={this.classes}/>
+                        classes={this.classes}
+                        handlers={this.handlers}
+                    />
                 ))}
             </TableRow>
         )
@@ -34,4 +37,5 @@ export default class DefaultTableRow extends React.Component {
 DefaultTableRow.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

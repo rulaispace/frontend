@@ -10,6 +10,7 @@ const config = {
             },
             {
                 key: menuNames.schedule,
+                loadingUrl: 'schedule/query',
                 label: '日程管理',
             },
             {

@@ -37,13 +37,11 @@ export default class DefaultTableCell extends React.Component {
 
         this.state = props.state
         this.classes = props.classes
+        this.handlers = props.handlers
     }
 
     render() {
         const {
-            feature: {
-                cellStyles,
-            },
             col: {
                 id,
                 numeric,
@@ -54,9 +52,10 @@ export default class DefaultTableCell extends React.Component {
             row
         } = this.state
 
+
         return (
             <TableCell
-                className={this.classes[cellStyles(row, this.state.col)]}
+                className={this.classes[this.handlers.cellStyles(row, this.state.col)]}
                 align={numeric ? 'center' : 'left'}
                 padding={disablePadding ? 'none' : 'default'}
             >
@@ -79,4 +78,5 @@ export default class DefaultTableCell extends React.Component {
 DefaultTableCell.propTypes = {
     classes: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

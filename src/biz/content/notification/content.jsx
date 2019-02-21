@@ -17,6 +17,9 @@ export default class Content extends React.Component {
         this.handlers = {
             toolbar: {
                 searchInputChanged: this.filter,
+            },
+            table: {
+
             }
         }
     }
@@ -35,7 +38,7 @@ export default class Content extends React.Component {
                     </AppBar>
                 </div>
                 <Paper className={this.classes.contentDefaultBody}>
-                    <DefaultTable classes={this.classes} state={this.store.getState().notification.table} />
+                    <DefaultTable classes={this.classes} state={this.store.getState().notification.table} handlers={this.handlers.table}/>
                 </Paper>
             </main>
         )

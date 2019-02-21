@@ -52,4 +52,11 @@ ReducerBase.defaultAction = function(type) {
     return (payload) => ({type, payload})
 }
 
+ReducerBase.defaultTableListReduce = function() {
+    return (state, payload) => {
+        state.table.body = payload
+        return state
+    }
+}
+
 export default ReducerBase

@@ -16,9 +16,6 @@ const ToolbarState = () => ({
         showRightButtonGroup: true,
         type: iconNames.SCHEDULE_DAY_TYPE,
     },
-    factory: {
-        RightButtonGroupFactory: ToolbarRightButtonGroup,
-    },
     input: {
         iconKey: iconNames.filterList,
         placeholder: '选择成员过滤',
@@ -67,19 +64,20 @@ export default class Content extends React.Component {
     constructor(props) {
         super(props)
 
-        this.toolbarState = ToolbarState()
-        this.tableState = TableState()
         this.classes = props.classes
         this.store = props.store
+
+        this.handlers = {
+            toolbar: {
+                RightButtonGroupFactory: ToolbarRightButtonGroup,
+            },
+            table: {
+                cellStyles: cellStyles,
+            }
+        }
     }
 
     render() {
-        const {
-            schedule: {
-                dataList
-            }
-        } = this.store.getState()
-
         return (
             <main className={this.classes.contentDefaultRoot}>
                 <div className={this.classes.contentDefaultAppbarSpacer} />
@@ -90,14 +88,11 @@ export default class Content extends React.Component {
                         color='secondary'
                         elevation={0}
                     >
-                        <DefaultToolbar classes={this.classes} state={this.toolbarState} />
+                        <DefaultToolbar classes={this.classes} state={this.store.getState().schedule.toolbar} handlers={this.handlers.toolbar} />
                     </AppBar>
                 </div>
                 <Paper className={this.classes.contentDefaultBody}>
-                    <DefaultTable classes={this.classes} state={({
-                        ...this.tableState,
-                        body: dataList,
-                    })} />
+                    <DefaultTable classes={this.classes} state={this.store.getState().schedule.table} handlers={this.handlers.table} />
                 </Paper>
             </main>
         )

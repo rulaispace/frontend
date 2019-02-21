@@ -9,10 +9,7 @@ const reducers = [
     {
         type: types.loading,
         action: ReducerBase.defaultAction(types.loading),
-        reduce: (state={}, payload) => {
-            state.table.body = payload
-            return state
-        }
+        reduce: ReducerBase.defaultTableListReduce(),
     }, {
         type: types.filter,
         action: ReducerBase.defaultAction(types.filter),
