@@ -119,7 +119,7 @@ export default class DefaultToolbar extends React.Component {
                 <div className={this.classes[growClassName]} />
 
                 {/** 右侧按钮区域 **/}
-                <RightButtonGroupFactory state={this.state} classes={this.classes} />
+                <RightButtonGroupFactory state={this.state} classes={this.classes} handlers={this.handlers}/>
             </Toolbar>
         )
     }

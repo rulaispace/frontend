@@ -52,7 +52,7 @@ ReducerBase.defaultAction = function(type) {
     return (payload) => ({type, payload})
 }
 
-ReducerBase.defaultTableListReduce = function() {
+ReducerBase.defaultTableReduce = function() {
     return (state, payload) => {
         state.table.body = payload
         return state
@@ -79,6 +79,48 @@ ReducerBase.defaultChangePageOfTable = function() {
 ReducerBase.defaultChangeRowsPerPageOfTable = function() {
     return (state={}, payload) => {
         state.table.pagination.rowsPerPage = payload.rowsPerPage
+
+        return state
+    }
+}
+
+ReducerBase.defaultNestedListReduce = function() {
+    return (state, payload) => {
+        state.nestedList.data = payload.children
+        return state
+    }
+}
+
+const search = function(data, key) {
+    if (data == null) return null
+
+    for (const index in data) {
+        const item = data[index]
+
+        if (item.key === key) return item
+
+        const child = search(item.children, key)
+        if (child != null) return child
+    }
+
+    return null;
+}
+
+ReducerBase.defaultExpandNestedList = function() {
+    return (state={}, payload) => {
+        const targetItem = search(state.nestedList.data, payload.key)
+        if (targetItem) {
+            targetItem.expanded = true
+        }
+
+        return state
+    }
+}
+
+ReducerBase.defaultCollapseNestedList = function() {
+    return (state={}, payload) => {
+        const targetItem = search(state.nestedList.data, payload.key)
+        targetItem.expanded = false
 
         return state
     }

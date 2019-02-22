@@ -4,7 +4,7 @@ import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import DefaultListItem from "./default-list-item";
 
-export default function DefaultCollapseList({state, classes}) {
+export default function DefaultCollapseList({state, classes, handlers}) {
     const {
         feature: {
             listClassName
@@ -29,6 +29,7 @@ export default function DefaultCollapseList({state, classes}) {
                                     data: item,
                                 }}
                                 classes={classes}
+                                handlers={handlers}
                             />
                         )
                     })}
@@ -43,4 +44,5 @@ export default function DefaultCollapseList({state, classes}) {
 DefaultCollapseList.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }

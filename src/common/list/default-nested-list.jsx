@@ -1,82 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
-import {deepOverride} from '../utils/object'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import DefaultListItem from './default-list-item'
 import DefaultCollapseList from './default-collapse-list'
 import DefaultTextIcon from './default-text-icon'
 import DefaultRightButtonGroup from './default-right-button-group'
 import iconNames from "../config/icon-name-config";
+import {modifyWithDef} from "../utils/store-state-modifier";
 
-const DefaultNestedListState = {
+const defaultState = {
     feature: {
         listClassName: 'nestedListDefaultList',
         title: '上海通用汽车有限公司',
         collapsedIconKey: iconNames.arrowRight,
         expandedIconKey: iconNames.arrowDown,
-        expand: () => {
-            alert('Should expand the item.')
-        },
-        collapse: () => {
-            alert('Should collapse the item.')
-        },
-        TextIconFactory: DefaultTextIcon,
-        RightButtonGroupFactory: DefaultRightButtonGroup,
         textClassName: 'nestedListDefaultText',
-    },
-    data: [
-        {
-            key: 'JSB',
-            collapsed: true,
-            type: 'department',
-            primaryText: '技术部',
-            secondaryText: '负责开发工作',
-            children: [],
-        },
-        {
-            key: 'RLZYB',
-            collapsed: false,
-            type: 'department',
-            primaryText: '人力资源部',
-            secondaryText: '',
-            children: [
-                {
-                    key: 'RLZYB-XCS',
-                    collapsed: true,
-                    type: 'department',
-                    primaryText: '薪酬室',
-                    secondaryText: '',
-                },
-            ],
-        },
-        {
-            key: 'BGS',
-            type: 'department',
-            collapsed: false,
-            primaryText: '办公室',
-            secondaryText: '负责开发工作',
-            children: [],
-        },
-    ]
+    }
 }
 
-function markDepth(tree, depth) {
-    return tree.map(item => {
-        return {
-            ...item,
-            depth: depth,
-            children: item.children ? markDepth(item.children, depth+1) : null
-        }
-    })
+const defaultHandlers = {
+    expand: (data) => {
+        alert('Should expand the item: ' + JSON.stringify(data))
+    },
+    collapse: (data) => {
+        alert('Should collapse the item: ' + JSON.stringify(data))
+    },
+    TextIconFactory: DefaultTextIcon,
+    RightButtonGroupFactory: DefaultRightButtonGroup,
 }
 
 export default class DefaultNestedList extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = deepOverride(DefaultNestedListState, props.state)
-        console.log(JSON.stringify(this.state))
+        this.state = modifyWithDef(props.state, defaultState)
+        this.handlers = modifyWithDef(props.handlers, defaultHandlers)
         this.classes = props.classes
     }
 
@@ -98,7 +57,7 @@ export default class DefaultNestedList extends React.Component {
                     title ? (<ListSubheader component={'div'}>{title}</ListSubheader>) : null
                 )}
             >
-                {markDepth(data, 0).reduce((components, item, index)=>{
+                {data.reduce((components, item, index)=>{
                     return [
                         ...components,
                         (<DefaultListItem
@@ -108,9 +67,10 @@ export default class DefaultNestedList extends React.Component {
                                 data: item,
                             }}
                             classes={this.classes}
+                            handlers={this.handlers}
                         />),
                         (
-                            item.collapsed ? null : (
+                            item.expanded ? (
                                 <DefaultCollapseList
                                     key={index}
                                     classes={this.classes}
@@ -118,8 +78,9 @@ export default class DefaultNestedList extends React.Component {
                                         ...this.state,
                                         data: item.children,
                                     }}
+                                    handlers={this.handlers}
                                 />
-                            )
+                            ): null
                         ),
                     ]
                 }, [])}
@@ -131,5 +92,6 @@ export default class DefaultNestedList extends React.Component {
 DefaultNestedList.propTypes = {
     classes: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
+    handlers: PropTypes.object.isRequired,
 }
 

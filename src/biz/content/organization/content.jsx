@@ -1,75 +1,70 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Reducer from './reducer'
 import DefaultToolbar from '../../../common/toolbar/default-toolbar'
 import AppBar from '@material-ui/core/AppBar'
-import DefaultNestedList from "../../../common/list/default-nested-list";
+import iconNames from "../../../common/config/icon-name-config";
 import Paper from "@material-ui/core/Paper";
-import iconNames from '../../../common/config/icon-name-config'
-
-const ToolbarState = () => ({
-    feature: {
-        disableGutters: true,
-        showInput: true,
-        showInputIcon: true,
-        showRightButtonGroup: true,
-    },
-    input: {
-        iconKey: iconNames.attachment,
-        placeholder: '输入关键字查询',
-        disabled: true,
-    },
-    rightButtonGroup: {
-        group: [
-            {
-                key: iconNames.folder,
-                onClick: ()=> {
-                    this.onQuery()
-                },
-            },
-            {
-                key: iconNames.upload,
-                onClick: ()=> {
-                    this.onReset()
-                },
-            }
-        ]
-    }
-})
+import DefaultNestedList from "../../../common/list/default-nested-list";
+import reducer from './reducer'
 
 export default class Content extends React.Component {
     constructor(props) {
         super(props)
 
-        this.toolbarState = ToolbarState()
+        this.classes = props.classes
+        this.store = props.store
+
+        this.nestedListItemExpand = this.nestedListItemExpand.bind(this)
+        this.nestedListItemCollapse = this.nestedListItemCollapse.bind(this)
+
+        this.handlers = {
+            toolbar: {
+                searchInputChanged: this.filter,
+                rightButtonGroup: {
+                    group: [
+                        {
+                            key: iconNames.folder,
+                            onClick: ()=> {
+                                alert("The query button is clicked")
+                            },
+                        },
+                        {
+                            key: iconNames.upload,
+                            onClick: ()=> {
+                                alert("The upload button is clicked")
+                            },
+                        }
+                    ]
+                }
+            },
+            nestedList: {
+                expand: this.nestedListItemExpand,
+                collapse: this.nestedListItemCollapse,
+            }
+        }
     }
 
-    onQuery() {
-        const {store} = this.props
-        store.dispatch(Reducer.query(this.searchInputRef.current.value))
+    nestedListItemExpand(data) {
+        console.log(this)
+        this.store.dispatch(reducer.createAction(reducer.types.expand, data))
     }
 
-    onReset() {
-        const {store} = this.props
-        store.dispatch(Reducer.reset())
-
-        // 目前没有找到合适的方法，通过修改state状态改变页面展示，暂时通过直接清空修改页面数据
-        this.searchInputRef.current.value = ''
+    nestedListItemCollapse(data) {
+        console.log(this)
+        this.store.dispatch(reducer.createAction(reducer.types.collapse, data))
     }
 
     render() {
-        const {classes, store} = this.props
-
         return (
-            <main className={classes.contentDefaultRoot}>
-                <div className={classes.contentDefaultAppbarSpacer} />
-                <div className={classes.contentDefaultHead}>
-                    <AppBar className={classes.contentDefaultAppbar} position='static' color='secondary' elevation={0} >
-                        <DefaultToolbar classes={classes} state={this.toolbarState}/>
+            <main className={this.classes.contentDefaultRoot}>
+                <div className={this.classes.contentDefaultAppbarSpacer} />
+                <div className={this.classes.contentDefaultHead}>
+                    <AppBar className={this.classes.contentDefaultAppbar} position='static' color='secondary' elevation={0} >
+                        <DefaultToolbar classes={this.classes} state={this.store.getState().organization.toolbar} handlers={this.handlers.toolbar}/>
                     </AppBar>
                 </div>
-                <Paper className={classes.contentDefaultBody}>
-                    <DefaultNestedList classes={classes} state={{}}/>
+                <Paper className={this.classes.contentDefaultBody}>
+                    <DefaultNestedList classes={this.classes} state={this.store.getState().organization.nestedList} handlers={this.handlers.nestedList}/>
                 </Paper>
             </main>
         )

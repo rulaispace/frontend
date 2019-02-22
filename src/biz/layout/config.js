@@ -29,6 +29,7 @@ const config = {
         items: [
             {
                 key: menuNames.org,
+                loadingUrl: 'org/query',
                 label: '组织架构管理',
             },
             {

@@ -8,7 +8,7 @@ const reducers = [
     {
         type: types.loading,
         action: ReducerBase.defaultAction(types.loading),
-        reduce: ReducerBase.defaultTableListReduce(),
+        reduce: ReducerBase.defaultTableReduce(),
     }
 ]
 

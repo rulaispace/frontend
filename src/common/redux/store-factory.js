@@ -22,7 +22,7 @@ const DefaultReduxReducers = {
     layout: layoutReducer.proxy(),
     notification: notificationReducer.proxy(),
     document: DocumentReducer.proxy(),
-    organization: OrganizationReducer.reduce,
+    organization: OrganizationReducer.proxy(),
     schedule: ScheduleReducer.proxy(),
     resource: ResourceReducer.reduce,
     rule: RuleReducer.reduce,

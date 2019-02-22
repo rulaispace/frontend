@@ -1,4 +1,6 @@
 import iconNames from "../config/icon-name-config";
+import DefaultTextIcon from "../list/default-text-icon";
+import DefaultRightButtonGroup from "../list/default-right-button-group";
 
 export const init = {
     layout: {
@@ -106,6 +108,24 @@ export const init = {
     },
     regulation: {},
     organization: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: true,
+                showInputIcon: true,
+                showRightButtonGroup: true,
+            },
+            input: {
+                iconKey: iconNames.attachment,
+                placeholder: '输入关键字查询',
+                disabled: true,
+            },
+        },
+        nestedList: {
+            feature: {
+                title: '中国平安',
+            },
+        }
     },
     schedule: {
         toolbar: {
