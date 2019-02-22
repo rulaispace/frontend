@@ -2,62 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TableBody from '@material-ui/core/TableBody'
 import DefaultTableRow from "./default-table-row";
+import DefaultTable from './default-table'
 
-export default class DefaultTableBody extends React.Component {
-    constructor(props) {
-        super(props)
+export default function DefaultTableBody({state, classes, handlers}) {
+    const {
+        feature: {
+            pageable,
+        },
+        pagination: {
+            page,
+            rowsPerPage,
+        },
+    } = state
 
-        this.state = props.state
-        this.classes = props.classes
-        this.handlers = props.handlers
-    }
+    const dataList = DefaultTable.filter(state)
 
-    render() {
-        const {
-            feature: {
-                pageable,
-                withFilter,
-            },
-            pagination: {
-                page,
-                rowsPerPage,
-            },
-            filter,
-            body,
-        } = this.state
+    const rowList = pageable ? (
+        dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    ) : dataList
 
-        const dataList = withFilter ? (body.filter((row) => {
-            for (const columnName in row) {
-                if (filter[columnName]) {
-                    return row[columnName].indexOf(filter[columnName]) !== -1
-                }
-            }
-            return true
-        })) : body
-
-        const rowList = pageable ? (
-            dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        ) : dataList
-
-        return (
-            <TableBody>
-                {rowList.map((row, i) => {
-                    return (
-                        <DefaultTableRow
-                            key={i}
-                            state={{
-                                ...this.state,
-                                body: null,
-                                row,
-                            }}
-                            classes={this.classes}
-                            handlers={this.handlers}
-                        />
-                    )
-                })}
-            </TableBody>
-        )
-    }
+    return (
+        <TableBody>
+            {rowList.map((row, index) =>(
+                <DefaultTableRow
+                    key={index}
+                    state={{
+                        ...state,
+                        body: null,
+                        row,
+                    }}
+                    classes={classes}
+                    handlers={handlers}
+                />
+            ))}
+        </TableBody>
+    )
 }
 
 DefaultTableBody.propTypes = {

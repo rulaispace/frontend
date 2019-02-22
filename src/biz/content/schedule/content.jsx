@@ -73,6 +73,11 @@ export default class Content extends React.Component {
             },
             table: {
                 cellStyles: cellStyles,
+                event: {
+                    onClick: () => {
+                        alert('event is clicked.')
+                    }
+                }
             }
         }
     }

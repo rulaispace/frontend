@@ -1,4 +1,4 @@
-export const init = {
+{
     layout: {
         open: true,
         navigator: 'welcome',

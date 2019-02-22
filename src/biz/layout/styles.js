@@ -226,7 +226,7 @@ export function styles(theme) {
             overflowX: 'auto',
         },
         tableDefault: {
-            minWidth: 960,
+            minWidth: 600,
         },
         tableCellDefaultLinkItem: {
             paddingRight: theme.spacing.unit,

@@ -63,7 +63,43 @@ export const init = {
             ],
         }
     },
-    document: {},
+    document: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: true,
+                showInputIcon: true,
+            },
+            input: {
+                placeholder: '输入关键字查询',
+            },
+        },
+        table: {
+            feature: {
+                pageable: true,
+                withFilter: true,
+            },
+            pagination: {
+            },
+            filter: {
+                title: '',
+            },
+            header: [
+                {
+                    id: 'title',
+                    label: '标题',
+                    width: '90%',
+                    linkable: true,
+                },
+                {
+                    id: 'operator',
+                    label: '操作',
+                    width: '10%',
+                    linkable: true,
+                },
+            ]
+        }
+    },
     resource: {},
     rule: {},
     announcement: {
@@ -105,9 +141,6 @@ export const init = {
                     disablePadding: false,
                     width: '92%',
                     linkable: true,
-                    onClick: () => {
-                        alert('I am clicked.')
-                    },
                 },
             ]
         }

@@ -15,6 +15,7 @@ const config = {
             },
             {
                 key: menuNames.document,
+                loadingUrl: 'document/query',
                 label: '公司文献',
             },
             {

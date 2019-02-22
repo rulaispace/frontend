@@ -3,6 +3,8 @@ import ReducerBase from "../../../common/redux/reducer-base";
 const types = {
     loading: 'loadingNotificationData',
     filter: 'filterNotificationData',
+    changePage: 'changePageOfNotificationData',
+    changeRowsPerPage: 'changeRowsPerPageOfNotificationData'
 }
 
 const reducers = [
@@ -13,12 +15,15 @@ const reducers = [
     }, {
         type: types.filter,
         action: ReducerBase.defaultAction(types.filter),
-        reduce: (state={}, payload) => {
-            state.toolbar.input.defaultValue = payload.value
-            state.table.filter.title = payload.value
-
-            return state
-        }
+        reduce: ReducerBase.defaultTableFilterReduce(),
+    }, {
+        type: types.changePage,
+        action: ReducerBase.defaultAction(types.changePage),
+        reduce: ReducerBase.defaultChangePageOfTable(),
+    }, {
+        type: types.changeRowsPerPage,
+        action: ReducerBase.defaultAction(types.changeRowsPerPage),
+        reduce: ReducerBase.defaultChangeRowsPerPageOfTable(),
     }
 ]
 

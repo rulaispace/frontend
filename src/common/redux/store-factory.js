@@ -21,7 +21,7 @@ const DefaultReduxReducers = {
     account: accountReducer.proxy(),
     layout: layoutReducer.proxy(),
     notification: notificationReducer.proxy(),
-    document: DocumentReducer.reduce,
+    document: DocumentReducer.proxy(),
     organization: OrganizationReducer.reduce,
     schedule: ScheduleReducer.proxy(),
     resource: ResourceReducer.reduce,

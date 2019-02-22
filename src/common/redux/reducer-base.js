@@ -59,4 +59,29 @@ ReducerBase.defaultTableListReduce = function() {
     }
 }
 
+ReducerBase.defaultTableFilterReduce = function() {
+    return (state={}, payload) => {
+        state.toolbar.input.defaultValue = payload.value
+        state.table.filter.title = payload.value
+
+        return state
+    }
+}
+
+ReducerBase.defaultChangePageOfTable = function() {
+    return (state={}, payload) => {
+        state.table.pagination.page = payload.page
+
+        return state
+    }
+}
+
+ReducerBase.defaultChangeRowsPerPageOfTable = function() {
+    return (state={}, payload) => {
+        state.table.pagination.rowsPerPage = payload.rowsPerPage
+
+        return state
+    }
+}
+
 export default ReducerBase

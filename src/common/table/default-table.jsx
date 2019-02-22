@@ -68,12 +68,31 @@ export default class DefaultTable extends React.Component {
                 </div>
                 {
                     pageable ? (
-                        <DefaultTablePagination state={this.state} classes={this.classes}/>
+                        <DefaultTablePagination state={this.state} classes={this.classes} handlers={this.handlers}/>
                     ) : null
                 }
             </div>
         )
     }
+}
+
+DefaultTable.filter = function(state) {
+    const {
+        feature: {
+            withFilter,
+        },
+        filter,
+        body,
+    } = state
+
+    return withFilter ? (body.filter((row) => {
+        for (const columnName in row) {
+            if (filter[columnName]) {
+                return row[columnName].indexOf(filter[columnName]) !== -1
+            }
+        }
+        return true
+    })) : body
 }
 
 DefaultTable.propTypes = {

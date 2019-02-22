@@ -13,19 +13,37 @@ export default class Content extends React.Component {
         this.store = props.store
 
         this.filter = this.filter.bind(this)
+        this.changeTablePage = this.changeTablePage.bind(this)
+        this.changeRowsPerPage = this.changeRowsPerPage.bind(this)
 
         this.handlers = {
             toolbar: {
                 searchInputChanged: this.filter,
             },
             table: {
-
+                title: {
+                    onClick: () => {
+                        alert('title is clicked')
+                    }
+                },
+                pagination: {
+                    changePage: this.changeTablePage,
+                    changeRowsPerPage: this.changeRowsPerPage,
+                },
             }
         }
     }
 
     filter(value) {
         this.store.dispatch(reducer.createAction(reducer.types.filter, {value}))
+    }
+
+    changeTablePage(event, page) {
+        this.store.dispatch(reducer.createAction(reducer.types.changePage, {page}))
+    }
+
+    changeRowsPerPage(event) {
+        this.store.dispatch(reducer.createAction(reducer.types.changeRowsPerPage, {rowsPerPage: parseInt(event.target.value, 10)}))
     }
 
     render() {

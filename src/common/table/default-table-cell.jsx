@@ -31,48 +31,36 @@ LinkableEle.propTypes = {
 }
 
 
-export default class DefaultTableCell extends React.Component {
-    constructor(props) {
-        super(props)
+export default function DefaultTableCell({state, classes, handlers}) {
+    const {
+        col: {
+            id,
+            numeric,
+            disablePadding,
+            linkable,
+        },
+        row
+    } = state
 
-        this.state = props.state
-        this.classes = props.classes
-        this.handlers = props.handlers
-    }
-
-    render() {
-        const {
-            col: {
-                id,
-                numeric,
-                disablePadding,
-                linkable,
-                onClick,
-            },
-            row
-        } = this.state
-
-
-        return (
-            <TableCell
-                className={this.classes[this.handlers.cellStyles(row, this.state.col)]}
-                align={numeric ? 'center' : 'left'}
-                padding={disablePadding ? 'none' : 'default'}
-            >
-                {
-                    linkable ? (
-                        <LinkableEle
-                            state={{
-                                items: array.asArray(row[id]),
-                                actions: array.asArray(onClick)
-                            }}
-                            classes={this.classes}
-                        />
-                    ) : row[id]
-                }
-            </TableCell>
-        )
-    }
+    return (
+        <TableCell
+            className={classes[handlers.cellStyles(row, state.col)]}
+            align={numeric ? 'center' : 'left'}
+            padding={disablePadding ? 'none' : 'default'}
+        >
+            {
+                linkable ? (
+                    <LinkableEle
+                        state={{
+                            items: array.asArray(row[id]),
+                            actions: array.asArray(handlers[id].onClick)
+                        }}
+                        classes={classes}
+                    />
+                ) : row[id]
+            }
+        </TableCell>
+    )
 }
 
 DefaultTableCell.propTypes = {
