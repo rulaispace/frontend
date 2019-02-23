@@ -59,10 +59,10 @@ ReducerBase.defaultTableReduce = function() {
     }
 }
 
-ReducerBase.defaultTableFilterReduce = function() {
+ReducerBase.defaultTableFilterReduce = function(key) {
     return (state={}, payload) => {
         state.toolbar.input.defaultValue = payload.value
-        state.table.filter.title = payload.value
+        state.table.filter[key] = payload.value
 
         return state
     }

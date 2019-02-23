@@ -24,7 +24,7 @@ const DefaultReduxReducers = {
     document: DocumentReducer.proxy(),
     organization: OrganizationReducer.proxy(),
     schedule: ScheduleReducer.proxy(),
-    resource: ResourceReducer.reduce,
+    resource: ResourceReducer.proxy(),
     rule: RuleReducer.reduce,
     announcement: announcementReducer.proxy(),
     regulation: RegulationReducer.reduce,

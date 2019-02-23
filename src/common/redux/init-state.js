@@ -1,6 +1,4 @@
 import iconNames from "../config/icon-name-config";
-import DefaultTextIcon from "../list/default-text-icon";
-import DefaultRightButtonGroup from "../list/default-right-button-group";
 
 export const init = {
     layout: {
@@ -102,7 +100,57 @@ export const init = {
             ]
         }
     },
-    resource: {},
+    resource: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: true,
+                showInputIcon: true,
+            },
+            input: {
+                placeholder: '输入关键字查询',
+            }
+        },
+        table: {
+            feature: {
+                pageable: true,
+                withFilter: true,
+            },
+            pagination: {
+            },
+            filter: {
+                name: '',
+            },
+            header: [
+                {
+                    id: 'name',
+                    label: '资源名称',
+                    width: '30%',
+                },
+                {
+                    id: 'code',
+                    label: '资源编号',
+                    width: '15%',
+                },
+                {
+                    id: 'createDate',
+                    label: '创建时间',
+                    width: '20%',
+                },
+                {
+                    id: 'state',
+                    label: '状态',
+                    width: '15%',
+                },
+                {
+                    id: 'operator',
+                    label: '操作',
+                    width: '20%',
+                    linkable: true,
+                },
+            ]
+        }
+    },
     rule: {},
     announcement: {
     },

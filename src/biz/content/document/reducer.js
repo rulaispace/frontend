@@ -21,7 +21,7 @@ const reducers = [
     }, {
         type: types.filter,
         action: ReducerBase.defaultAction(types.filter),
-        reduce: ReducerBase.defaultTableFilterReduce(),
+        reduce: ReducerBase.defaultTableFilterReduce('title'),
     }, {
         type: types.changePage,
         action: ReducerBase.defaultAction(types.changePage),

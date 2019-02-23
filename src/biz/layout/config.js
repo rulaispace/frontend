@@ -38,6 +38,7 @@ const config = {
             },
             {
                 key: menuNames.resource,
+                loadingUrl: 'resource/query',
                 label: '资源管理',
             },
             {
