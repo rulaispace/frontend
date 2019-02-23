@@ -27,7 +27,7 @@ const DefaultReduxReducers = {
     resource: ResourceReducer.proxy(),
     rule: RuleReducer.reduce,
     announcement: announcementReducer.proxy(),
-    regulation: RegulationReducer.reduce,
+    regulation: RegulationReducer.proxy(),
 }
 
 function createLoggerMiddleWare() {

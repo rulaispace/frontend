@@ -43,6 +43,7 @@ const config = {
             },
             {
                 key: menuNames.announcement,
+                loadingUrl: 'announcement/query',
                 label: '公告管理',
             },
             {
@@ -51,6 +52,7 @@ const config = {
             },
             {
                 key: menuNames.regulation,
+                loadingUrl: 'regulation/query',
                 label: '公司章程管理',
             },
         ]

@@ -14,7 +14,7 @@ const reducers = [
         reduce: (state, payload) => {
             for (const index in payload) {
                const resource = payload[index]
-               resource.operator = ['修改', '发布', '删除']
+               resource.operator = ['修改', '删除']
             }
 
             state.table.body = payload

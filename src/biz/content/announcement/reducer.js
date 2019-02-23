@@ -1,15 +1,38 @@
 import ReducerBase from "../../../common/redux/reducer-base";
 
 const types = {
-    query: 'announcementQuery',
-    reset: 'resourceQueryReset',
+    loading: 'loadingAnnouncementData',
+    filter: 'filterAnnouncementData',
+    changePage: 'changePageOfAnnouncementData',
+    changeRowsPerPage: 'changeRowsPerPageOfAnnouncementData'
 }
 
 const reducers = [
     {
-        type: types.query,
-        action: ReducerBase.defaultAction(types.query),
-        reduce: (state={}, payload) => ({...state, query:payload.condition})
+        type: types.loading,
+        action: ReducerBase.defaultAction(types.loading),
+        reduce: (state, payload) => {
+            for (const index in payload) {
+                const resource = payload[index]
+                // if (resource.state === '在途') {
+                resource.operator = ['修改', '发布', '删除']
+            }
+
+            state.table.body = payload
+            return state
+        },
+    }, {
+        type: types.filter,
+        action: ReducerBase.defaultAction(types.filter),
+        reduce: ReducerBase.defaultTableFilterReduce('name'),
+    }, {
+        type: types.changePage,
+        action: ReducerBase.defaultAction(types.changePage),
+        reduce: ReducerBase.defaultChangePageOfTable(),
+    }, {
+        type: types.changeRowsPerPage,
+        action: ReducerBase.defaultAction(types.changeRowsPerPage),
+        reduce: ReducerBase.defaultChangeRowsPerPageOfTable(),
     }
 ]
 

@@ -153,8 +153,107 @@ export const init = {
     },
     rule: {},
     announcement: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: true,
+                showInputIcon: true,
+            },
+            input: {
+                placeholder: '输入关键字查询',
+            }
+        },
+        table: {
+            feature: {
+                pageable: true,
+                withFilter: true,
+            },
+            pagination: {
+            },
+            filter: {
+                name: '',
+            },
+            header: [
+                {
+                    id: 'name',
+                    label: '公告名称',
+                    width: '30%',
+                },
+                {
+                    id: 'type',
+                    label: '类型',
+                    width: '15%',
+                },
+                {
+                    id: 'releaseDate',
+                    label: '发布时间',
+                    width: '20%',
+                },
+                {
+                    id: 'state',
+                    label: '状态',
+                    width: '15%',
+                },
+                {
+                    id: 'operator',
+                    label: '操作',
+                    width: '20%',
+                    linkable: true,
+                },
+            ]
+        }
     },
-    regulation: {},
+    regulation: {
+        toolbar: {
+            feature: {
+                disableGutters: true,
+                showInput: true,
+                showInputIcon: true,
+            },
+            input: {
+                placeholder: '输入姓名查询',
+            }
+        },
+        table: {
+            feature: {
+                pageable: true,
+                withFilter: true,
+            },
+            filter: {
+                name: '',
+            },
+            pagination: {
+            },
+            header: [
+                {
+                    id: 'name',
+                    label: '章程名称',
+                    width: '30%',
+                },
+                {
+                    id: 'type',
+                    label: '类型',
+                    width: '15%',
+                },
+                {
+                    id: 'releaseDate',
+                    label: '发布时间',
+                    width: '20%',
+                },
+                {
+                    id: 'state',
+                    label: '状态',
+                    width: '15%',
+                },
+                {
+                    id: 'operator',
+                    label: '操作',
+                    width: '20%',
+                    linkable: true,
+                },
+            ]
+        }
+    },
     organization: {
         toolbar: {
             feature: {

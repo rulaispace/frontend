@@ -27,9 +27,6 @@ export default class Content extends React.Component {
                             alert('Modify is clicked')
                         },
                         function() {
-                            alert('Publish is clicked')
-                        },
-                        function() {
                             alert('Delete is clicked')
                         }
                     ]
