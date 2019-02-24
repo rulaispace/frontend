@@ -17,16 +17,16 @@ export default function DefaultRightButtonGroup({state, classes, handlers}) {
     if(showRightButtonGroup) {
         return (
             <div className={classes[rightButtonGroupClassName]}>
-                {handlers.rightButtonGroup.group.map(({key, onClick}) => (
+                {handlers.rightButtonGroup.group.map(({id, onClick}) => (
                     <IconButton
-                        key={key}
+                        key={id}
                         color={'inherit'}
                         onClick={(e) => {
                             e.preventDefault()
                             onClick(state)
                         }}
                     >
-                        <IconStore iconKey={key}/>
+                        <IconStore iconKey={id}/>
                     </IconButton>
                 ))}
             </div>

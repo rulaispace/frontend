@@ -48,47 +48,47 @@ function arrayDeepOverride(source, delta) {
 
     let cur = 0
     const pairs = delta.reduce((result, item) => {
-            let {key} = item
-            if (!key) {
-                key = 'CIX-' + (++cur)
+            let {id} = item
+            if (!id) {
+                id = 'CIX-' + (++cur)
             }
 
             return {
                 ...result,
-                [key]: {
-                    ...result[key],
+                [id]: {
+                    ...result[id],
                     delta: item,
                 }
             }
         },
         (source.reduce((result, item) => {
-            let {key} = item
-            if (!key) {
-                key = 'CIX-' + (++cur)
+            let {id} = item
+            if (!id) {
+                id = 'CIX-' + (++cur)
             }
 
             return {
                 ...result,
-                [key]: {
-                    ...result[key],
+                [id]: {
+                    ...result[id],
                     source: item,
                 }
             }
         },{}))
     )
 
-    return Object.keys(pairs).map((key) => {
-        const {source, delta} = pairs[key]
+    return Object.keys(pairs).map((id) => {
+        const {source, delta} = pairs[id]
         return deepOverride(source, delta)
     })
 }
 
 function objectDeepOverride(source, delta) {
     const keys = [...new Set([...Object.keys(source), ...Object.keys(delta)])]
-    return keys.reduce((result, key) => {
+    return keys.reduce((result, id) => {
         return {
             ...result,
-            [key]: deepOverride(source[key], delta[key])
+            [id]: deepOverride(source[id], delta[id])
         }
     }, {})
 }

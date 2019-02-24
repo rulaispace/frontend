@@ -61,7 +61,7 @@ export default class DefaultNestedList extends React.Component {
                     return [
                         ...components,
                         (<DefaultListItem
-                            key={item.key}
+                            key={item.id}
                             state={{
                                 ...this.state,
                                 data: item,

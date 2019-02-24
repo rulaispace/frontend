@@ -22,11 +22,11 @@ export default function DefaultListItem({state, classes, handlers}) {
         RightButtonGroupFactory,
     } = handlers
 
-    const {key, level, expanded, primaryText, secondaryText} = data
+    const {id, level, expanded, primaryText, secondaryText} = data
 
     return (
         <ListItem
-            key={key}
+            key={id}
             className={classes[`nestedListDefaultItemLevel${level}`]}
         >
             {/** 根据当前状态，选择列表前面按钮的图标以及回调函数 **/}

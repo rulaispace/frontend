@@ -23,7 +23,7 @@ const defaultToolbarState = {
         showRightButtonGroup: false,
     },
     leftButton: {
-        key: iconNames.menu,
+        id: iconNames.menu,
         rootClassName: 'toolbarDefaultLeftButton',
     },
     title: {
@@ -70,7 +70,7 @@ export default class DefaultToolbar extends React.Component {
                 showTitle,
             },
             leftButton : {
-                key: leftButtonIconKey,
+                id: leftButtonIconKey,
                 className: leftButtonClassName,
                 onClick: leftButtonClicked,
             },

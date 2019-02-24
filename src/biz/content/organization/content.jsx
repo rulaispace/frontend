@@ -23,13 +23,13 @@ export default class Content extends React.Component {
                 rightButtonGroup: {
                     group: [
                         {
-                            key: iconNames.folder,
+                            id: iconNames.folder,
                             onClick: ()=> {
                                 alert("The query button is clicked")
                             },
                         },
                         {
-                            key: iconNames.upload,
+                            id: iconNames.upload,
                             onClick: ()=> {
                                 alert("The upload button is clicked")
                             },

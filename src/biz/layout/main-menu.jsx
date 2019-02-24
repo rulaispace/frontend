@@ -18,24 +18,22 @@ import post from '../../common/fetch/fetch'
 import StoreFactory from "../../common/redux/store-factory";
 import MessageReducer from "../../common/message/reducer";
 
-import JSON from 'circular-json'
-
 function MenuItemList({state, onClick}) {
     const {header, items} = state
     return (
         <div>
             {header ? (<ListSubheader inset>{header}</ListSubheader>) : null}
-            {items.map(({key: name, label, loadingUrl}) => (
+            {items.map(({id, label, loadingUrl}) => (
                 <ListItem
                     button
-                    key={name}
+                    key={id}
                     onClick={(e) => {
                         e.preventDefault()
-                        onClick(name, loadingUrl)
+                        onClick(id, loadingUrl)
                     }}
                 >
                     <ListItemIcon>
-                        <IconStore iconKey={name}/>
+                        <IconStore iconKey={id}/>
                     </ListItemIcon>
                     <ListItemText  primary={label}/>
                 </ListItem>

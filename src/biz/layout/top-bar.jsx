@@ -38,8 +38,8 @@ export default function TopBar({classes, store}) {
     const {userMenu, adminMenu} = config
     let subTitle = token ?
         ([...userMenu.items, ...adminMenu.items].reduce(
-            (title, {key, label}) => {
-                return title ? title : ((key==='menu_'+navigator) ? label : null)
+            (title, {id, label}) => {
+                return title ? title : ((id==='menu_'+navigator) ? label : null)
             }, null
         ))
         : '首页'

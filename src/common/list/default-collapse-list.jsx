@@ -23,7 +23,7 @@ export default function DefaultCollapseList({state, classes, handlers}) {
                     {data.map((item) => {
                         return (
                             <DefaultListItem
-                                key={item.key}
+                                key={item.id}
                                 state={{
                                     ...state,
                                     data: item,

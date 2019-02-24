@@ -59,10 +59,10 @@ ReducerBase.defaultTableReduce = function() {
     }
 }
 
-ReducerBase.defaultTableFilterReduce = function(key) {
+ReducerBase.defaultTableFilterReduce = function(id) {
     return (state={}, payload) => {
         state.toolbar.input.defaultValue = payload.value
-        state.table.filter[key] = payload.value
+        state.table.filter[id] = payload.value
 
         return state
     }
@@ -91,15 +91,15 @@ ReducerBase.defaultNestedListReduce = function() {
     }
 }
 
-const search = function(data, key) {
+const search = function(data, id) {
     if (data == null) return null
 
     for (const index in data) {
         const item = data[index]
 
-        if (item.key === key) return item
+        if (item.id === id) return item
 
-        const child = search(item.children, key)
+        const child = search(item.children, id)
         if (child != null) return child
     }
 
@@ -108,7 +108,7 @@ const search = function(data, key) {
 
 ReducerBase.defaultExpandNestedList = function() {
     return (state={}, payload) => {
-        const targetItem = search(state.nestedList.data, payload.key)
+        const targetItem = search(state.nestedList.data, payload.id)
         if (targetItem) {
             targetItem.expanded = true
         }
@@ -119,7 +119,7 @@ ReducerBase.defaultExpandNestedList = function() {
 
 ReducerBase.defaultCollapseNestedList = function() {
     return (state={}, payload) => {
-        const targetItem = search(state.nestedList.data, payload.key)
+        const targetItem = search(state.nestedList.data, payload.id)
         targetItem.expanded = false
 
         return state
