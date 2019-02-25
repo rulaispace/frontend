@@ -72,7 +72,6 @@ export default class DefaultToolbar extends React.Component {
             leftButton : {
                 id: leftButtonIconKey,
                 className: leftButtonClassName,
-                onClick: leftButtonClicked,
             },
             title: {
                 label,
@@ -84,6 +83,7 @@ export default class DefaultToolbar extends React.Component {
         const {
             InputFactory,
             RightButtonGroupFactory,
+            leftButtonClicked,
         } = this.handlers
 
         return (
@@ -119,7 +119,7 @@ export default class DefaultToolbar extends React.Component {
                 <div className={this.classes[growClassName]} />
 
                 {/** 右侧按钮区域 **/}
-                <RightButtonGroupFactory state={this.state} classes={this.classes} handlers={this.handlers}/>
+                <RightButtonGroupFactory state={this.state} classes={this.classes} handlers={this.handlers.rightButtonGroup}/>
             </Toolbar>
         )
     }

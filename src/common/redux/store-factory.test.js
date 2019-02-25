@@ -1,6 +1,6 @@
 import StoreFactory from "./store-factory";
 import ObjectStorage from "./object-storage";
-import MessageReducer from "../message/reducer";
+import MessageReducer from "../dialog/reducer";
 
 describe('Test storage factory', () => {
     const storageKey = 'Jest_Store_Factory_Key'

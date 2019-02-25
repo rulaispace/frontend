@@ -1,7 +1,7 @@
-import menuNames from "../../common/config/menu-name-config";
+import menuNames from "./menu-name-config";
 
-const config = {
-    userMenu: {
+const menuItems = {
+    employee: {
         items: [
             {
                 id: menuNames.notification,
@@ -24,7 +24,7 @@ const config = {
             },
         ]
     },
-    adminMenu: {
+    administrator: {
         header: '管理员',
         items: [
             {
@@ -59,4 +59,4 @@ const config = {
     },
 }
 
-export default config
+export default menuItems

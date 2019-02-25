@@ -1,10 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import {init} from './init-state'
+import boxing from '../config/encapsulation-config'
 import {deepOverride} from '../utils/object'
 import ObjectStorage from "./object-storage";
 import Any from "../utils/any";
-import MessageReducer from "../message/reducer";
+import MessageReducer from "../dialog/reducer";
 import accountReducer from "../../biz/account/reducer";
 import layoutReducer from "../../biz/layout/reducer";
 import notificationReducer from "../../biz/content/notification/reducer";
@@ -17,7 +17,7 @@ import announcementReducer from "../../biz/content/announcement/reducer";
 import RegulationReducer from "../../biz/content/regulation/reducer";
 
 const DefaultReduxReducers = {
-    message: MessageReducer.reduce,
+    message: MessageReducer.proxy(),
     account: accountReducer.proxy(),
     layout: layoutReducer.proxy(),
     notification: notificationReducer.proxy(),
@@ -80,7 +80,8 @@ const StoreFactory = Any.extend({
             createStore
         )(
             combineReducers(DefaultReduxReducers),
-            this.usingLocalStorage() ? this.localStorage.read() : deepOverride(init, this.overrideState)
+            this.usingLocalStorage() ? this.localStorage.read() : deepOverride(boxing, this.overrideState)
+            // deepOverride(boxing, this.overrideState)
         )
     },
 })

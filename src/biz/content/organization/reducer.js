@@ -2,9 +2,12 @@ import ReducerBase from "../../../common/redux/reducer-base";
 
 const types = {
     loading: 'loadingOrganizationData',
-    filter: 'filterOrganizationData',
-    expand: 'expandOfOrganizationData',
-    collapse: 'collapseOfOrganizationData'
+    filter: 'filterOrganization',
+    expand: 'expandOfOrganization',
+    collapse: 'collapseOfOrganization',
+    openEditDialog: 'openEditDialogOfOrganization',
+    modifyFormInput: 'modifyFormInputOfOrganization',
+    closeEditDialog: 'closeEditDialogOfOrganization',
 }
 
 const reducers = [
@@ -24,6 +27,18 @@ const reducers = [
         type: types.collapse,
         action: ReducerBase.defaultAction(types.collapse),
         reduce: ReducerBase.defaultCollapseNestedList(),
+    }, {
+        type: types.openEditDialog,
+        action: ReducerBase.defaultAction(types.openEditDialog),
+        reduce: ReducerBase.defaultOpenEditDialog(),
+    }, {
+        type: types.closeEditDialog,
+        action: ReducerBase.defaultAction(types.closeEditDialog),
+        reduce: ReducerBase.defaultCloseEditDialog(),
+    }, {
+        type: types.modifyFormInput,
+        action: ReducerBase.defaultAction(types.modifyFormInput),
+        reduce: ReducerBase.defaultChangeDialogInput(),
     }
 ]
 

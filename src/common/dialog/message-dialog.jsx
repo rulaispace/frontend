@@ -7,37 +7,29 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from "prop-types";
 
-import Reducer from './reducer'
+import reducer from './reducer'
 
 function MessageDialog({store}) {
-    const {
-        message: {
-            open = false,
-            title = '系统提示：',
-            details = '无话可说！'
-        }
-    } = store.getState()
-
     return (
         <div>
             <Dialog
-                open={open}
+                open={store.getState().message.open}
                 onClose={() => {
-                    store.dispatch(Reducer.close())
+                    store.dispatch(reducer.createAction(reducer.types.close))
                 }}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{store.getState().message.title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {details}
+                        {store.getState().message.details}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button
                         onClick={() => {
-                            store.dispatch(Reducer.close())
+                            store.dispatch(reducer.createAction(reducer.types.close))
                         }}
                         color="primary" autoFocus
                     >

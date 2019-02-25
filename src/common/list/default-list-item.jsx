@@ -56,7 +56,7 @@ export default function DefaultListItem({state, classes, handlers}) {
                 secondary={secondaryText}
             />
             {/** 创建右侧按钮区 **/}
-            <RightButtonGroupFactory state={data} classes={classes}/>
+            <RightButtonGroupFactory state={data} classes={classes} handlers={handlers.rightButtonGroup}/>
         </ListItem>
     )
 }

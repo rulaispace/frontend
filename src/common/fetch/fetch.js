@@ -18,8 +18,6 @@ export function restoreSystem() {
     IS_BROKEN = false
 }
 
-
-
 function post(api, input, success, fail) {
     if (IS_MOCK_MODE) {
         const payload = deepOverride(MOCK[api], input)
@@ -38,18 +36,18 @@ function post(api, input, success, fail) {
         },
         body: JSON.stringify(input)
     }).then(response => {
-        response.json().then(value => {dispatch(value, success, fail)})
+        response.json().then(json => {dispatch(json, success, fail)})
     }).catch(err => {
-        fail(err)
+        fail({title: '网络错误', details: err.message + '  url:  '  + api})
     })
 }
 
-function dispatch(payload, success, fail) {
-    const title = '系统错误：'
-    const {status=200, error, message='', path=''} = payload
+function dispatch(json, success, fail) {
+    const title = '系统错误'
+    const {status, payload} = json
     if (status !== 200) {
-        const details = `${error}: status=${status}, message=${message}, path=${path}`
-        return fail({title, details})
+        fail({title, details: payload})
+        return
     }
 
     success(payload)

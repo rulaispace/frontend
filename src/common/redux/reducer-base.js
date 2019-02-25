@@ -19,6 +19,30 @@ const defaultReducer = {
     }
 }
 
+const search = function(data, id) {
+    if (data == null) return null
+
+    for (const index in data) {
+        const item = data[index]
+
+        if (item.id === id) return item
+
+        const child = search(item.children, id)
+        if (child != null) return child
+    }
+
+    return null;
+}
+
+const formatFormInput = function(form, data) {
+    for (const property in data) {
+        if (!form[property]) form[property] = {}
+
+        form[property].value = data[property]
+    }
+    return form
+}
+
 const ReducerBase = Any.extend({
     create: function() {
         const args = Array.prototype.slice.call(arguments)
@@ -86,24 +110,16 @@ ReducerBase.defaultChangeRowsPerPageOfTable = function() {
 
 ReducerBase.defaultNestedListReduce = function() {
     return (state, payload) => {
+        console.log(state)
+        state.mode = 'main'
+        if (state.dialog) {
+            state.dialog.open = false
+            state.dialog.form = {}
+        }
+
         state.nestedList.data = payload.children
         return state
     }
-}
-
-const search = function(data, id) {
-    if (data == null) return null
-
-    for (const index in data) {
-        const item = data[index]
-
-        if (item.id === id) return item
-
-        const child = search(item.children, id)
-        if (child != null) return child
-    }
-
-    return null;
 }
 
 ReducerBase.defaultExpandNestedList = function() {
@@ -122,6 +138,31 @@ ReducerBase.defaultCollapseNestedList = function() {
         const targetItem = search(state.nestedList.data, payload.id)
         targetItem.expanded = false
 
+        return state
+    }
+}
+
+ReducerBase.defaultOpenEditDialog = function() {
+    return (state={}, payload) => {
+        state.mode = 'edit'
+        state.dialog.open = true
+        state.dialog.form = formatFormInput(state.dialog.form, payload)
+        return state
+    }
+}
+
+ReducerBase.defaultCloseEditDialog = function() {
+    return (state={}) => {
+        state.mode = 'main'
+        state.dialog.open = false
+        state.dialog.form = {}
+        return state
+    }
+}
+
+ReducerBase.defaultChangeDialogInput = function() {
+    return (state={}, payload) => {
+        state.dialog.form[payload.id].value = payload.value
         return state
     }
 }

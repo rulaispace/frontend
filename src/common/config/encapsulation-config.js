@@ -1,6 +1,6 @@
-import iconNames from "../config/icon-name-config";
+import iconNames from "./icon-name-config";
 
-export const init = {
+const boxing = {
     layout: {
         open: true,
         navigator: 'welcome',
@@ -255,6 +255,7 @@ export const init = {
         }
     },
     organization: {
+        mode: 'main',
         toolbar: {
             feature: {
                 disableGutters: true,
@@ -272,6 +273,21 @@ export const init = {
             feature: {
                 title: '中国平安',
             },
+        },
+        dialog: {
+            open: false,
+            toolbar: {
+                feature: {
+                    showInput: false,
+                    showRightButtonGroup: true,
+                    showLeftButton: true,
+                },
+                leftButton: {
+                    id: iconNames.close,
+                }
+            },
+            form: {
+            }
         }
     },
     schedule: {
@@ -313,3 +329,5 @@ export const init = {
         }
     }
 }
+
+export default boxing

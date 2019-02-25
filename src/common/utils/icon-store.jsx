@@ -30,6 +30,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SkipPreIcon from '@material-ui/icons/SkipPreviousOutlined'
 import SkipNextIcon from '@material-ui/icons/SkipNextOutlined'
+import CloseIcon from '@material-ui/icons/Close'
 import iconNames from "../config/icon-name-config";
 import menuNames from "../config/menu-name-config";
 
@@ -99,7 +100,9 @@ export default function IconStore({iconKey, fontSize, className}) {
         case iconNames.skipPre:
             return <SkipPreIcon  fontSize={fontSize?fontSize:'default'} className={className}/>
         case iconNames.skipNext:
-            return <SkipNextIcon  fontSize={fontSize?fontSize:'default'} className={className}/>
+            return <SkipNextIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.close:
+            return <CloseIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         default:
             return null
     }

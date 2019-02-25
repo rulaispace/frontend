@@ -290,6 +290,33 @@ export function styles(theme) {
             flex: '0 0 auto',
         },
 
+        // default form
+        formDefaultContainer: {
+            display: 'flex',
+            flexWrap: 'wrap',
+        },
+        formDefaultTextField: {
+            paddingLeft: theme.spacing.unit*1,
+            paddingRight: theme.spacing.unit*1,
+            width: '100%',
+        },
+        formDefaultInputLabel: {
+            marginLeft: theme.spacing.unit*1,
+        },
+        formDefaultTextField2: {
+            paddingLeft: theme.spacing.unit*1,
+            paddingRight: theme.spacing.unit*1,
+            width: '50%',
+        },
+        formDefaultTextField3: {
+            paddingLeft: theme.spacing.unit*1,
+            paddingRight: theme.spacing.unit*1,
+            width: '33.3%',
+        },
+        formDefaultDense: {
+            marginTop: 19,
+        },
+
         // specific configuration for schedule
         scheduleBackgroundLightYellow: {
             // fontSize: '16px',

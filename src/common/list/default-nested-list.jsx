@@ -28,6 +28,9 @@ const defaultHandlers = {
     },
     TextIconFactory: DefaultTextIcon,
     RightButtonGroupFactory: DefaultRightButtonGroup,
+    rightButtonGroup: {
+
+    }
 }
 
 export default class DefaultNestedList extends React.Component {

@@ -10,7 +10,7 @@ import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
 import menuReducer from './reducer';
 import accountReducer from '../account/reducer'
-import config from "./config";
+import menuItems from "../../common/config/menu-items-config";
 
 function RightIcons({token, logout, login}) {
     return token ? (<IconButton color='inherit' onClick={logout}><PersonIcon /></IconButton>)
@@ -35,9 +35,9 @@ export default function TopBar({classes, store}) {
     } = store.getState()
 
 
-    const {userMenu, adminMenu} = config
+    const {employee, administrator} = menuItems
     let subTitle = token ?
-        ([...userMenu.items, ...adminMenu.items].reduce(
+        ([...employee.items, ...administrator.items].reduce(
             (title, {id, label}) => {
                 return title ? title : ((id==='menu_'+navigator) ? label : null)
             }, null

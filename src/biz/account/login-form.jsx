@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import post from '../../common/fetch/fetch'
 
 import reducer from './reducer'
-import MessageReducer from '../../common/message/reducer'
+import messageReducer from '../../common/dialog/reducer'
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -30,8 +30,8 @@ export default class LoginForm extends React.Component {
     }
 
     loginFailed(err) {
-        const {details} = err
-        this.store.dispatch(MessageReducer.show('登录失败：', details))
+        console.log(err)
+        this.store.dispatch(messageReducer.createAction(messageReducer.types.show, err))
     }
 
     submit() {

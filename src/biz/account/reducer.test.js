@@ -5,7 +5,7 @@ describe('Test all login form actions', () => {
         const state = reducer.reduce({}, reducer.createAction(reducer.types.open))
         expect(state).toHaveProperty('open', true)
     })
-    it('userMenu logout', () => {
+    it('employee logout', () => {
         const state = reducer.reduce({}, reducer.createAction(reducer.types.logout))
         expect(state).toHaveProperty('open', false)
     })

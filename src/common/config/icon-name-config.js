@@ -24,6 +24,8 @@ const iconNames = {
     skipNext: 'icon_skip_next',
     skipPre: 'icon_skip_pre',
 
+    close: 'icon_close',
+
     // 日程展示的方式
     SCHEDULE_DAY_TYPE: 'schedule_day_type',
     SCHEDULE_WEEK_TYPE: 'schedule_week_type',

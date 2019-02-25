@@ -4,9 +4,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import {styles} from './styles'
 import TopBar from './top-bar'
-import MainMenu from './main-menu'
+import DefaultMainMenu from './default-main-menu'
 import Content from '../content/content'
-import MessageDialog from '../../common/message/message-dialog'
+import MessageDialog from '../../common/dialog/message-dialog'
 import LoginForm from '../account/login-form'
 
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ function Dashboard({classes, store}) {
             <div className={classes.contentDefaultHead} >
                 <CssBaseline />
                 <TopBar classes={classes} store={store} />
-                <MainMenu classes={classes} store={store} />
+                <DefaultMainMenu classes={classes} store={store} />
                 <Content classes={classes} store={store} />
                 <LoginForm classes={classes} store={store}/>
                 <MessageDialog classes={classes} store={store}/>
