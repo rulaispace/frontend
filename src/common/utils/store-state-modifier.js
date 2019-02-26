@@ -1,11 +1,10 @@
 import assert from "./assert";
 
 export function modifyWithDef(target, def) {
-    if (def == null) return target;
+    if (def == null) return target
+    if (target === undefined) return def
 
     if (!shouldDeepTrace(def)) {
-        if (target === undefined) return def;
-
         return target;
     }
 

@@ -64,7 +64,7 @@ export default class DefaultNestedList extends React.Component {
                     return [
                         ...components,
                         (<DefaultListItem
-                            key={item.id}
+                            key={'node' + item.id}
                             state={{
                                 ...this.state,
                                 data: item,
@@ -75,7 +75,7 @@ export default class DefaultNestedList extends React.Component {
                         (
                             item.expanded ? (
                                 <DefaultCollapseList
-                                    key={index}
+                                    key={'children' + item.id}
                                     classes={this.classes}
                                     state={{
                                         ...this.state,

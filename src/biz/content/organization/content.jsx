@@ -12,6 +12,10 @@ import post from "../../../common/fetch/fetch";
 import messageReducer from "../../../common/dialog/reducer";
 import DefaultMainMenu from "../../layout/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
+import actionNames from "../../../common/config/action-name-config";
+import Any from '../../../common/utils/any'
+import buttonNames from "../../../common/config/button-name-config";
+import commonNames from "../../../common/config/common-name-config";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -20,6 +24,8 @@ export default class Content extends React.Component {
         this.classes = props.classes
         this.store = props.store
 
+        this.nestedListItemAddPerson = this.nestedListItemAddPerson.bind(this)
+        this.nestedListItemAddGroup = this.nestedListItemAddGroup.bind(this)
         this.nestedListItemEdit = this.nestedListItemEdit.bind(this)
         this.nestedListItemSave = this.nestedListItemSave.bind(this)
         this.nestedListItemExpand = this.nestedListItemExpand.bind(this)
@@ -50,14 +56,10 @@ export default class Content extends React.Component {
                 RightButtonGroupFactory: ListRightButtonGroup,
                 rightButtonGroup: {
                     [iconNames.groupAdd]: {
-                        onClick: (state) => {
-                            alert("The add group button is clicked")
-                        }
+                        onClick: this.nestedListItemAddGroup,
                     },
                     [iconNames.personAdd]: {
-                        onClick: (state) => {
-                            alert("The add person button is clicked")
-                        }
+                        onClick: this.nestedListItemAddPerson,
                     },
                     [iconNames.edit]: {
                         onClick: this.nestedListItemEdit,
@@ -79,12 +81,12 @@ export default class Content extends React.Component {
                 toolbar: {
                     leftButtonClicked: this.formClose,
                     rightButtonGroup: {
-                        [iconNames.folder]: {
+                        [buttonNames.save]: {
                             type: 'textButton',
                             text: '保存',
                             onClick: this.nestedListItemSave,
                         },
-                        [iconNames.upload]: {
+                        [buttonNames.close]: {
                             type: 'textButton',
                             text: '取消',
                             onClick: this.formClose,
@@ -95,14 +97,30 @@ export default class Content extends React.Component {
                     id: {
                         label: '编号',
                         disabled: true,
+                        visible: (state) => {
+                            return Any.get(state.form, 'id') != null
+                        }
+                    },
+                    parent: {
+                        label: '所属部门',
+                        disabled: true,
+                        visible: (state) => {
+                            return Any.get(state.form, 'parent') != null
+                        }
                     },
                     primaryText: {
-                        label: '组织机构名称',
+                        label: (state) => {
+                            const type = Any.get(state.form, 'type')
+                            return (commonNames.department === type) ? '部门名称' : '姓名'
+                        },
                         className: 'formDefaultTextField2',
                         handleChange: this.formInputChanged,
                     },
                     secondaryText: {
-                        label: '组织机构职能',
+                        label: (state) => {
+                            const type = Any.get(state.form, 'type')
+                            return (commonNames.department === type) ? '部门职能' : '岗位'
+                        },
                         className: 'formDefaultTextField2',
                         handleChange: this.formInputChanged
                     }
@@ -111,9 +129,19 @@ export default class Content extends React.Component {
         }
     }
 
+    nestedListItemAddPerson(data) {
+        const {id, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddPersonDialog, {id, level, type, primaryText, secondaryText}))
+    }
+
+    nestedListItemAddGroup(data) {
+        const {id, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddGroupDialog, {id, level, type, primaryText, secondaryText}))
+    }
+
     nestedListItemEdit(data) {
-        const {id, level, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, level, primaryText, secondaryText}))
+        const {id, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, level, type, primaryText, secondaryText}))
     }
 
     nestedListItemSave() {
@@ -138,6 +166,7 @@ export default class Content extends React.Component {
     }
 
     formInputChanged(id, value) {
+        console.log('change state: ' + id + "," + value)
         this.store.dispatch(reducer.createAction(reducer.types.modifyFormInput, {id, value}))
     }
 
@@ -147,7 +176,7 @@ export default class Content extends React.Component {
 
     render() {
         const mode = this.store.getState().organization.mode
-        if ('edit' === mode) { // 打开修改页面
+        if (actionNames.edit === mode || actionNames.addGroup === mode) {
             return <DefaultFormDialog classes={this.classes} state={this.store.getState().organization.dialog} handlers={this.handlers.dialog}/>
         }
 

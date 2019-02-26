@@ -1,4 +1,5 @@
 import Any from "../utils/any";
+import actionNames from "../config/action-name-config";
 
 const defaultTypes = {
     default: 'default',
@@ -32,15 +33,6 @@ const search = function(data, id) {
     }
 
     return null;
-}
-
-const formatFormInput = function(form, data) {
-    for (const property in data) {
-        if (!form[property]) form[property] = {}
-
-        form[property].value = data[property]
-    }
-    return form
 }
 
 const ReducerBase = Any.extend({
@@ -144,11 +136,20 @@ ReducerBase.defaultCollapseNestedList = function() {
 
 ReducerBase.defaultOpenEditDialog = function() {
     return (state={}, payload) => {
-        state.mode = 'edit'
+        state.mode = actionNames.edit
         state.dialog.open = true
-        state.dialog.form = formatFormInput(state.dialog.form, payload)
+        state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, payload)
         return state
     }
+}
+
+ReducerBase.formatFormInput = function(form, data) {
+    for (const property in data) {
+        if (!form[property]) form[property] = {}
+
+        form[property].value = data[property]
+    }
+    return form
 }
 
 ReducerBase.defaultCloseEditDialog = function() {

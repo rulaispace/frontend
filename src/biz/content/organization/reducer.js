@@ -1,4 +1,20 @@
 import ReducerBase from "../../../common/redux/reducer-base";
+import actionNames from "../../../common/config/action-name-config";
+import commonNames from "../../../common/config/common-name-config";
+
+const openAddDialog = function(type) {
+    return function(state={}, payload) {
+        state.mode = actionNames.addGroup
+        state.dialog.open = true
+        state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, {
+            parent: payload.primaryText,
+            primaryText: '',
+            secondaryText: '',
+            type: type,
+        })
+        return state
+    }
+}
 
 const types = {
     loading: 'loadingOrganizationData',
@@ -6,6 +22,8 @@ const types = {
     expand: 'expandOfOrganization',
     collapse: 'collapseOfOrganization',
     openEditDialog: 'openEditDialogOfOrganization',
+    openAddGroupDialog: 'openAddGroupDialogOfOrganization',
+    openAddPersonDialog: 'openAddPersonDialogOfOrganization',
     modifyFormInput: 'modifyFormInputOfOrganization',
     closeEditDialog: 'closeEditDialogOfOrganization',
 }
@@ -31,6 +49,14 @@ const reducers = [
         type: types.openEditDialog,
         action: ReducerBase.defaultAction(types.openEditDialog),
         reduce: ReducerBase.defaultOpenEditDialog(),
+    }, {
+        type: types.openAddGroupDialog,
+        action: ReducerBase.defaultAction(types.openAddGroupDialog),
+        reduce: openAddDialog(commonNames.department),
+    }, {
+        type: types.openAddPersonDialog,
+        action: ReducerBase.defaultAction(types.openAddPersonDialog),
+        reduce: openAddDialog(commonNames.employee),
     }, {
         type: types.closeEditDialog,
         action: ReducerBase.defaultAction(types.closeEditDialog),

@@ -13,4 +13,12 @@ Any.extend = function(extension) {
     return object
 }
 
+Any.get = function(obj, key) {
+    if (obj == null) return obj
+    if (obj[key] == null) return null
+
+    if (typeof obj[key] === 'object') return obj[key].value
+    return obj[key]
+}
+
 export default Any

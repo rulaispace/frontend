@@ -10,8 +10,10 @@ import {findDOMNode} from "react-dom";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {modifyWithDef} from "../utils/store-state-modifier";
+import uuid from 'uuid'
 
 const defaultInputHandler = {
+    visible: true,
     className: 'formDefaultTextField',
     inputClassName: 'formDefaultInputLabel',
     disabled: false,
@@ -26,18 +28,23 @@ class DefaultFormDialog extends React.Component {
     constructor(props) {
         super(props)
 
+        this.proxy = this.proxy.bind(this)
+
         this.classes = props.classes
 
-        for (const property in props.state.form) {
-            props.state.form[property] = modifyWithDef(props.state.form[property], defaultInputState)
-        }
-        this.state = props.state
-        console.log(this.state)
-
+        defaultInputHandler.proxy = this.proxy
         for (const property in props.handlers.form) {
             props.handlers.form[property] = modifyWithDef(props.handlers.form[property], defaultInputHandler)
+            props.state.form[property] = modifyWithDef(props.state.form[property], defaultInputState)
         }
         this.handlers = props.handlers
+        this.state = props.state
+
+    }
+
+    proxy(target) {
+        if (typeof target == 'function') return target(this.state)
+        return target
     }
 
     render() {
@@ -48,7 +55,7 @@ class DefaultFormDialog extends React.Component {
                 </AppBar>
                 <form className={this.classes.formDefaultContainer} noValidate autoComplete="off">
                     {
-                        Object.keys(this.handlers.form).map(id => {
+                        Object.keys(this.handlers.form).filter(id => (this.handlers.form[id].proxy(this.handlers.form[id].visible))).map(id => {
                             return (
                                 <DefaultFormInput
                                     key={id}
@@ -95,6 +102,7 @@ class DefaultFormInput extends React.Component {
     }
 
     render() {
+        const id = uuid.v1()
         return (
             <FormControl
                 className={this.classes[this.handlers.className]}
@@ -108,21 +116,21 @@ class DefaultFormInput extends React.Component {
                     ref={ref => {
                         this.labelRef = findDOMNode(ref)
                     }}
-                    htmlFor={"form-input-" + this.handlers.id}
+                    htmlFor={"form-input-" + id}
                 >
-                    {this.handlers.label}
+                    {this.handlers.proxy(this.handlers.label)}
                 </InputLabel>
                 <OutlinedInput
-                    id={"form-input-" + this.handlers.id}
+                    id={"form-input-" + id}
                     labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
                     value={this.state.value}
-                    aria-describedby={"form-helper-text-" + this.handlers.id}
+                    aria-describedby={"form-helper-text-" + id}
                     onChange={e=>{
                         e.preventDefault()
                         this.handlers.handleChange(this.handlers.id, e.target.value)
                     }}
                 />
-                {this.state.msg?(<FormHelperText id={"form-helper-text-" + this.handlers.id}>{this.state.msg}</FormHelperText>):null}
+                {this.state.msg?(<FormHelperText id={"form-helper-text-" + id}>{this.state.msg}</FormHelperText>):null}
             </FormControl>
         )
     }
