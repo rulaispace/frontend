@@ -269,11 +269,7 @@ const boxing = {
                 disabled: true,
             },
         },
-        nestedList: {
-            feature: {
-                title: '中国平安',
-            },
-        },
+        nestedList: {},
         dialog: {
             open: false,
             toolbar: {

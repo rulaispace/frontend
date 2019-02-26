@@ -3,24 +3,46 @@ import PropTypes from 'prop-types'
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import DefaultListItem from "./default-list-item";
+import uuid from "uuid";
+import DefaultListBranch from "./default-list-branch";
 
 export default function DefaultCollapseList({state, classes, handlers}) {
-    const {
-        feature: {
-            listClassName
-        },
-        data,
-    } = state
-
-    if (data) {
+    if (state.data) {
         return (
             <Collapse in={true}>
                 <List
                     component={'nav'}
                     dense={true}
-                    className={classes[listClassName]}
+                    className={classes[state.feature.listClassName]}
                 >
-                    {data.map((item) => {
+                    {state.data.reduce((components, item)=>{
+                        return [
+                            ...components,
+                            (<DefaultListItem
+                                key={'node' + uuid.v1()}
+                                state={{
+                                    ...state,
+                                    data: item,
+                                }}
+                                classes={classes}
+                                handlers={handlers}
+                            />),
+                            (
+                                item.expanded ? (
+                                    <DefaultListBranch
+                                        key={'children' + uuid.v1()}
+                                        classes={classes}
+                                        state={{
+                                            ...state,
+                                            data: item.children,
+                                        }}
+                                        handlers={handlers}
+                                    />
+                                ): null
+                            ),
+                        ]
+                    }, [])}
+                    {/*{state.data.map((item) => {
                         return (
                             <DefaultListItem
                                 key={item.id}
@@ -32,12 +54,11 @@ export default function DefaultCollapseList({state, classes, handlers}) {
                                 handlers={handlers}
                             />
                         )
-                    })}
+                    })}*/}
                 </List>
             </Collapse>
         )
     }
-
     return null
 }
 

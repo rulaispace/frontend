@@ -1,12 +1,13 @@
 import ReducerBase from "../../../common/redux/reducer-base";
-import actionNames from "../../../common/config/action-name-config";
 import commonNames from "../../../common/config/common-name-config";
 
 const openAddDialog = function(type) {
     return function(state={}, payload) {
-        state.mode = actionNames.addGroup
+        state.mode = commonNames.add
         state.dialog.open = true
         state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, {
+            parentId: payload.id,
+            path: payload.path + '.N',
             parent: payload.primaryText,
             primaryText: '',
             secondaryText: '',

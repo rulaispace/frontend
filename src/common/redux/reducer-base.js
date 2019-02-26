@@ -1,5 +1,5 @@
 import Any from "../utils/any";
-import actionNames from "../config/action-name-config";
+import commonNames from "../config/common-name-config";
 
 const defaultTypes = {
     default: 'default',
@@ -33,6 +33,22 @@ const search = function(data, id) {
     }
 
     return null;
+}
+
+const decorate = function (children, path, target) {
+    if (children == null) return children
+
+    for (const property in children) {
+        children[property].path = path ? path + '.' + children[property].id : children[property].id
+
+        // 判断是会否需要展开
+         if (target.startsWith(children[property].path))
+             children[property].expanded = true
+
+        decorate(children[property].children, children[property].path, target)
+    }
+
+    return children
 }
 
 const ReducerBase = Any.extend({
@@ -102,14 +118,19 @@ ReducerBase.defaultChangeRowsPerPageOfTable = function() {
 
 ReducerBase.defaultNestedListReduce = function() {
     return (state, payload) => {
-        console.log(state)
-        state.mode = 'main'
+        console.log('###DEBUG##')
+        console.log(JSON.stringify(state, null, 2))
+        console.log(JSON.stringify(payload, null, 2))
+        const target = Any.get(state.dialog.form, commonNames.path) ? Any.get(state.dialog.form, commonNames.path) : ''
+        state.mode = commonNames.display
         if (state.dialog) {
             state.dialog.open = false
             state.dialog.form = {}
         }
 
-        state.nestedList.data = payload.children
+        // 将修改或新增的数据的路径全部展开
+        state.nestedList.data = decorate([payload], null, target)
+        console.log('##RESULT##: ' + JSON.stringify(state.nestedList.data, null, 2))
         return state
     }
 }
@@ -136,7 +157,7 @@ ReducerBase.defaultCollapseNestedList = function() {
 
 ReducerBase.defaultOpenEditDialog = function() {
     return (state={}, payload) => {
-        state.mode = actionNames.edit
+        state.mode = commonNames.update
         state.dialog.open = true
         state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, payload)
         return state

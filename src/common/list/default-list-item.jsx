@@ -6,62 +6,53 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconStore from "../utils/icon-store";
 
 export default function DefaultListItem({state, classes, handlers}) {
-    const {
-        feature: {
-            collapsedIconKey,
-            expandedIconKey,
-            textClassName,
-        },
-        data,
-    } = state
-
-    const {
-        collapse,
-        expand,
-        TextIconFactory,
-        RightButtonGroupFactory,
-    } = handlers
-
-    const {id, level, expanded, primaryText, secondaryText} = data
-
     return (
         <ListItem
-            key={id}
-            className={classes[`nestedListDefaultItemLevel${level}`]}
+            key={state.data.id}
+            className={classes[`nestedListDefaultItemLevel${state.data.level}`]}
         >
             {/** 根据当前状态，选择列表前面按钮的图标以及回调函数 **/}
             {
-                expanded ? (
+                DefaultListItem.shouldCreateLeftButton(handlers.expandable, state) ? (state.data.expanded ? (
                     <IconButton onClick={(e) => {
                         e.preventDefault()
-                        collapse(data)
+                        handlers.collapse(state.data)
                     }}>
-                        <IconStore iconKey={expandedIconKey} />
+                        <IconStore iconKey={state.feature.expandedIconKey} />
                     </IconButton>
                 ) : (
                     <IconButton onClick={(e) => {
                         e.preventDefault()
-                        expand(data)
+                        handlers.expand(state.data)
                     }}>
-                        <IconStore iconKey={collapsedIconKey} />
+                        <IconStore iconKey={state.feature.collapsedIconKey} />
                     </IconButton>
-                )
+                )) : null
+
             }
             {/** 创建文本前的图标 **/}
-            <TextIconFactory state={data} classes={classes}/>
+            <handlers.TextIconFactory state={state} classes={classes} handlers={handlers}/>
             {/** 创建文本 **/}
             <ListItemText
-                className={classes[textClassName]}
-                primary= {primaryText}
-                secondary={secondaryText}
+                className={classes[state.feature.textClassName]}
+                primary= {state.data.primaryText}
+                secondary={state.data.secondaryText}
             />
             {/** 创建右侧按钮区 **/}
-            <RightButtonGroupFactory state={data} classes={classes} handlers={handlers.rightButtonGroup}/>
+            <handlers.RightButtonGroupFactory state={state.data} classes={classes} handlers={handlers.rightButtonGroup}/>
         </ListItem>
     )
 }
+
 DefaultListItem.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
     handlers: PropTypes.object.isRequired,
+}
+
+DefaultListItem.shouldCreateLeftButton = function(expandable, state) {
+    if (typeof expandable === 'function')
+        return expandable(state)
+
+    return expandable
 }

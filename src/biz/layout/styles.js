@@ -185,20 +185,12 @@ export function styles(theme) {
             width: '100%',
             backgroundColor: theme.palette.background.default,
         },
-        nestedListDefaultItemLevel1: {
+        nestedListDefaultItemLevel0: {
             padding:0,
             borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             width: '100%',
         },
-        nestedListDefaultItemLevel2: {
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingBottom: 0,
-            paddingLeft: theme.spacing.unit,
-            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-            width: '100%',
-        },
-        nestedListDefaultItemLevel3: {
+        nestedListDefaultItemLevel1: {
             paddingTop: 0,
             paddingRight: 0,
             paddingBottom: 0,
@@ -206,15 +198,7 @@ export function styles(theme) {
             borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             width: '100%',
         },
-        nestedListDefaultItemLevel4: {
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingBottom: 0,
-            paddingLeft: theme.spacing.unit * 3,
-            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-            width: '100%',
-        },
-        nestedListDefaultItemLevel5: {
+        nestedListDefaultItemLevel2: {
             paddingTop: 0,
             paddingRight: 0,
             paddingBottom: 0,
@@ -222,19 +206,35 @@ export function styles(theme) {
             borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             width: '100%',
         },
-        nestedListDefaultItemLevel6: {
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingBottom: 0,
-            paddingLeft: theme.spacing.unit * 5,
-            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-            width: '100%',
-        },
-        nestedListDefaultItemLevel7: {
+        nestedListDefaultItemLevel3: {
             paddingTop: 0,
             paddingRight: 0,
             paddingBottom: 0,
             paddingLeft: theme.spacing.unit * 6,
+            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+            width: '100%',
+        },
+        nestedListDefaultItemLevel4: {
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingBottom: 0,
+            paddingLeft: theme.spacing.unit * 8,
+            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+            width: '100%',
+        },
+        nestedListDefaultItemLevel5: {
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingBottom: 0,
+            paddingLeft: theme.spacing.unit * 10,
+            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+            width: '100%',
+        },
+        nestedListDefaultItemLevel6: {
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingBottom: 0,
+            paddingLeft: theme.spacing.unit * 12,
             borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             width: '100%',
         },
@@ -248,7 +248,13 @@ export function styles(theme) {
             paddingBottom: 0,
             paddingLeft: 0,
         },
-
+        nestedListDefaultIconWithoutExpand: {
+            paddingTop: 0,
+            paddingRight: theme.spacing.unit,
+            paddingBottom: 0,
+            paddingLeft: 0,
+            marginLeft: theme.spacing.unit * 6,
+        },
         // default table
         tableDefaultRoot: {
             width: '100%',

@@ -14,17 +14,13 @@ function MessageDialog({store}) {
         <div>
             <Dialog
                 open={store.getState().message.open}
-                onClose={() => {
-                    store.dispatch(reducer.createAction(reducer.types.close))
-                }}
+                onClose={() => {store.dispatch(reducer.createAction(reducer.types.close))}}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">{store.getState().message.title}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {store.getState().message.details}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">{store.getState().message.details}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button

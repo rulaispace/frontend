@@ -4,7 +4,7 @@ import DefaultToolbar from '../../../common/toolbar/default-toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import iconNames from "../../../common/config/icon-name-config";
 import Paper from "@material-ui/core/Paper";
-import DefaultNestedList from "../../../common/list/default-nested-list";
+import DefaultList from "../../../common/list/default-list";
 import reducer from './reducer'
 import ListRightButtonGroup from "./list-right-button-group";
 import DefaultFormDialog from "../../../common/dialog/form-dialog";
@@ -12,10 +12,10 @@ import post from "../../../common/fetch/fetch";
 import messageReducer from "../../../common/dialog/reducer";
 import DefaultMainMenu from "../../layout/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
-import actionNames from "../../../common/config/action-name-config";
 import Any from '../../../common/utils/any'
 import buttonNames from "../../../common/config/button-name-config";
 import commonNames from "../../../common/config/common-name-config";
+import ListTextIcon from "./list-text-icon";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -24,6 +24,7 @@ export default class Content extends React.Component {
         this.classes = props.classes
         this.store = props.store
 
+        this.nestListItemDelete = this.nestListItemDelete.bind(this)
         this.nestedListItemAddPerson = this.nestedListItemAddPerson.bind(this)
         this.nestedListItemAddGroup = this.nestedListItemAddGroup.bind(this)
         this.nestedListItemEdit = this.nestedListItemEdit.bind(this)
@@ -53,6 +54,7 @@ export default class Content extends React.Component {
                 }
             },
             nestedList: {
+                TextIconFactory: ListTextIcon,
                 RightButtonGroupFactory: ListRightButtonGroup,
                 rightButtonGroup: {
                     [iconNames.groupAdd]: {
@@ -70,12 +72,22 @@ export default class Content extends React.Component {
                         }
                     }
                 },
+                expandable: (state) => {
+                    if (state == null) return false
+                    if (state.data == null) return false
+                    if (state.data.children == null) return false
+                    if (state.data.children.length === 0) return false
+                    if (state.data.type === commonNames.employee) return false
+
+                    return true
+                },
                 expand: this.nestedListItemExpand,
                 collapse: this.nestedListItemCollapse,
             },
             dialog: {
                 services: {
                     update: 'org/modify',
+                    add: 'org/add',
                     delete: 'org/delete',
                 },
                 toolbar: {
@@ -129,24 +141,28 @@ export default class Content extends React.Component {
         }
     }
 
+    nestListItemDelete(data) {
+
+    }
+
     nestedListItemAddPerson(data) {
-        const {id, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openAddPersonDialog, {id, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddPersonDialog, {id, path, level, type, primaryText, secondaryText}))
     }
 
     nestedListItemAddGroup(data) {
-        const {id, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openAddGroupDialog, {id, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddGroupDialog, {id, path, level, type, primaryText, secondaryText}))
     }
 
     nestedListItemEdit(data) {
-        const {id, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, path, level, type, primaryText, secondaryText}))
     }
 
     nestedListItemSave() {
         const record = DefaultFormDialog.unboxing(this.store.getState().organization.dialog.form)
-        post(this.handlers.dialog.services.update, record, this.updateSuccessfully, this.updateFailed)
+        post(this.handlers.dialog.services[this.store.getState().organization.mode], record, this.updateSuccessfully, this.updateFailed)
     }
 
     updateSuccessfully() {
@@ -166,7 +182,6 @@ export default class Content extends React.Component {
     }
 
     formInputChanged(id, value) {
-        console.log('change state: ' + id + "," + value)
         this.store.dispatch(reducer.createAction(reducer.types.modifyFormInput, {id, value}))
     }
 
@@ -176,7 +191,7 @@ export default class Content extends React.Component {
 
     render() {
         const mode = this.store.getState().organization.mode
-        if (actionNames.edit === mode || actionNames.addGroup === mode) {
+        if (commonNames.update === mode || commonNames.add === mode) {
             return <DefaultFormDialog classes={this.classes} state={this.store.getState().organization.dialog} handlers={this.handlers.dialog}/>
         }
 
@@ -189,7 +204,7 @@ export default class Content extends React.Component {
                     </AppBar>
                 </div>
                 <Paper className={this.classes.contentDefaultBody}>
-                    <DefaultNestedList classes={this.classes} state={this.store.getState().organization.nestedList} handlers={this.handlers.nestedList}/>
+                    <DefaultList classes={this.classes} state={this.store.getState().organization.nestedList} handlers={this.handlers.nestedList}/>
                 </Paper>
             </main>
         )
