@@ -34,65 +34,48 @@ const defaultHeaderColState = {
 }
 
 
-function modify(state) {
+function modifyState(state) {
     let result = modifyWithDef(state, defaultState)
     result.header = result.header.map(col => modifyWithDef(col, defaultHeaderColState))
     return result;
 }
 
-export default class DefaultTable extends React.Component {
-    constructor(props) {
-        super(props)
-        this.classes = props.classes
-        this.state = modify(props.state)
-        this.handlers = modifyWithDef(props.handlers, defaultHandlers)
-    }
+export default function DefaultTable({classes, state, handlers}) {
+    const myState = modifyState(state)
+    const myHandlers = modifyWithDef(handlers, defaultHandlers)
 
-    render() {
-        const {
-            feature: {
-                pageable,
-                rootClassName,
-                contentClassName,
-                tableClassName,
-            },
-        } = this.state
-
-        return (
-            <div className={this.classes[rootClassName]}>
-                <div className={this.classes[contentClassName]}>
-                    <Table className={this.classes[tableClassName]}>
-                        <DefaultTableHead state={this.state} classes={this.classes} handlers={this.handlers}/>
-                        <DefaultTableBody state={this.state} classes={this.classes} handlers={this.handlers}/>
-                    </Table>
-                </div>
-                {
-                    pageable ? (
-                        <DefaultTablePagination state={this.state} classes={this.classes} handlers={this.handlers}/>
-                    ) : null
-                }
+    return (
+        <div className={classes[myState.feature.rootClassName]}>
+            <div className={classes[myState.feature.contentClassName]}>
+                <Table className={classes[myState.feature.tableClassName]}>
+                    <DefaultTableHead state={myState} classes={classes} handlers={myHandlers}/>
+                    <DefaultTableBody state={myState} classes={classes} handlers={myHandlers}/>
+                </Table>
             </div>
-        )
-    }
+            {
+                state.feature.pageable ? (
+                    <DefaultTablePagination state={myState} classes={classes} handlers={myHandlers}/>
+                ) : null
+            }
+        </div>
+    )
 }
 
 DefaultTable.filter = function(state) {
-    const {
-        feature: {
-            withFilter,
-        },
-        filter,
-        body,
-    } = state
-
-    return withFilter ? (body.filter((row) => {
-        for (const columnName in row) {
-            if (filter[columnName]) {
-                return row[columnName].indexOf(filter[columnName]) !== -1
-            }
-        }
-        return true
-    })) : body
+    return state.feature.withFilter ?
+        (
+            state.body.filter(
+                function(row) {
+                    for (const property in row) {
+                        if (state.filter[property]) {
+                            return row[property].indexOf(state.filter[property]) !== -1
+                        }
+                    }
+                    return true
+                }
+            )
+        )
+        : state.body
 }
 
 DefaultTable.propTypes = {

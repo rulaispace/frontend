@@ -37,7 +37,7 @@ const reducers = [
     }, {
         type: types.filter,
         action: ReducerBase.defaultAction(types.filter),
-        reduce: ReducerBase.defaultTableFilterReduce(),
+        reduce: ReducerBase.defaultListFilterReduce(commonNames.primaryText),
     }, {
         type: types.expand,
         action: ReducerBase.defaultAction(types.expand),

@@ -5,6 +5,7 @@ import DefaultToolbar from "../../../common/toolbar/default-toolbar";
 import DefaultTable from "../../../common/table/default-table";
 import Paper from "@material-ui/core/Paper";
 import reducer from './reducer'
+import commonNames from "../../../common/config/common-name-config";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -23,13 +24,26 @@ export default class Content extends React.Component {
             },
             table: {
                 title: {
-                    onClick: () => {
-                        alert('title is clicked')
+                    onClick: function(ordinal) {
+                        return function() {
+                            alert(`title is clicked: ${ordinal}`)
+                        }
                     }
                 },
                 operator: {
-                    onClick: () => {
-                        alert('operator is clicked')
+                    onClick: function(ordinal) {
+                        if (ordinal === commonNames.download) {
+                            return function() {
+                                alert('Reset password is clicked')
+                            }
+                        }
+
+                        return f=>f
+                    },
+                    label: function(ordinal) {
+                        if (ordinal === commonNames.download)
+                            return '下载'
+                        return ordinal
                     }
                 },
                 pagination: {

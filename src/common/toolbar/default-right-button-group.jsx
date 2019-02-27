@@ -5,19 +5,9 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/es/Button/Button";
 
 export default function DefaultRightButtonGroup({state, classes, handlers}) {
-    const {
-        feature: {
-            showRightButtonGroup,
-        },
-        rightButtonGroup: {
-            className: rightButtonGroupClassName,
-        }
-    } = state
-
-
-    if(showRightButtonGroup) {
+    if(state.feature.showRightButtonGroup) {
         return (
-            <div className={classes[rightButtonGroupClassName]}>
+            <div className={classes[state.rightButtonGroup.rightButtonGroupClassName]}>
                 {
                     Object.keys(handlers).map(id => {
                         if ('textButton' === handlers[id].type) {
@@ -59,5 +49,5 @@ export default function DefaultRightButtonGroup({state, classes, handlers}) {
 DefaultRightButtonGroup.propTypes = {
     state: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
-    handlers: PropTypes.object.isRequired,
+    handlers: PropTypes.object,
 }

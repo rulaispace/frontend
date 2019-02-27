@@ -34,6 +34,7 @@ export default class Content extends React.Component {
         this.formInputChanged = this.formInputChanged.bind(this)
         this.formClose = this.formClose.bind(this)
 
+        this.filter = this.filter.bind(this)
         this.updateFailed = this.updateFailed.bind(this)
         this.updateSuccessfully = this.updateSuccessfully.bind(this)
 
@@ -68,7 +69,20 @@ export default class Content extends React.Component {
                     },
                     [iconNames.delete]: {
                         onClick: (state) => {
+                            console.log(state)
                             alert("The delete button is clicked")
+                        }
+                    },
+                    [iconNames.check]: {
+                        onClick: (state) => {
+                            console.log(state)
+                            alert("The check button is clicked")
+                        }
+                    },
+                    [iconNames.close]: {
+                        onClick: (state) => {
+                            console.log(state)
+                            alert("Deactivate button is clicked")
                         }
                     }
                 },
@@ -139,6 +153,10 @@ export default class Content extends React.Component {
                 }
             },
         }
+    }
+
+    filter(value) {
+        this.store.dispatch(reducer.createAction(reducer.types.filter, {value}))
     }
 
     nestListItemDelete(data) {

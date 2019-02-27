@@ -35,7 +35,50 @@ const search = function(data, id) {
     return null;
 }
 
-const decorate = function (children, path, target) {
+const collapseAll = function(children) {
+    if (children == null) return children
+
+    for (const property in children) {
+        children[property].expanded = false;
+        collapseAll(children[property].children)
+    }
+
+    return children
+}
+
+const expandWithValue = function(root, children, id, value) {
+    if (!value.length) return children
+    if (children == null) return children
+    for (const property in children) {
+        if (children[property][id].indexOf(value) !== -1) {
+            expand2Target(root, null, '' + children[property].path)
+        }
+
+        expandWithValue(root, children[property].children, id, value)
+    }
+
+    return children
+}
+
+const expand2Target = function(children, path, target) {
+    if (path == null) path = ''
+
+    console.log(`####################TARGET: ${target}`)
+
+    const key = target.slice(path.length).split('.')[0]
+    if (!key.length) return children
+
+    for (const property in children) {
+        if (children[property].id == key) {
+            children[property].expanded = true
+            expand2Target(children[property].children, path + key + '.', target)
+        }
+    }
+
+    return children
+}
+
+const decorate = function(children, path, target) {
     if (children == null) return children
 
     for (const property in children) {
@@ -118,9 +161,6 @@ ReducerBase.defaultChangeRowsPerPageOfTable = function() {
 
 ReducerBase.defaultNestedListReduce = function() {
     return (state, payload) => {
-        console.log('###DEBUG##')
-        console.log(JSON.stringify(state, null, 2))
-        console.log(JSON.stringify(payload, null, 2))
         const target = Any.get(state.dialog.form, commonNames.path) ? Any.get(state.dialog.form, commonNames.path) : ''
         state.mode = commonNames.display
         if (state.dialog) {
@@ -130,7 +170,16 @@ ReducerBase.defaultNestedListReduce = function() {
 
         // 将修改或新增的数据的路径全部展开
         state.nestedList.data = decorate([payload], null, target)
-        console.log('##RESULT##: ' + JSON.stringify(state.nestedList.data, null, 2))
+        return state
+    }
+}
+
+ReducerBase.defaultListFilterReduce = function(id) {
+    return (state={}, payload) => {
+        // 将所有节点的expanded字段置为false
+        collapseAll(state.nestedList.data)
+        // 通过模糊匹配，展开所有匹配成功的节点
+        expandWithValue(state.nestedList.data, state.nestedList.data, id, payload.value)
         return state
     }
 }

@@ -1,25 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TableCell from '@material-ui/core/TableCell'
+import Any from '../../common/utils/any'
 import Link from '@material-ui/core/Link'
-import * as array from "../utils/array";
+import uuid from "uuid";
+import commonNames from "../config/common-name-config";
 
-function LinkableEle({classes, state}) {
-    const {items, actions} = state
+function LinkableEle({classes, state, handler}) {
     return (
         <div>
             {
-                items.map((text, i) => (
-                    <Link
-                        className={classes.tableCellDefaultLinkItem}
-                        key={i}
-                        onClick={
-                            array.itemWithFirstAsFallback(actions, i)
-                        }
-                    >
-                        {text}
-                    </Link>
-                ))
+                Any.asArray(state).map(function(ordinal) {
+                    return (
+                        <Link
+                            className={classes.tableCellDefaultLinkItem}
+                            key={uuid.v1()}
+                            onClick={DefaultTableCell.proxy(ordinal, handler, commonNames.onClick)}
+                        >
+                            {DefaultTableCell.proxy(ordinal, handler, commonNames.label)}
+                        </Link>
+                    )
+                })
             }
         </div>
     )
@@ -27,40 +28,35 @@ function LinkableEle({classes, state}) {
 
 LinkableEle.propTypes = {
     state: PropTypes.object.isRequired,
+    handler: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 }
 
 
 export default function DefaultTableCell({state, classes, handlers}) {
-    const {
-        col: {
-            id,
-            numeric,
-            disablePadding,
-            linkable,
-        },
-        row
-    } = state
-
     return (
         <TableCell
-            className={classes[handlers.cellStyles(row, state.col)]}
-            align={numeric ? 'center' : 'left'}
-            padding={disablePadding ? 'none' : 'default'}
+            className={classes[handlers.cellStyles(state.row, state.col)]}
+            align={state.col.numeric ? 'center' : 'left'}
+            padding={state.col.disablePadding ? 'none' : 'default'}
         >
             {
-                linkable ? (
+                state.col.linkable ? (
                     <LinkableEle
-                        state={{
-                            items: array.asArray(row[id]),
-                            actions: array.asArray(handlers[id].onClick)
-                        }}
+                        state={state.row[state.col.id]}
+                        handler={handlers[state.col.id]}
                         classes={classes}
                     />
-                ) : row[id]
+                ) : DefaultTableCell.proxy(state.row[state.col.id], handlers[state.col.id], commonNames.label)
             }
         </TableCell>
     )
+}
+
+DefaultTableCell.proxy = function(ordinal, handler, type) {
+    if (handler == null) return ordinal
+    if (handler[type] == null) return ordinal
+    return handler[type](ordinal)
 }
 
 DefaultTableCell.propTypes = {

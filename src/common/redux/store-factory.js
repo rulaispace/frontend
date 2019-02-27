@@ -16,20 +16,6 @@ import RuleReducer from "../../biz/content/rule/reducer";
 import announcementReducer from "../../biz/content/announcement/reducer";
 import RegulationReducer from "../../biz/content/regulation/reducer";
 
-const DefaultReduxReducers = {
-    message: MessageReducer.proxy(),
-    account: accountReducer.proxy(),
-    layout: layoutReducer.proxy(),
-    notification: notificationReducer.proxy(),
-    document: DocumentReducer.proxy(),
-    organization: OrganizationReducer.proxy(),
-    schedule: ScheduleReducer.proxy(),
-    resource: ResourceReducer.proxy(),
-    rule: RuleReducer.reduce,
-    announcement: announcementReducer.proxy(),
-    regulation: RegulationReducer.proxy(),
-}
-
 function createLoggerMiddleWare() {
     return (
         store => next => action => {
@@ -79,7 +65,7 @@ const StoreFactory = Any.extend({
         )(
             createStore
         )(
-            combineReducers(DefaultReduxReducers),
+            combineReducers(StoreFactory.reducers()),
             this.usingLocalStorage() ? this.localStorage.read() : deepOverride(boxing, this.overrideState)
             // deepOverride(boxing, this.overrideState)
         )
@@ -100,7 +86,7 @@ StoreFactory.defaultReducers = {
     regulation: RegulationReducer,
 }
 
-StoreFactory.getReducer = function(name) {
+StoreFactory.reducer = function(name) {
     return StoreFactory.defaultReducers[name]
 }
 
@@ -109,6 +95,7 @@ StoreFactory.reducers = function() {
     for (const property in StoreFactory.defaultReducers) {
         reducers[property] = StoreFactory.defaultReducers[property].proxy()
     }
+    return reducers
 }
 
 export default StoreFactory

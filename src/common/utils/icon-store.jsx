@@ -31,6 +31,8 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import SkipPreIcon from '@material-ui/icons/SkipPreviousOutlined'
 import SkipNextIcon from '@material-ui/icons/SkipNextOutlined'
 import CloseIcon from '@material-ui/icons/Close'
+import CheckIcon from '@material-ui/icons/Check'
+import AddIcon from '@material-ui/icons/PlaylistAddRounded'
 import iconNames from "../config/icon-name-config";
 import menuNames from "../config/menu-name-config";
 
@@ -78,6 +80,8 @@ export default function IconStore({iconKey, fontSize, className}) {
             return <FolderIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         case iconNames.upload:
             return <UploadIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.add:
+            return <AddIcon fontSize={fontSize?fontSize:'default'} className={className}/>
 
         case iconNames.arrowRight:
             return <ArrowRightIcon fontSize={fontSize?fontSize:'default'} className={className}/>
@@ -103,6 +107,8 @@ export default function IconStore({iconKey, fontSize, className}) {
             return <SkipNextIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         case iconNames.close:
             return <CloseIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.check:
+            return <CheckIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         default:
             return null
     }

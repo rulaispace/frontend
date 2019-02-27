@@ -1,4 +1,5 @@
 import ReducerBase from "../../../common/redux/reducer-base";
+import commonNames from "../../../common/config/common-name-config";
 
 const types = {
     loading: 'loadingAnnouncementData',
@@ -14,10 +15,8 @@ const reducers = [
         reduce: (state, payload) => {
             for (const index in payload) {
                 const resource = payload[index]
-                // if (resource.state === '在途') {
-                resource.operator = ['修改', '发布', '删除']
+                resource.operator = [commonNames.modify, commonNames.publish, commonNames.delete]
             }
-
             state.table.body = payload
             return state
         },

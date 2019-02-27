@@ -25,6 +25,9 @@ const iconNames = {
     skipPre: 'icon_skip_pre',
 
     close: 'icon_close',
+    check: 'icon_check',
+
+    add: 'icon_add',
 
     // 日程展示的方式
     SCHEDULE_DAY_TYPE: 'schedule_day_type',

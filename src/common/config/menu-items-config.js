@@ -34,6 +34,7 @@ const menuItems = {
             },
             {
                 id: menuNames.rule,
+                loadingUrl: 'user/query',
                 label: '系统权限开通',
             },
             {

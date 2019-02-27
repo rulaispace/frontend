@@ -1,4 +1,5 @@
 import ReducerBase from "../../../common/redux/reducer-base";
+import commonNames from "../../../common/config/common-name-config";
 
 const types = {
     loading: 'loadingDocumentData',
@@ -13,7 +14,7 @@ const reducers = [
         action: ReducerBase.defaultAction(types.loading),
         reduce: (state, payload) => {
             state.table.body = payload.map(item => {
-                item.operator = '下载'
+                item.operator = commonNames.download
                 return item
             })
             return state

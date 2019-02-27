@@ -17,6 +17,7 @@ import menuItems from "../../common/config/menu-items-config";
 import post from '../../common/fetch/fetch'
 import StoreFactory from "../../common/redux/store-factory";
 import messageReducer from "../../common/dialog/reducer";
+import commonNames from "../../common/config/common-name-config";
 
 function DefaultMenuList({state, onClick}) {
     const {header, items} = state
@@ -56,7 +57,7 @@ const loading = function(store) {
 
 const loadSuccess = function(store, name) {
     return function(payload) {
-        const childReducer = StoreFactory.getReducer(name)
+        const childReducer = StoreFactory.reducer(name)
         store.dispatch(childReducer.createAction(childReducer.types.loading, payload))
         store.dispatch(reducer.createAction(reducer.types.navigate, {name}))
     }
@@ -87,14 +88,14 @@ function DefaultMainMenu({classes, store}) {
                 </IconButton>
             </div>
             <Divider />
-            {('admin' === store.getState().account.rule || 'user' === store.getState().account.rule) ? (
+            {(commonNames.admin === store.getState().account.rule || commonNames.employee === store.getState().account.rule) ? (
                 <DefaultMenuList
                     state={menuItems.employee}
                     onClick={loading(store)}
                 />) : null
             }
-            {'admin'=== store.getState().account.rule ? (<Divider />) : null}
-            {'admin'=== store.getState().account.rule ? (
+            { commonNames.admin === store.getState().account.rule ? (<Divider />) : null}
+            { commonNames.admin === store.getState().account.rule ? (
                 <DefaultMenuList
                     state={menuItems.administrator}
                     onClick={loading(store)}

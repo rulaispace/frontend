@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar'
 import DefaultToolbar from "../../../common/toolbar/default-toolbar";
 import DefaultTable from "../../../common/table/default-table";
 import reducer from './reducer'
+import commonNames from "../../../common/config/common-name-config";
+import Paper from "@material-ui/core/Paper";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -22,14 +24,27 @@ export default class Content extends React.Component {
             },
             table: {
                 operator: {
-                    onClick: [
-                        function() {
-                            alert('Modify is clicked')
-                        },
-                        function() {
-                            alert('Delete is clicked')
+                    onClick: function(ordinal) {
+                        if (ordinal === commonNames.modify) {
+                            return function() {
+                                alert('Modify is clicked.')
+                            }
                         }
-                    ]
+                        if (ordinal === commonNames.delete) {
+                            return function() {
+                                alert('Delete is clicked')
+                            }
+                        }
+
+                        return f=>f
+                    },
+                    label: function(ordinal) {
+                        if (ordinal === commonNames.modify)
+                            return '修改'
+                        if (ordinal === commonNames.delete)
+                            return '删除'
+                        return ordinal
+                    }
                 },
                 pagination: {
                     changePage: this.changeTablePage,
@@ -60,9 +75,10 @@ export default class Content extends React.Component {
                         <DefaultToolbar classes={this.classes} state={this.store.getState().resource.toolbar} handlers={this.handlers.toolbar}/>
                     </AppBar>
                 </div>
-                <div className={this.classes.contentDefaultBody}>
+
+                <Paper className={this.classes.contentDefaultBody}>
                     <DefaultTable classes={this.classes} state={this.store.getState().resource.table} handlers={this.handlers.table}/>
-                </div>
+                </Paper>
             </main>
         )
     }

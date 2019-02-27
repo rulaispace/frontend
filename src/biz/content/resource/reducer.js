@@ -1,4 +1,5 @@
 import ReducerBase from "../../../common/redux/reducer-base";
+import commonNames from "../../../common/config/common-name-config";
 
 const types = {
     loading: 'loadingResourceData',
@@ -14,7 +15,7 @@ const reducers = [
         reduce: (state, payload) => {
             for (const index in payload) {
                const resource = payload[index]
-               resource.operator = ['修改', '删除']
+               resource.operator = [commonNames.modify, commonNames.delete]
             }
 
             state.table.body = payload

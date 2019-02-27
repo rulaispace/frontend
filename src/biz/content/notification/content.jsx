@@ -22,8 +22,10 @@ export default class Content extends React.Component {
             },
             table: {
                 title: {
-                    onClick: () => {
-                        alert('title is clicked')
+                    onClick: function(ordinal) {
+                        return function() {
+                            alert(`title is clicked: ${ordinal}`)
+                        }
                     }
                 },
                 pagination: {

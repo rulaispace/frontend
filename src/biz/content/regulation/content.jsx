@@ -5,6 +5,7 @@ import DefaultToolbar from "../../../common/toolbar/default-toolbar";
 import DefaultTable from "../../../common/table/default-table";
 import Paper from "@material-ui/core/Paper";
 import reducer from "../announcement/reducer";
+import commonNames from "../../../common/config/common-name-config";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -23,17 +24,38 @@ export default class Content extends React.Component {
             },
             table: {
                 operator: {
-                    onClick: [
-                        function() {
-                            alert('Modify is clicked')
-                        },
-                        function() {
-                            alert('Publish is clicked')
-                        },
-                        function() {
-                            alert('Delete is clicked')
+                    onClick: function(ordinal) {
+                        if (ordinal === commonNames.modify) {
+                            return function() {
+                                alert('Reset password is clicked')
+                            }
                         }
-                    ]
+                        if (ordinal === commonNames.publish) {
+                            return function() {
+                                alert('Deactivate is clicked')
+                            }
+                        }
+                        if (ordinal === commonNames.delete) {
+                            return function() {
+                                alert('Activate is clicked')
+                            }
+                        }
+
+                        return f=>f
+                    },
+                    label: function(ordinal) {
+                        if (ordinal === commonNames.modify) {
+                            return '修改'
+                        }
+                        if (ordinal === commonNames.publish) {
+                            return '发布'
+                        }
+                        if (ordinal === commonNames.delete) {
+                            return '删除'
+                        }
+
+                        return ordinal
+                    }
                 },
                 pagination: {
                     changePage: this.changeTablePage,

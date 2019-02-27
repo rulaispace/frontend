@@ -1,11 +1,11 @@
-import post, {IS_MOCK_MODE, setMockMode} from './fetch'
+import post, {isMock, setMockMode} from './fetch'
 
 describe('Test Fetch with Mock Mode', () => {
     beforeAll(() => {
         setMockMode() // set mode into mock by force.
     })
 
-    it('should run in force mode', () => expect(IS_MOCK_MODE).toBe(true))
+    it('should run in force mode', () => expect(isMock).toBe(true))
 
     it('should get the correct data when using mock mode', () => {
         const mockApi = 'mock/post/data'

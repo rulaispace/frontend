@@ -21,4 +21,10 @@ Any.get = function(obj, key) {
     return obj[key]
 }
 
+Any.asArray = function(any) {
+    if (any == null) return []
+    if (Array.isArray(any)) return [...any]
+    return [any]
+}
+
 export default Any
