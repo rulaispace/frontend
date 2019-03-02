@@ -6,7 +6,9 @@ import DefaultTable from '../../../common/table/default-table'
 import Paper from '@material-ui/core/Paper'
 import reducer from './reducer'
 import commonNames from "../../../common/config/common-name-config";
-import iconNames from "../../../common/config/icon-name-config";
+import post from "../../../common/fetch/fetch";
+import DefaultMainMenu from "../../layout/default-main-menu";
+import menuNames from "../../../common/config/menu-name-config";
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -18,39 +20,31 @@ export default class Content extends React.Component {
         this.filter = this.filter.bind(this)
         this.changeTablePage = this.changeTablePage.bind(this)
         this.changeRowsPerPage = this.changeRowsPerPage.bind(this)
+        this.operation = this.operation.bind(this)
+        this.activate = this.activate.bind(this)
+        this.deactivate = this.deactivate.bind(this)
+        this.resetPassword = this.resetPassword.bind(this)
+        this.updateSuccessfully = this.updateSuccessfully.bind(this)
+        this.updateFailed = this.updateFailed.bind(this)
 
         this.handlers = {
             toolbar: {
                 searchInputChanged: this.filter,
-                rightButtonGroup: {
-                    [iconNames.add]: {
-                        onClick: ()=> {
-                            alert("The open folder button is clicked")
-                        }
-                    }
-                }
             },
             table: {
+                services: {
+                    resetPassword: 'user/resetPassword',
+                    activate: 'org/activate',
+                    deactivate: 'org/deactivate',
+                },
+                rule: {
+                    label: function(ordinal) {
+                        if (ordinal === commonNames.admin) return '管理员'
+                        if (ordinal === commonNames.employee) return '普通用户'
+                    }
+                },
                 operator: {
-                    onClick: function(ordinal) {
-                        if (ordinal === commonNames.resetPassword) {
-                            return function() {
-                                alert('Reset password is clicked')
-                            }
-                        }
-                        if (ordinal === commonNames.deactivate) {
-                            return function() {
-                                alert('Deactivate is clicked')
-                            }
-                        }
-                        if (ordinal === commonNames.activate) {
-                            return function() {
-                                alert('Activate is clicked')
-                            }
-                        }
-
-                        return f=>f
-                    },
+                    onClick: this.operation,
                     label: function(ordinal) {
                         if (ordinal === commonNames.resetPassword) {
                             return '重置密码'
@@ -81,6 +75,105 @@ export default class Content extends React.Component {
                 },
             }
         }
+    }
+
+    operation(ordinal) {
+        if (ordinal === commonNames.activate) return this.activate
+        if (ordinal === commonNames.deactivate) return this.deactivate
+        if (ordinal === commonNames.resetPassword) return this.resetPassword
+        return f=>f
+    }
+
+    activate(data) {
+        this.current = data
+
+        const message = function(payload) {
+            return `用户【${payload.name}】已激活，登录账号：${payload.username}，初始密码：${payload.password}，请将初始密码发送用户并提醒其登录系统！`
+        }
+
+        const agreeCallback = function(self, username) {
+            return function() {
+                post(self.handlers.table.services[commonNames.activate],
+                    {
+                        username,
+                    },
+                    self.updateSuccessfully(message),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要激活用户【${data.name}】的系统使用权限吗？`,
+            agreeCallback: agreeCallback(this, data.username)
+        })
+    }
+
+    deactivate(data) {
+        this.current = data
+
+        const agreeCallback = function(self, username) {
+            return function() {
+                post(self.handlers.table.services[commonNames.deactivate],
+                    {username},
+                    self.updateSuccessfully(),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要注销用户【${data.name}】的系统使用权限吗？`,
+            agreeCallback: agreeCallback(this, data.username)
+        })
+    }
+
+    resetPassword(data) {
+        this.current = data
+
+        const message = function(payload) {
+            return `用户【${payload.name}】已激活，登录账号：${payload.username}，初始密码：${payload.password}，请将初始密码发送用户并提醒其登录系统！`
+        }
+
+        const agreeCallback = function(self, username) {
+            return function() {
+                post(self.handlers.table.services[commonNames.resetPassword],
+                    {
+                        username
+                    },
+                    self.updateSuccessfully(message),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要重置用户【${data.name}】的登录密码吗？`,
+            agreeCallback: agreeCallback(this, data.username)
+        })
+    }
+
+    updateSuccessfully(message) {
+        const self = this
+        return function(payload) {
+            const agreeCallback = function(self) {
+                return function() {
+                    DefaultMainMenu.reloading(self.store, menuNames.rule);
+                }
+            }
+            self.store.tips({
+                title: '系统提示',
+                message: message ? message(payload) : "操作成功！",
+                agreeCallback: agreeCallback(self)
+            })
+        }
+    }
+
+    updateFailed(err) {
+        this.store.tips({
+            title: err.title,
+            message: err.details,
+        })
     }
 
     filter(value) {

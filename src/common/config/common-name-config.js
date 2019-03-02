@@ -8,7 +8,6 @@ const commonNames = {
 
     display: 'display',
     add: 'add',
-    modify: 'modify',
     publish: 'publish',
     update: 'update',
     delete: 'delete',
@@ -25,6 +24,13 @@ const commonNames = {
 
     download: 'download',
     primaryText: 'primaryText',
+
+    token: 'token',
+
+    alert: 'alert',
+    message: 'message',
+    agree: 'agree',
+    disagree: 'disagree',
 }
 
 export default commonNames

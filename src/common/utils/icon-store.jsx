@@ -32,6 +32,8 @@ import SkipPreIcon from '@material-ui/icons/SkipPreviousOutlined'
 import SkipNextIcon from '@material-ui/icons/SkipNextOutlined'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
+import DomainIcon from '@material-ui/icons/Domain'
+import DomainSharpIcon from '@material-ui/icons/DomainSharp'
 import AddIcon from '@material-ui/icons/PlaylistAddRounded'
 import iconNames from "../config/icon-name-config";
 import menuNames from "../config/menu-name-config";
@@ -109,6 +111,12 @@ export default function IconStore({iconKey, fontSize, className}) {
             return <CloseIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         case iconNames.check:
             return <CheckIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+
+        case iconNames.domain:
+            return <DomainIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.domainSharp:
+            return <DomainSharpIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+
         default:
             return null
     }

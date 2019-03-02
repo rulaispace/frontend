@@ -13,10 +13,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import menuItems from "../../common/config/menu-items-config";
-
 import post from '../../common/fetch/fetch'
 import StoreFactory from "../../common/redux/store-factory";
-import messageReducer from "../../common/dialog/reducer";
 import commonNames from "../../common/config/common-name-config";
 
 function DefaultMenuList({state, onClick}) {
@@ -65,7 +63,10 @@ const loadSuccess = function(store, name) {
 
 const loadFail = function(store) {
     return function(err) {
-        store.dispatch(messageReducer.createAction(messageReducer.types.show, err))
+        this.store.tips({
+            title: err.title,
+            message: err.details
+        })
     }
 }
 
@@ -81,7 +82,7 @@ function DefaultMainMenu({classes, store}) {
             <div className={classes.toolbarIcon}>
                 <IconButton
                     onClick={() => {
-                        store.dispatch(reducer.createAction(reducer.types.close))
+                        store.dispatch(reducer.createAction(reducer.types.agree))
                     }}
                 >
                     <ChevronLeftIcon />

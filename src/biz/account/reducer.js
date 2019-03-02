@@ -1,8 +1,9 @@
 import ReducerBase from "../../common/redux/reducer-base";
+import commonNames from "../../common/config/common-name-config";
 
 const types = {
     open: 'loginFormOpen',
-    close: 'loginFormClose',
+    agree: 'loginFormClose',
     login: 'userLogin',
     logout: 'userLogout',
 }
@@ -19,17 +20,25 @@ const reducers = [
     }, {
         type: types.login,
         action: (payload) => ({type: types.login, payload}),
-        reduce: (state={}, payload={}) => ({...state, ...payload, open:false})
+        reduce: (state={}, payload={}) => {
+            localStorage.setItem(commonNames.token, payload.token)
+            return {...state, ...payload, open: false}
+        }
     }, {
         type: types.logout,
         action: () => ({type: types.logout}),
-        reduce: () => ({open:false})
+        reduce: () => {
+            return ({open:false})
+        }
     }
 ]
 
 const reducer = ReducerBase.extend({
     create: function() {
         return ReducerBase.create.call(this, types, reducers)
+    },
+    clear: function(state) {
+        console.log(state)
     }
 }).create()
 

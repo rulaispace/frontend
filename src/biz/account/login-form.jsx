@@ -7,9 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import post from '../../common/fetch/fetch'
-
 import reducer from './reducer'
-import messageReducer from '../../common/dialog/reducer'
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -30,8 +28,10 @@ export default class LoginForm extends React.Component {
     }
 
     loginFailed(err) {
-        console.log(err)
-        this.store.dispatch(messageReducer.createAction(messageReducer.types.show, err))
+        this.store.tips({
+            title: err.title,
+            message: err.details
+        })
     }
 
     submit() {
@@ -50,7 +50,7 @@ export default class LoginForm extends React.Component {
                     open={account.open}
                     onClose={
                         () => {
-                            store.dispatch(reducer.createAction(reducer.types.close))
+                            store.dispatch(reducer.createAction(reducer.types.agree))
                         }
                     }
                     aria-labelledby='form-dialog-title'
@@ -88,7 +88,7 @@ export default class LoginForm extends React.Component {
                             id='close-button'
                             onClick={
                                 () => {
-                                    store.dispatch(reducer.createAction(reducer.types.close))
+                                    store.dispatch(reducer.createAction(reducer.types.agree))
                                 }
                             }
                             color='primary'

@@ -14,6 +14,8 @@ const iconNames = {
     arrowRight: 'icon_arrow_right',
     arrowDown: 'icon_arrow_down',
     group: 'icon_group',
+    domain: 'icon_domain',
+    domainSharp: 'icon_domain_sharp',
     groupAdd: 'icon_group_add',
     person: 'icon_person',
     personAdd: 'icon_person_add',

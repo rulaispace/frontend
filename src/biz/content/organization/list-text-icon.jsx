@@ -11,7 +11,7 @@ export default function ListTextIcon({state, classes, handlers}) {
         className = 'nestedListDefaultIconWithoutExpand'
 
     if (state.data.type === commonNames.department)
-        return <IconStore iconKey={iconNames.group} className={classes[className]}/>
+        return <IconStore iconKey={iconNames.domain} className={classes[className]}/>
 
     return <IconStore iconKey={iconNames.person} className={classes[className]}/>
 }

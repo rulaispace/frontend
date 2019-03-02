@@ -63,8 +63,6 @@ const expandWithValue = function(root, children, id, value) {
 const expand2Target = function(children, path, target) {
     if (path == null) path = ''
 
-    console.log(`####################TARGET: ${target}`)
-
     const key = target.slice(path.length).split('.')[0]
     if (!key.length) return children
 
@@ -78,17 +76,24 @@ const expand2Target = function(children, path, target) {
     return children
 }
 
-const decorate = function(children, path, target) {
+const decorate = function(children, path, target, parentCode, parentName) {
     if (children == null) return children
 
     for (const property in children) {
+        children[property].parentCode = parentCode
+        children[property].parentName = parentName
         children[property].path = path ? path + '.' + children[property].id : children[property].id
 
         // 判断是会否需要展开
          if (target.startsWith(children[property].path))
              children[property].expanded = true
 
-        decorate(children[property].children, children[property].path, target)
+        decorate(children[property].children,
+            children[property].path,
+            target,
+            children[property].id,
+            parentName + children[property].primaryText + '/',
+        )
     }
 
     return children
@@ -169,7 +174,7 @@ ReducerBase.defaultNestedListReduce = function() {
         }
 
         // 将修改或新增的数据的路径全部展开
-        state.nestedList.data = decorate([payload], null, target)
+        state.nestedList.data = decorate([payload], null, target, '', '')
         return state
     }
 }

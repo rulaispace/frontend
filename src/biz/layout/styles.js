@@ -336,5 +336,10 @@ export function styles(theme) {
             // fontSize: '16px',
             backgroundColor: blue[500],
         },
+
+        // default common dialog
+        commonDialogDefaultRoot: {
+            minWidth: 320,
+        }
     })
 }

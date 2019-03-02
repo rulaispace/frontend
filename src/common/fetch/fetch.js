@@ -1,5 +1,6 @@
 import mock from "./mock"
 import {deepOverride} from "../utils/object";
+import commonNames from "../config/common-name-config";
 
 const protocol = "http://"
 const baseUrl = "localhost:8080"
@@ -24,6 +25,7 @@ function post(api, request, success, fail) {
         return dispatch(deepOverride(mock[api], request), success, fail)
     }
 
+    const token = localStorage.getItem(commonNames.token)
     fetch(
         protocol + baseUrl + "/" + api,
         {
@@ -32,7 +34,10 @@ function post(api, request, success, fail) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(request)
+            body: JSON.stringify({
+                ...request,
+                token,
+            })
         }
     )
     .then(

@@ -11,6 +11,7 @@ import PersonIcon from '@material-ui/icons/Person'
 import menuReducer from './reducer';
 import accountReducer from '../account/reducer'
 import menuItems from "../../common/config/menu-items-config";
+import StoreFactory from "../../common/redux/store-factory";
 
 function RightIcons({token, logout, login}) {
     return token ? (<IconButton color='inherit' onClick={logout}><PersonIcon /></IconButton>)
@@ -39,7 +40,7 @@ export default function TopBar({classes, store}) {
     let subTitle = token ?
         ([...employee.items, ...administrator.items].reduce(
             (title, {id, label}) => {
-                return title ? title : ((id==='menu_'+navigator) ? label : null)
+                return title ? title : ((id===navigator) ? label : null)
             }, null
         ))
         : '首页'
@@ -77,7 +78,10 @@ export default function TopBar({classes, store}) {
                 <RightIcons
                     token={token}
                     login={() => {store.dispatch(accountReducer.createAction(accountReducer.types.open))}}
-                    logout={() => {store.dispatch(accountReducer.createAction(accountReducer.types.logout))}}
+                    logout={() => {
+                        StoreFactory.clear()
+                        store.dispatch(accountReducer.createAction(accountReducer.types.logout))
+                    }}
                 />
             </Toolbar>
         </AppBar>

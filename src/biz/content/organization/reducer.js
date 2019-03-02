@@ -6,9 +6,11 @@ const openAddDialog = function(type) {
         state.mode = commonNames.add
         state.dialog.open = true
         state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, {
-            parentId: payload.id,
+            parentCode: payload.id,
+            parentName: payload.parentName + payload.primaryText + '/',
             path: payload.path + '.N',
-            parent: payload.primaryText,
+            id: '',
+            code: '',
             primaryText: '',
             secondaryText: '',
             type: type,
@@ -72,6 +74,9 @@ const reducers = [
 const reducer = ReducerBase.extend({
     create: function() {
         return ReducerBase.create.call(this, types, reducers)
+    },
+    clear: function(state) {
+        console.log(state)
     }
 }).create()
 

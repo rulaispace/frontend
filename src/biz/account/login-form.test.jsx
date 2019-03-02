@@ -21,17 +21,17 @@ describe('Test LoginForm', () => {
         const component = shallow(<LoginForm store={store}/>)
         expect(component).toMatchSnapshot();
     })
-    it('Close the dialog with top button', () => {
+    it('Close the self with top button', () => {
         const store = initStore()
         const component = mount(<LoginForm store={store}/>)
         component.find('Dialog').prop('onClose')()
 
         expect(store.getState().account.open).toBeFalsy()
     })
-    it('Close the dialog with bottom button', () => {
+    it('Close the self with bottom button', () => {
         const store = initStore()
         const component = mount(<LoginForm store={store}/>)
-        component.find('Button[id="close-button"]').prop('onClick')()
+        component.find('Button[id="agree-button"]').prop('onClick')()
         expect(store.getState().account.open).toBeFalsy()
     })
     it('Login in', () => {

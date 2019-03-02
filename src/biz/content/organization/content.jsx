@@ -9,7 +9,6 @@ import reducer from './reducer'
 import ListRightButtonGroup from "./list-right-button-group";
 import DefaultFormDialog from "../../../common/dialog/form-dialog";
 import post from "../../../common/fetch/fetch";
-import messageReducer from "../../../common/dialog/reducer";
 import DefaultMainMenu from "../../layout/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
 import Any from '../../../common/utils/any'
@@ -24,7 +23,11 @@ export default class Content extends React.Component {
         this.classes = props.classes
         this.store = props.store
 
-        this.nestListItemDelete = this.nestListItemDelete.bind(this)
+        this.nestListItemDeactivateAlert = this.nestListItemDeactivateAlert.bind(this)
+        this.nestListItemProvisionEmployeeAlert = this.nestListItemProvisionEmployeeAlert.bind(this)
+        this.nestListItemProvisionAdminAlert = this.nestListItemProvisionAdminAlert.bind(this)
+        this.nestListItemProvisionAlert = this.nestListItemProvisionAlert.bind(this)
+        this.nestListItemDeleteAlert = this.nestListItemDeleteAlert.bind(this)
         this.nestedListItemAddPerson = this.nestedListItemAddPerson.bind(this)
         this.nestedListItemAddGroup = this.nestedListItemAddGroup.bind(this)
         this.nestedListItemEdit = this.nestedListItemEdit.bind(this)
@@ -58,7 +61,7 @@ export default class Content extends React.Component {
                 TextIconFactory: ListTextIcon,
                 RightButtonGroupFactory: ListRightButtonGroup,
                 rightButtonGroup: {
-                    [iconNames.groupAdd]: {
+                    [iconNames.domainSharp]: {
                         onClick: this.nestedListItemAddGroup,
                     },
                     [iconNames.personAdd]: {
@@ -68,22 +71,16 @@ export default class Content extends React.Component {
                         onClick: this.nestedListItemEdit,
                     },
                     [iconNames.delete]: {
-                        onClick: (state) => {
-                            console.log(state)
-                            alert("The delete button is clicked")
-                        }
+                        onClick: this.nestListItemDeleteAlert,
                     },
                     [iconNames.check]: {
-                        onClick: (state) => {
-                            console.log(state)
-                            alert("The check button is clicked")
-                        }
+                        onClick: this.nestListItemProvisionEmployeeAlert,
+                    },
+                    [iconNames.add]: {
+                        onClick: this.nestListItemProvisionAdminAlert,
                     },
                     [iconNames.close]: {
-                        onClick: (state) => {
-                            console.log(state)
-                            alert("Deactivate button is clicked")
-                        }
+                        onClick: this.nestListItemDeactivateAlert,
                     }
                 },
                 expandable: (state) => {
@@ -103,6 +100,8 @@ export default class Content extends React.Component {
                     update: 'org/modify',
                     add: 'org/add',
                     delete: 'org/delete',
+                    activate: 'org/activate',
+                    deactivate: 'org/deactivate',
                 },
                 toolbar: {
                     leftButtonClicked: this.formClose,
@@ -120,26 +119,24 @@ export default class Content extends React.Component {
                     },
                 },
                 form: {
-                    id: {
-                        label: '编号',
+                    parentName: {
+                        label: (state) => (commonNames.department == Any.get(state.form, 'type') ? '上级部门' : '所属部门'),
                         disabled: true,
-                        visible: (state) => {
-                            return Any.get(state.form, 'id') != null
-                        }
                     },
-                    parent: {
-                        label: '所属部门',
-                        disabled: true,
-                        visible: (state) => {
-                            return Any.get(state.form, 'parent') != null
-                        }
+                    id: {
+                        label: (state) => (commonNames.department == Any.get(state.form, 'type') ? '组织机构编码' : '登录账户名'),
+                        disabled: function(store) {
+                            return () => !(store.getState().organization.mode === commonNames.add)
+                        }(this.store),
+                        className: 'formDefaultTextField3',
+                        handleChange: this.formInputChanged,
                     },
                     primaryText: {
                         label: (state) => {
                             const type = Any.get(state.form, 'type')
                             return (commonNames.department === type) ? '部门名称' : '姓名'
                         },
-                        className: 'formDefaultTextField2',
+                        className: 'formDefaultTextField3',
                         handleChange: this.formInputChanged,
                     },
                     secondaryText: {
@@ -147,7 +144,7 @@ export default class Content extends React.Component {
                             const type = Any.get(state.form, 'type')
                             return (commonNames.department === type) ? '部门职能' : '岗位'
                         },
-                        className: 'formDefaultTextField2',
+                        className: 'formDefaultTextField3',
                         handleChange: this.formInputChanged
                     }
                 }
@@ -159,36 +156,137 @@ export default class Content extends React.Component {
         this.store.dispatch(reducer.createAction(reducer.types.filter, {value}))
     }
 
-    nestListItemDelete(data) {
+    nestListItemDeactivateAlert(data) {
+        this.current = data
 
+        const agreeCallback = function(self, id) {
+            return function() {
+                post(self.handlers.dialog.services[commonNames.deactivate],
+                    {
+                        username: id,
+                    },
+                    self.updateSuccessfully(),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要注销用户【${data.primaryText}】的系统使用权限吗？`,
+            agreeCallback: agreeCallback(this, data.id)
+        })
+    }
+    nestListItemProvisionEmployeeAlert(data) {
+        this.nestListItemProvisionAlert(data, commonNames.employee)
+    }
+    nestListItemProvisionAdminAlert(data) {
+        this.nestListItemProvisionAlert(data, commonNames.admin)
+    }
+    nestListItemProvisionAlert(data, rule) {
+        this.current = data
+
+        const message = function(payload) {
+            return `用户【${payload.name}】已开通【${rule===commonNames.employee?'普通用户':'管理员'}】权限，
+            登录账号：${payload.username}，初始密码：${payload.password}，请将初始密码发送用户并提醒其登录系统！`
+        }
+
+        const agreeCallback = function(self, id) {
+            return function() {
+                post(self.handlers.dialog.services[commonNames.activate],
+                    {
+                        username: id,
+                        rule: rule,
+                    },
+                    self.updateSuccessfully(message),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要为用户【${data.primaryText}】开通系统权限吗？`,
+            agreeCallback: agreeCallback(this, data.id)
+        })
     }
 
+    nestListItemDeleteAlert(data) {
+        this.current = data
+
+        const agreeCallback = function(self, id) {
+            return function() {
+                post(self.handlers.dialog.services[commonNames.delete],
+                    {
+                        code: id,
+                    },
+                    self.updateSuccessfully(),
+                    self.updateFailed)
+            }
+        }
+
+        this.store.alert({
+            title: '系统提示',
+            message: `确认要删除节点【${data.primaryText}】吗？`,
+            agreeCallback: agreeCallback(this, data.id)
+        })
+    }
+
+
+
     nestedListItemAddPerson(data) {
-        const {id, path, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openAddPersonDialog, {id, path, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText, parentCode, parentName} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddPersonDialog, {id, path, level, type, primaryText, secondaryText, parentCode, parentName}))
     }
 
     nestedListItemAddGroup(data) {
-        const {id, path, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openAddGroupDialog, {id, path, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText, parentCode, parentName} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openAddGroupDialog, {id, path, level, type, primaryText, secondaryText, parentCode, parentName}))
     }
 
     nestedListItemEdit(data) {
-        const {id, path, level, type, primaryText, secondaryText} = data
-        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, path, level, type, primaryText, secondaryText}))
+        const {id, path, level, type, primaryText, secondaryText, parentCode, parentName} = data
+        this.store.dispatch(reducer.createAction(reducer.types.openEditDialog, {id, path, level, type, primaryText, secondaryText, parentCode, parentName}))
     }
 
     nestedListItemSave() {
         const record = DefaultFormDialog.unboxing(this.store.getState().organization.dialog.form)
-        post(this.handlers.dialog.services[this.store.getState().organization.mode], record, this.updateSuccessfully, this.updateFailed)
+        post(this.handlers.dialog.services[this.store.getState().organization.mode],
+            {
+                parentCode: record.parentCode,
+                code: record.id,
+                name: record.primaryText,
+                type: record.type,
+                description: record.secondaryText
+            },
+            this.updateSuccessfully(),
+            this.updateFailed)
     }
 
-    updateSuccessfully() {
-        DefaultMainMenu.reloading(this.store, menuNames.org);
+    updateSuccessfully(message) {
+        const self = this
+        return function(payload) {
+            const agreeCallback = function() {
+                return function() {
+                    DefaultMainMenu.reloading(self.store, menuNames.org);
+                }
+            }
+
+            if (self.current) self.store.getState().organization.dialog.form.path = self.current.path
+            self.current = null
+
+            self.store.tips({
+                title: '系统提示',
+                message: message ? message(payload) : "操作成功!",
+                agreeCallback: agreeCallback(self)
+            })
+        }
     }
 
     updateFailed(err) {
-        this.store.dispatch(messageReducer.createAction(messageReducer.types.show, err))
+        this.store.tips({
+            title: err.title,
+            message: err.details,
+        })
+        this.current = null;
     }
 
     nestedListItemExpand(data) {
@@ -209,9 +307,8 @@ export default class Content extends React.Component {
 
     render() {
         const mode = this.store.getState().organization.mode
-        if (commonNames.update === mode || commonNames.add === mode) {
+        if (commonNames.update === mode || commonNames.add === mode)
             return <DefaultFormDialog classes={this.classes} state={this.store.getState().organization.dialog} handlers={this.handlers.dialog}/>
-        }
 
         return (
             <main className={this.classes.contentDefaultRoot}>

@@ -6,16 +6,19 @@ import Link from '@material-ui/core/Link'
 import uuid from "uuid";
 import commonNames from "../config/common-name-config";
 
-function LinkableEle({classes, state, handler}) {
+function LinkableEle({classes, row, ordinal, handler}) {
     return (
         <div>
             {
-                Any.asArray(state).map(function(ordinal) {
+                Any.asArray(ordinal).map(function(ordinal) {
                     return (
                         <Link
                             className={classes.tableCellDefaultLinkItem}
                             key={uuid.v1()}
-                            onClick={DefaultTableCell.proxy(ordinal, handler, commonNames.onClick)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                DefaultTableCell.proxy(ordinal, handler, commonNames.onClick)(row)
+                            }}
                         >
                             {DefaultTableCell.proxy(ordinal, handler, commonNames.label)}
                         </Link>
@@ -27,7 +30,8 @@ function LinkableEle({classes, state, handler}) {
 }
 
 LinkableEle.propTypes = {
-    state: PropTypes.object.isRequired,
+    row: PropTypes.object.isRequired,
+    ordinal: PropTypes.object.isRequired,
     handler: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 }
@@ -43,7 +47,8 @@ export default function DefaultTableCell({state, classes, handlers}) {
             {
                 state.col.linkable ? (
                     <LinkableEle
-                        state={state.row[state.col.id]}
+                        row={state.row}
+                        ordinal={state.row[state.col.id]}
                         handler={handlers[state.col.id]}
                         classes={classes}
                     />

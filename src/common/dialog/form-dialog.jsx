@@ -108,7 +108,7 @@ class DefaultFormInput extends React.Component {
                 className={this.classes[this.handlers.className]}
                 variant="outlined"
                 margin='normal'
-                disabled={this.handlers.disabled}
+                disabled={this.handlers.proxy(this.handlers.disabled)}
                 error={this.state.error}
             >
                 <InputLabel

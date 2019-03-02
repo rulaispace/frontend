@@ -5,11 +5,6 @@ const boxing = {
         open: true,
         navigator: 'welcome',
     },
-    message: {
-        title: '系统消息：',
-        details: '初始消息，请忽略！',
-        open: false,
-    },
     account: {
         open: false,
     },
@@ -157,7 +152,6 @@ const boxing = {
                 disableGutters: true,
                 showInput: true,
                 showInputIcon: true,
-                showRightButtonGroup: true,
             },
             input: {
                 placeholder: '输入关键字查询',
@@ -177,27 +171,32 @@ const boxing = {
                 {
                     id: 'name',
                     label: '姓名',
-                    width: '30%',
+                    width: '15%',
                 },
                 {
                     id: 'department',
                     label: '部门',
-                    width: '15%',
+                    width: '30%',
                 },
                 {
-                    id: 'createDate',
-                    label: '创建时间',
-                    width: '20%',
+                    id: 'rule',
+                    label: '角色',
+                    width: '15%',
                 },
                 {
                     id: 'state',
                     label: '状态',
+                    width: '10%',
+                },
+                {
+                    id: 'createDateTime',
+                    label: '创建时间',
                     width: '15%',
                 },
                 {
                     id: 'operator',
                     label: '操作',
-                    width: '20%',
+                    width: '15%',
                     linkable: true,
                 },
             ]

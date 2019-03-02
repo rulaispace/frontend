@@ -3,7 +3,7 @@ import ReducerBase from '../../common/redux/reducer-base'
 const types = {
     navigate: 'navigate',
     open: 'menuOpen',
-    close: 'menuClose',
+    agree: 'menuClose',
     clear: 'clearNavigator'
 }
 
@@ -40,6 +40,9 @@ const reducers = [
 const reducer = ReducerBase.extend({
     create: function() {
         return ReducerBase.create.call(this, types, reducers)
+    },
+    clear: function(state) {
+        state.navigator = null
     }
 }).create()
 

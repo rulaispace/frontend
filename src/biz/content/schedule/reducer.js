@@ -15,6 +15,9 @@ const reducers = [
 const reducer = ReducerBase.extend({
     create: function() {
         return ReducerBase.create.call(this, types, reducers)
+    },
+    clear: function(state) {
+        console.log(state)
     }
 }).create()
 

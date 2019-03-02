@@ -20,7 +20,7 @@ const reducers = [
                 }
 
                 if (row.state === commonNames.invalid) {
-                    row.operator = [commonNames.activate, commonNames.resetPassword]
+                    row.operator = [commonNames.activate]
                 }
             }
 
@@ -45,6 +45,9 @@ const reducers = [
 const reducer = ReducerBase.extend({
     create: function() {
         return ReducerBase.create.call(this, types, reducers)
+    },
+    clear: function(state) {
+        console.log(state)
     }
 }).create()
 
