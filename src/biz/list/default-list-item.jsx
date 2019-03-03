@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import IconStore from "../utils/icon-store";
+import IconStore from "../../common/base/icon-store";
 
 export default function DefaultListItem({state, classes, handlers}) {
     return (

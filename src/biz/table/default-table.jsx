@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table'
 import DefaultTableHead from "./default-table-head";
 import DefaultTableBody from "./default-table-body";
 import DefaultTablePagination from "./default-table-pagination";
-import {modifyWithDef} from "../utils/store-state-modifier";
+import {modifyWithDef} from "../../common/base/store-state-modifier";
 
 const defaultState = {
     // default value for all switch

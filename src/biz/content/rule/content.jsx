@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
-import DefaultToolbar from '../../../common/toolbar/default-toolbar'
-import DefaultTable from '../../../common/table/default-table'
+import DefaultToolbar from '../../toolbar/default-toolbar'
+import DefaultTable from '../../table/default-table'
 import Paper from '@material-ui/core/Paper'
 import reducer from './reducer'
 import commonNames from "../../../common/config/common-name-config";
 import post from "../../../common/fetch/fetch";
-import DefaultMainMenu from "../../layout/default-main-menu";
+import DefaultMainMenu from "../../app/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
 
 export default class Content extends React.Component {
@@ -104,7 +104,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要激活用户【${data.name}】的系统使用权限吗？`,
+            tip: `确认要激活用户【${data.name}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -123,7 +123,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要注销用户【${data.name}】的系统使用权限吗？`,
+            tip: `确认要注销用户【${data.name}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -148,7 +148,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要重置用户【${data.name}】的登录密码吗？`,
+            tip: `确认要重置用户【${data.name}】的登录密码吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -161,18 +161,18 @@ export default class Content extends React.Component {
                     DefaultMainMenu.reloading(self.store, menuNames.rule);
                 }
             }
-            self.store.tips({
+            self.store.tip({
                 title: '系统提示',
-                message: message ? message(payload) : "操作成功！",
+                tip: message ? message(payload) : "操作成功！",
                 agreeCallback: agreeCallback(self)
             })
         }
     }
 
     updateFailed(err) {
-        this.store.tips({
+        this.store.tip({
             title: err.title,
-            message: err.details,
+            tip: err.details,
         })
     }
 

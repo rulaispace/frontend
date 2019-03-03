@@ -3,7 +3,7 @@ import React from "react";
 import {withStyles} from "@material-ui/core";
 import Content from './content'
 import StoreFactory from "../../../common/redux/store-factory";
-import {styles} from '../../layout/styles'
+import {styles} from '../../app/styles'
 
 describe('Test Announcement Content', () => {
     const store = StoreFactory.create({

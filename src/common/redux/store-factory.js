@@ -1,11 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import boxing from '../config/encapsulation-config'
-import {deepOverride} from '../utils/object'
+import {deepOverride} from '../base/object'
 import ObjectStorage from "./object-storage";
-import Any from "../utils/any";
-import accountReducer from "../../biz/account/reducer";
-import layoutReducer from "../../biz/layout/reducer";
+import Any from "../base/any";
+import layoutReducer from "../../biz/app/reducer";
 import notificationReducer from "../../biz/content/notification/reducer";
 import documentReducer from "../../biz/content/document/reducer";
 import organizationReducer from "../../biz/content/organization/reducer";
@@ -14,7 +13,7 @@ import resourceReducer from "../../biz/content/resource/reducer";
 import ruleReducer from "../../biz/content/rule/reducer";
 import announcementReducer from "../../biz/content/announcement/reducer";
 import regulationReducer from "../../biz/content/regulation/reducer";
-import commonNames from "../config/common-name-config";
+import message from '../../biz/dialog/common-dialog-handler'
 
 function createLoggerMiddleWare() {
     return (
@@ -63,17 +62,17 @@ const StoreFactory = Any.extend({
                 createStore)(
                     combineReducers(StoreFactory.reducers()), this.usingLocalStorage() ? this.localStorage.read() : deepOverride(boxing, this.overrideState))
 
-        store.alert = StoreFactory.message.func(commonNames.alert)
-        store.tips = StoreFactory.message.func(commonNames.tips)
+        store.alert = state => {message.alert(state)}
+        store.tip = state => {message.tip(state)}
 
-        StoreFactory.store = store // 用于清空数据
+        for (const name in StoreFactory.defaultReducers)
+            StoreFactory.defaultReducers[name].setStore(store)
 
         return store
     },
 })
 
 StoreFactory.defaultReducers = {
-    account: accountReducer,
     layout: layoutReducer,
     notification: notificationReducer,
     document: documentReducer,
@@ -95,54 +94,6 @@ StoreFactory.reducers = function() {
         reducers[property] = StoreFactory.defaultReducers[property].proxy()
     }
     return reducers
-}
-
-StoreFactory.message = {
-    func: function(type) {
-        return function({
-                            title,
-                            message,
-                            agreeCallback=function() {
-                                StoreFactory.message.self.setState({
-                                    ...StoreFactory.message.self.state,
-                                    open: false
-                                })
-                            },
-                            disagreeCallback=function() {
-                                StoreFactory.message.self.setState({
-                                    ...StoreFactory.message.self.state,
-                                    open: false
-                                })
-                            }
-        }) {
-            StoreFactory.message.self.setState({
-                open: true,
-                type: type,
-                title: title,
-                message: message,
-                agreeCallback: () => {
-                    StoreFactory.message.self.setState({
-                        ...StoreFactory.message.self.state,
-                        open: false
-                    })
-                    agreeCallback()
-                },
-                disagreeCallback: () => {
-                    StoreFactory.message.self.setState({
-                        ...StoreFactory.message.self.state,
-                        open: false
-                    })
-                    disagreeCallback()
-                }
-            })
-        }
-    },
-    self: null,
-}
-
-StoreFactory.clear = function() {
-    for (const name in StoreFactory.defaultReducers)
-        StoreFactory.defaultReducers[name].clear(StoreFactory.store.getState()[name])
 }
 
 export default StoreFactory

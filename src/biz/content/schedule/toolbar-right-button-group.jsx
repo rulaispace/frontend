@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import IconStore from "../../../common/utils/icon-store";
+import IconStore from "../../../common/base/icon-store";
 import iconNames from '../../../common/config/icon-name-config'
 import Button from "@material-ui/core/Button";
 

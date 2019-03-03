@@ -11,14 +11,14 @@ const API_MOCK = {
         value2: 2
     },
     'mock/post/error': {
-        message:'Failed to fetch',
+        tip:'Failed to fetch',
         stack:'TypeError: Failed to fetch'
     },
     'mock/post/server500': {
         "timestamp":"2019-01-25T03:24:04.087+0000",
         "status":500,
         "error":"Internal Server Error",
-        "message":"Some Exception",
+        "tip":"Some Exception",
         "path":"/login"
     }
 }

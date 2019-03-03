@@ -2,9 +2,9 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import PropTypes from "prop-types";
 import iconNames from '../../../common/config/icon-name-config'
-import DefaultToolbar from "../../../common/toolbar/default-toolbar";
+import DefaultToolbar from "../../toolbar/default-toolbar";
 import ToolbarRightButtonGroup from "./toolbar-right-button-group";
-import DefaultTable from "../../../common/table/default-table";
+import DefaultTable from "../../table/default-table";
 import Paper from "@material-ui/core/Paper";
 
 // 默认的工具栏属性

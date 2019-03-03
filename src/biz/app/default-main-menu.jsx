@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import reducer from './reducer'
-import IconStore from "../../common/utils/icon-store"
+import IconStore from "../../common/base/icon-store"
 
 import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider'
@@ -61,11 +61,11 @@ const loadSuccess = function(store, name) {
     }
 }
 
-const loadFail = function(store) {
+const loadFail = function() {
     return function(err) {
-        this.store.tips({
+        this.store.tip({
             title: err.title,
-            message: err.details
+            tip: err.details
         })
     }
 }
@@ -89,14 +89,14 @@ function DefaultMainMenu({classes, store}) {
                 </IconButton>
             </div>
             <Divider />
-            {(commonNames.admin === store.getState().account.rule || commonNames.employee === store.getState().account.rule) ? (
+            {(commonNames.admin === localStorage.getItem(commonNames.rule) || commonNames.employee === localStorage.getItem(commonNames.rule)) ? (
                 <DefaultMenuList
                     state={menuItems.employee}
                     onClick={loading(store)}
                 />) : null
             }
-            { commonNames.admin === store.getState().account.rule ? (<Divider />) : null}
-            { commonNames.admin === store.getState().account.rule ? (
+            { commonNames.admin === localStorage.getItem(commonNames.rule) ? (<Divider />) : null}
+            { commonNames.admin === localStorage.getItem(commonNames.rule) ? (
                 <DefaultMenuList
                     state={menuItems.administrator}
                     onClick={loading(store)}

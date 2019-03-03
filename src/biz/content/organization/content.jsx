@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DefaultToolbar from '../../../common/toolbar/default-toolbar'
+import DefaultToolbar from '../../toolbar/default-toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import iconNames from "../../../common/config/icon-name-config";
 import Paper from "@material-ui/core/Paper";
-import DefaultList from "../../../common/list/default-list";
+import DefaultList from "../../list/default-list";
 import reducer from './reducer'
 import ListRightButtonGroup from "./list-right-button-group";
-import DefaultFormDialog from "../../../common/dialog/form-dialog";
+import DefaultFormDialog from "../../dialog/form-dialog";
 import post from "../../../common/fetch/fetch";
-import DefaultMainMenu from "../../layout/default-main-menu";
+import DefaultMainMenu from "../../app/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
-import Any from '../../../common/utils/any'
+import Any from '../../../common/base/any'
 import buttonNames from "../../../common/config/button-name-config";
 import commonNames from "../../../common/config/common-name-config";
 import ListTextIcon from "./list-text-icon";
@@ -172,7 +172,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要注销用户【${data.primaryText}】的系统使用权限吗？`,
+            tip: `确认要注销用户【${data.primaryText}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -204,7 +204,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要为用户【${data.primaryText}】开通系统权限吗？`,
+            tip: `确认要为用户【${data.primaryText}】开通系统权限吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -225,7 +225,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            message: `确认要删除节点【${data.primaryText}】吗？`,
+            tip: `确认要删除节点【${data.primaryText}】吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -273,18 +273,18 @@ export default class Content extends React.Component {
             if (self.current) self.store.getState().organization.dialog.form.path = self.current.path
             self.current = null
 
-            self.store.tips({
+            self.store.tip({
                 title: '系统提示',
-                message: message ? message(payload) : "操作成功!",
+                tip: message ? message(payload) : "操作成功!",
                 agreeCallback: agreeCallback(self)
             })
         }
     }
 
     updateFailed(err) {
-        this.store.tips({
+        this.store.tip({
             title: err.title,
-            message: err.details,
+            tip: err.details,
         })
         this.current = null;
     }

@@ -6,11 +6,10 @@ import {styles} from './styles'
 import TopBar from './top-bar'
 import DefaultMainMenu from './default-main-menu'
 import Content from '../content/content'
-import LoginForm from '../account/login-form'
-import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
-import CommonDialog from "../../common/dialog/common-dialog";
-
+import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey'
+import CommonDialog from '../dialog/common-dialog'
+import LoginDialog from '../dialog/login-dialog'
 
 const theme = createMuiTheme({
     palette: {
@@ -22,7 +21,7 @@ const theme = createMuiTheme({
         }
     },
     typography: { useNextVariants: true },
-});
+})
 
 function Dashboard({classes, store}) {
     return (
@@ -32,7 +31,7 @@ function Dashboard({classes, store}) {
                 <TopBar classes={classes} store={store} />
                 <DefaultMainMenu classes={classes} store={store} />
                 <Content classes={classes} store={store} />
-                <LoginForm classes={classes} store={store}/>
+                <LoginDialog classes={classes}/>
                 <CommonDialog classes={classes}/>
             </div>
         </MuiThemeProvider>

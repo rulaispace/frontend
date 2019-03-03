@@ -1,4 +1,4 @@
-import Any from "../utils/any";
+import Any from "../base/any";
 import commonNames from "../config/common-name-config";
 
 const defaultTypes = {
@@ -125,7 +125,10 @@ const ReducerBase = Any.extend({
         return function(state, action) {
             return self.reduce.call(self, state, action)
         }
-    }
+    },
+    setStore: function(store) {
+        this.store = store
+    },
 })
 
 ReducerBase.defaultAction = function(type) {

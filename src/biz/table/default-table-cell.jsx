@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TableCell from '@material-ui/core/TableCell'
-import Any from '../../common/utils/any'
+import Any from '../../common/base/any'
 import Link from '@material-ui/core/Link'
 import uuid from "uuid";
-import commonNames from "../config/common-name-config";
+import commonNames from "../../common/config/common-name-config";
 
 function LinkableEle({classes, row, ordinal, handler}) {
     return (

@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import {findDOMNode} from "react-dom";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import {modifyWithDef} from "../utils/store-state-modifier";
+import {modifyWithDef} from "../../common/base/store-state-modifier";
 import uuid from 'uuid'
 
 const defaultInputHandler = {

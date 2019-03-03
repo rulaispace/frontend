@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import iconNames from "../../../common/config/icon-name-config";
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
-import IconStore from "../../../common/utils/icon-store";
+import IconStore from "../../../common/base/icon-store";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import commonNames from "../../../common/config/common-name-config";
 import Tooltip from "@material-ui/core/Tooltip";

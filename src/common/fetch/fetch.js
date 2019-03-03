@@ -1,5 +1,5 @@
 import mock from "./mock"
-import {deepOverride} from "../utils/object";
+import {deepOverride} from "../base/object";
 import commonNames from "../config/common-name-config";
 
 const protocol = "http://"
@@ -55,7 +55,7 @@ function post(api, request, success, fail) {
             fail(
                 {
                     title: `系统错误,url=[${api}]`,
-                    details: error.message
+                    detail: error.message
                 }
             )
         }
@@ -68,9 +68,10 @@ function dispatch(json, success, fail) {
         return ;
     }
 
+    console.log(json)
     fail({
         title: `系统错误[${json.status}]`,
-        details: json.message
+        detail: json.message
     })
 }
 

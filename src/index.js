@@ -1,7 +1,7 @@
 import React from "react"
 import {render} from "react-dom"
 import StoreFactory from "./common/redux/store-factory"
-import Dashboard from './biz/layout/dashboard'
+import Dashboard from './biz/app/dashboard'
 
 const store = StoreFactory.create({enableLocalStorage: false}).get()
 

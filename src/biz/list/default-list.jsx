@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DefaultTextIcon from './default-text-icon'
 import DefaultRightButtonGroup from './default-right-button-group'
-import iconNames from "../config/icon-name-config";
-import {modifyWithDef} from "../utils/store-state-modifier";
 import DefaultListBranch from "./default-list-branch";
+import {modifyWithDef} from "../../common/base/store-state-modifier";
+import iconNames from "../../common/config/icon-name-config";
 
 const defaultState = {
     feature: {

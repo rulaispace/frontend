@@ -8,10 +8,10 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
-import menuReducer from './reducer';
-import accountReducer from '../account/reducer'
+import reducer from './reducer';
 import menuItems from "../../common/config/menu-items-config";
-import StoreFactory from "../../common/redux/store-factory";
+import account from '../dialog/login-dialog-handler'
+import commonNames from "../../common/config/common-name-config";
 
 function RightIcons({token, logout, login}) {
     return token ? (<IconButton color='inherit' onClick={logout}><PersonIcon /></IconButton>)
@@ -25,22 +25,10 @@ RightIcons.propTypes = {
 }
 
 export default function TopBar({classes, store}) {
-    const {
-        layout: {
-            open,
-            navigator,
-        },
-        account: {
-            token,
-        }
-    } = store.getState()
-
-
-    const {employee, administrator} = menuItems
-    let subTitle = token ?
-        ([...employee.items, ...administrator.items].reduce(
+    let subTitle = localStorage[commonNames.token] ?
+        ([...menuItems.employee.items, ...menuItems.administrator.items].reduce(
             (title, {id, label}) => {
-                return title ? title : ((id===navigator) ? label : null)
+                return title ? title : ((id===store.getState().layout.navigator) ? label : null)
             }, null
         ))
         : '首页'
@@ -50,18 +38,18 @@ export default function TopBar({classes, store}) {
     return (
         <AppBar
             position='absolute'
-            className={classNames(classes.appBar, open && classes.appBarShift)}
+            className={classNames(classes.appBar, store.getState().layout.open && classes.appBarShift)}
         >
-            <Toolbar disableGutters={!open} className={classes.toolbar}>
+            <Toolbar disableGutters={!store.getState().layout.open} className={classes.toolbar}>
                 <IconButton
                     color='inherit'
                     aria-label='Open drawer'
                     onClick={() => {
-                        store.dispatch(menuReducer.createAction(menuReducer.types.open))
+                        store.dispatch(reducer.createAction(reducer.types.open))
                     }}
                     className={classNames(
                         classes.menuButton,
-                        open && classes.menuButtonHidden,
+                        store.getState().layout.open && classes.menuButtonHidden,
                     )}
                 >
                     <MenuIcon />
@@ -76,11 +64,18 @@ export default function TopBar({classes, store}) {
                     {title}
                 </Typography>
                 <RightIcons
-                    token={token}
-                    login={() => {store.dispatch(accountReducer.createAction(accountReducer.types.open))}}
-                    logout={() => {
-                        StoreFactory.clear()
-                        store.dispatch(accountReducer.createAction(accountReducer.types.logout))
+                    token={localStorage[commonNames.token]}
+                    login={(e) => {
+                        e.preventDefault()
+                        account.login(function(){
+                            reducer.reloading()
+                        })
+                    }}
+                    logout={(e) => {
+                        e.preventDefault()
+                        account.logout(function(){
+                            reducer.reloading()
+                        })
                     }}
                 />
             </Toolbar>

@@ -1,4 +1,8 @@
 const commonNames = {
+    token: 'token',
+    name: 'name',
+    username: 'username',
+    rule: 'rule',
     admin: 'admin',
     employee: 'employee',
 
@@ -25,10 +29,8 @@ const commonNames = {
     download: 'download',
     primaryText: 'primaryText',
 
-    token: 'token',
-
     alert: 'alert',
-    message: 'message',
+    tip: 'tip',
     agree: 'agree',
     disagree: 'disagree',
 }

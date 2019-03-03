@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'
-import IconStore from "../utils/icon-store";
+import IconStore from "../../common/base/icon-store";
 import DefaultRightButtonGroup from "./default-right-button-group";
 import DefaultInput from "./default-input";
-import iconNames from "../config/icon-name-config";
-import {modifyWithDef} from "../utils/store-state-modifier";
+import iconNames from "../../common/config/icon-name-config";
+import {modifyWithDef} from "../../common/base/store-state-modifier";
 
 const defaultToolbarState = {
     feature: {

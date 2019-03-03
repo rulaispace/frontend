@@ -4,7 +4,8 @@ const types = {
     navigate: 'navigate',
     open: 'menuOpen',
     agree: 'menuClose',
-    clear: 'clearNavigator'
+    clear: 'clearNavigator',
+    reloading: 'dashboardReloading',
 }
 
 const reducers = [
@@ -27,14 +28,18 @@ const reducers = [
         action: ReducerBase.defaultAction(types.close),
         reduce: (state={}) => ({...state, open:false})
     }, {
+        type: types.reloading,
+        action: ReducerBase.defaultAction(types.reloading),
+        reduce: (state={}, payload) => ({...state, navigator : payload.navigator})
+    }, {
         type: types.loaded,
         action: ReducerBase.defaultAction(types.loaded),
         reduce: (state={}) => ({...state, loading:false})
-    }, {
+    }/*, {
         type: types.clear,
         action: ReducerBase.defaultAction(types.clear),
         reduce: (state={}) => ({...state, navigator:null})
-    }
+    }*/
 ]
 
 const reducer = ReducerBase.extend({
@@ -43,6 +48,9 @@ const reducer = ReducerBase.extend({
     },
     clear: function(state) {
         state.navigator = null
+    },
+    reloading: function() {
+        this.store.dispatch(this.createAction(this.types.reloading, {navigator:null}))
     }
 }).create()
 

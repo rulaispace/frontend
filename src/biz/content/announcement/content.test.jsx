@@ -3,7 +3,7 @@ import {mount} from "enzyme/build";
 import React from "react";
 import Content from "./content";
 import {withStyles} from "@material-ui/core";
-import {styles} from "../../layout/styles";
+import {styles} from "../../app/styles";
 
 describe('Test Announcement Content', () => {
     const initStore = () => StoreFactory.create({

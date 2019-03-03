@@ -2,10 +2,10 @@ import React from 'react'
 import StoreFactory from "../../common/redux/store-factory";
 import {mount} from "enzyme";
 import {withStyles} from "@material-ui/core";
-import {styles} from "../layout/styles";
+import {styles} from ".//styles";
 import Dashboard from './dashboard'
 
-describe('Test LoginForm', () => {
+describe('Test LoginDialog', () => {
     const initStore = () => StoreFactory.create({
         enableLocalStorage: false,
     }).get()

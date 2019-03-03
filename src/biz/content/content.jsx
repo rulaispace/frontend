@@ -9,18 +9,16 @@ import Resource from './resource/content'
 import Rule from './rule/content'
 import Announcement from './announcement/content'
 import Regulation from './regulation/content'
+import commonNames from "../../common/config/common-name-config";
 
 export default function Content({classes, store}) {
     const {
         layout: {
             navigator = 'welcome'
         },
-        account: {
-            token = ''
-        }
     } = store.getState()
 
-    const title = token.length ? navigator : 'welcome'
+    const title = localStorage.getItem(commonNames.token) ? navigator : 'welcome'
 
     switch (title) {
         case 'welcome':

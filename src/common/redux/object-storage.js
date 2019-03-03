@@ -1,4 +1,4 @@
-import Any from "../utils/any";
+import Any from "../base/any";
 
 export const DefaultLocalReduxStateStorageKey = 'redux-store'
 

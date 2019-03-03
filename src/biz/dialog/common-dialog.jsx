@@ -1,13 +1,13 @@
 
 import React from "react";
-import commonNames from "../config/common-name-config";
+import commonNames from "../../common/config/common-name-config";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import StoreFactory from '../redux/store-factory'
+import handler from './common-dialog-handler'
 import PropTypes from "prop-types";
 
 class CommonDialog extends React.Component {
@@ -32,7 +32,7 @@ class CommonDialog extends React.Component {
             }
         }
         this.classes = props.classes
-        StoreFactory.message.self = this
+        handler.setRef(this)
     }
 
     render() {
@@ -43,7 +43,10 @@ class CommonDialog extends React.Component {
                         paper: this.classes.commonDialogDefaultRoot,
                     }}
                     open={this.state.open}
-                    onClose={() => {this.setState({...this.state, open: false})}}
+                    onClose={(e) => {
+                        e.preventDefault()
+                        this.setState({...this.state, open: false})
+                    }}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
@@ -53,7 +56,10 @@ class CommonDialog extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            onClick={this.state.agreeCallback}
+                            onClick={e => {
+                                e.preventDefault()
+                                this.state.agreeCallback()
+                            }}
                             color="primary" autoFocus
                         >
                             确定
@@ -61,7 +67,10 @@ class CommonDialog extends React.Component {
                         {
                             this.state.type === commonNames.alert ? (
                                 <Button
-                                    onClick={this.state.disagreeCallback}
+                                    onClick= {e => {
+                                        e.preventDefault()
+                                        this.state.disagreeCallback()
+                                    }}
                                     color="primary" autoFocus
                                 >
                                     取消

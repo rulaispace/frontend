@@ -1,5 +1,5 @@
 import React from 'react'
-import IconStore from "../utils/icon-store";
+import IconStore from "../../common/base/icon-store";
 import PropTypes from "prop-types";
 import InputBase from "@material-ui/core/InputBase";
 
