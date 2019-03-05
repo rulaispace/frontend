@@ -10,17 +10,17 @@ function LinkableEle({classes, row, ordinal, handler}) {
     return (
         <div>
             {
-                Any.asArray(ordinal).map(function(ordinal) {
+                ordinal.map(function(item) {
                     return (
                         <Link
                             className={classes.tableCellDefaultLinkItem}
                             key={uuid.v1()}
                             onClick={(e) => {
                                 e.preventDefault()
-                                DefaultTableCell.proxy(ordinal, handler, commonNames.onClick)(row)
+                                DefaultTableCell.proxy(item, handler, commonNames.onClick)(row)
                             }}
                         >
-                            {DefaultTableCell.proxy(ordinal, handler, commonNames.label)}
+                            {DefaultTableCell.proxy(item, handler, commonNames.label)}
                         </Link>
                     )
                 })
@@ -31,7 +31,7 @@ function LinkableEle({classes, row, ordinal, handler}) {
 
 LinkableEle.propTypes = {
     row: PropTypes.object.isRequired,
-    ordinal: PropTypes.object.isRequired,
+    ordinal: PropTypes.array.isRequired,
     handler: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 }
@@ -48,7 +48,7 @@ export default function DefaultTableCell({state, classes, handlers}) {
                 state.col.linkable ? (
                     <LinkableEle
                         row={state.row}
-                        ordinal={state.row[state.col.id]}
+                        ordinal={Any.asArray(state.row[state.col.id])}
                         handler={handlers[state.col.id]}
                         classes={classes}
                     />

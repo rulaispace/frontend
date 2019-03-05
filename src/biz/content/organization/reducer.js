@@ -51,7 +51,7 @@ const reducers = [
     }, {
         type: types.openEditDialog,
         action: ReducerBase.defaultAction(types.openEditDialog),
-        reduce: ReducerBase.defaultOpenEditDialog(),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.modify),
     }, {
         type: types.openAddGroupDialog,
         action: ReducerBase.defaultAction(types.openAddGroupDialog),

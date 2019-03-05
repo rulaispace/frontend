@@ -97,7 +97,7 @@ export default class Content extends React.Component {
             },
             dialog: {
                 services: {
-                    update: 'org/modify',
+                    modify: 'org/modify',
                     add: 'org/add',
                     delete: 'org/delete',
                     activate: 'org/activate',
@@ -172,7 +172,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要注销用户【${data.primaryText}】的系统使用权限吗？`,
+            message: `确认要注销用户【${data.primaryText}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -204,7 +204,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要为用户【${data.primaryText}】开通系统权限吗？`,
+            message: `确认要为用户【${data.primaryText}】开通${rule===commonNames.employee ? '普通用户' : '管理员'}权限吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -225,7 +225,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要删除节点【${data.primaryText}】吗？`,
+            message: `确认要删除节点【${data.primaryText}】吗？`,
             agreeCallback: agreeCallback(this, data.id)
         })
     }
@@ -275,7 +275,7 @@ export default class Content extends React.Component {
 
             self.store.tip({
                 title: '系统提示',
-                tip: message ? message(payload) : "操作成功!",
+                message: message ? message(payload) : "操作成功!",
                 agreeCallback: agreeCallback(self)
             })
         }
@@ -284,7 +284,7 @@ export default class Content extends React.Component {
     updateFailed(err) {
         this.store.tip({
             title: err.title,
-            tip: err.details,
+            message: err.details,
         })
         this.current = null;
     }
@@ -307,7 +307,7 @@ export default class Content extends React.Component {
 
     render() {
         const mode = this.store.getState().organization.mode
-        if (commonNames.update === mode || commonNames.add === mode)
+        if (commonNames.modify === mode || commonNames.add === mode)
             return <DefaultFormDialog classes={this.classes} state={this.store.getState().organization.dialog} handlers={this.handlers.dialog}/>
 
         return (

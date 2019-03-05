@@ -25,7 +25,9 @@ function post(api, request, success, fail) {
         return dispatch(deepOverride(mock[api], request), success, fail)
     }
 
-    const token = localStorage.getItem(commonNames.token)
+    const body = request.token ? JSON.stringify(request) :  JSON.stringify({...request, token: localStorage.getItem(commonNames.token)})
+    console.log(`#POST# API[${api}]：${body}`)
+
     fetch(
         protocol + baseUrl + "/" + api,
         {
@@ -34,10 +36,7 @@ function post(api, request, success, fail) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                ...request,
-                token,
-            })
+            body: body
         }
     )
     .then(
@@ -63,6 +62,8 @@ function post(api, request, success, fail) {
 }
 
 function dispatch(json, success, fail) {
+    console.log(`#POST RESPONSE#${JSON.stringify(json)}`)
+
     if (json.status === 200) {
         success(json.payload)
         return ;

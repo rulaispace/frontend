@@ -61,11 +61,11 @@ const loadSuccess = function(store, name) {
     }
 }
 
-const loadFail = function() {
+const loadFail = function(store) {
     return function(err) {
-        this.store.tip({
+        store.tip({
             title: err.title,
-            tip: err.details
+            message: err.details
         })
     }
 }

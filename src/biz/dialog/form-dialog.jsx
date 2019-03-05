@@ -39,11 +39,12 @@ class DefaultFormDialog extends React.Component {
         }
         this.handlers = props.handlers
         this.state = props.state
-
     }
 
-    proxy(target) {
+    proxy(target, defValue) {
         if (typeof target == 'function') return target(this.state)
+        if (target == null) return defValue
+
         return target
     }
 
@@ -123,7 +124,7 @@ class DefaultFormInput extends React.Component {
                 <OutlinedInput
                     id={"form-input-" + id}
                     labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-                    value={this.state.value}
+                    value={this.handlers.proxy(this.handlers.value, this.state.value)}
                     aria-describedby={"form-helper-text-" + id}
                     onChange={e=>{
                         e.preventDefault()

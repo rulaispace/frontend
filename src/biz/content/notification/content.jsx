@@ -5,6 +5,7 @@ import DefaultTable from '../../table/default-table'
 import DefaultToolbar from '../../toolbar/default-toolbar'
 import Paper from "@material-ui/core/Paper";
 import reducer from './reducer'
+import iconNames from "../../../common/config/icon-name-config";
 
 export default class Content extends React.Component {
     constructor(props) {

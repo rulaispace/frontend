@@ -5,7 +5,11 @@ const types = {
     loading: 'loadingResourceData',
     filter: 'filterResourceData',
     changePage: 'changePageOfResourceData',
-    changeRowsPerPage: 'changeRowsPerPageOfResourceData'
+    modifyFormInput: 'modifyFormInputOfResource',
+    changeRowsPerPage: 'changeRowsPerPageOfResourceData',
+    openEditDialog: 'openEditDialogOfResource',
+    openAddDialog: 'openAddDialogOfResource',
+    closeDialog: 'closeDialogOfResource',
 }
 
 const reducers = [
@@ -14,11 +18,22 @@ const reducers = [
         action: ReducerBase.defaultAction(types.loading),
         reduce: (state, payload) => {
             for (const index in payload) {
-               const resource = payload[index]
-               resource.operator = [commonNames.modify, commonNames.delete]
+                const resource = payload[index]
+                if (resource.state === commonNames.valid) {
+                    resource.operator = [commonNames.deactivate, commonNames.modify, commonNames.delete]
+                } else {
+                    resource.operator = [commonNames.activate]
+                }
             }
 
             state.table.body = payload
+
+            state.mode = commonNames.display
+            if (state.dialog) {
+                state.dialog.open = false
+                state.dialog.form = {}
+            }
+
             return state
         },
     }, {
@@ -33,6 +48,22 @@ const reducers = [
         type: types.changeRowsPerPage,
         action: ReducerBase.defaultAction(types.changeRowsPerPage),
         reduce: ReducerBase.defaultChangeRowsPerPageOfTable(),
+    }, {
+        type: types.modifyFormInput,
+        action: ReducerBase.defaultAction(types.modifyFormInput),
+        reduce: ReducerBase.defaultChangeDialogInput(),
+    }, {
+        type: types.openEditDialog,
+        action: ReducerBase.defaultAction(types.openEditDialog),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.modify),
+    }, {
+        type: types.openAddDialog,
+        action: ReducerBase.defaultAction(types.openAddDialog),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.add),
+    }, {
+        type: types.closeDialog,
+        action: ReducerBase.defaultAction(types.closeDialog),
+        reduce: ReducerBase.defaultCloseEditDialog(),
     }
 ]
 

@@ -1,12 +1,10 @@
 import iconNames from "./icon-name-config";
+import commonNames from "./common-name-config";
 
 const boxing = {
     layout: {
         open: true,
         navigator: 'welcome',
-    },
-    account: {
-        open: false,
     },
     notification: {
         toolbar: {
@@ -96,11 +94,13 @@ const boxing = {
         }
     },
     resource: {
+        mode: commonNames.display,
         toolbar: {
             feature: {
                 disableGutters: true,
                 showInput: true,
                 showInputIcon: true,
+                showRightButtonGroup: true,
             },
             input: {
                 placeholder: '输入关键字查询',
@@ -119,16 +119,16 @@ const boxing = {
             header: [
                 {
                     id: 'name',
-                    label: '资源名称',
+                    label: '名称',
                     width: '30%',
                 },
                 {
                     id: 'code',
-                    label: '资源编号',
+                    label: '编号',
                     width: '15%',
                 },
                 {
-                    id: 'createDate',
+                    id: 'createDateTime',
                     label: '创建时间',
                     width: '20%',
                 },
@@ -144,6 +144,21 @@ const boxing = {
                     linkable: true,
                 },
             ]
+        },
+        dialog: {
+            open: false,
+            toolbar: {
+                feature: {
+                    showInput: false,
+                    showRightButtonGroup: true,
+                    showLeftButton: true,
+                },
+                leftButton: {
+                    id: iconNames.close,
+                }
+            },
+            form: {
+            }
         }
     },
     rule: {
@@ -305,7 +320,7 @@ const boxing = {
         }
     },
     organization: {
-        mode: 'main',
+        mode: commonNames.display,
         toolbar: {
             feature: {
                 disableGutters: true,

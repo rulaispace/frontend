@@ -13,7 +13,7 @@ const commonNames = {
     display: 'display',
     add: 'add',
     publish: 'publish',
-    update: 'update',
+    modify: 'modify',
     delete: 'delete',
 
     resetPassword: 'resetPassword',
@@ -33,6 +33,11 @@ const commonNames = {
     tip: 'tip',
     agree: 'agree',
     disagree: 'disagree',
+
+    login: 'login',
+    close: 'close',
+
+    textButton: 'textButton',
 }
 
 export default commonNames

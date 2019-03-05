@@ -104,7 +104,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要激活用户【${data.name}】的系统使用权限吗？`,
+            message: `确认要激活用户【${data.name}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -123,7 +123,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要注销用户【${data.name}】的系统使用权限吗？`,
+            message: `确认要注销用户【${data.name}】的系统使用权限吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -148,7 +148,7 @@ export default class Content extends React.Component {
 
         this.store.alert({
             title: '系统提示',
-            tip: `确认要重置用户【${data.name}】的登录密码吗？`,
+            message: `确认要重置用户【${data.name}】的登录密码吗？`,
             agreeCallback: agreeCallback(this, data.username)
         })
     }
@@ -163,7 +163,7 @@ export default class Content extends React.Component {
             }
             self.store.tip({
                 title: '系统提示',
-                tip: message ? message(payload) : "操作成功！",
+                message: message ? message(payload) : "操作成功！",
                 agreeCallback: agreeCallback(self)
             })
         }
@@ -172,7 +172,7 @@ export default class Content extends React.Component {
     updateFailed(err) {
         this.store.tip({
             title: err.title,
-            tip: err.details,
+            message: err.detail,
         })
     }
 

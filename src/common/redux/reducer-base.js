@@ -212,9 +212,9 @@ ReducerBase.defaultCollapseNestedList = function() {
     }
 }
 
-ReducerBase.defaultOpenEditDialog = function() {
+ReducerBase.defaultOpenDialog = function(mode) {
     return (state={}, payload) => {
-        state.mode = commonNames.update
+        state.mode = mode
         state.dialog.open = true
         state.dialog.form = ReducerBase.formatFormInput(state.dialog.form, payload)
         return state
