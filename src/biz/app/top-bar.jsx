@@ -10,7 +10,7 @@ import LockIcon from '@material-ui/icons/Lock'
 import PersonIcon from '@material-ui/icons/Person'
 import reducer from './reducer';
 import menuItems from "../../common/config/menu-items-config";
-import account from '../dialog/login-dialog-handler'
+import account from '../../component/dialog/login-dialog-handler'
 import commonNames from "../../common/config/common-name-config";
 
 function RightIcons({token, logout, login}) {

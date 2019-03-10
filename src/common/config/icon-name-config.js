@@ -10,6 +10,9 @@ const iconNames = {
     attachment: 'icon_attachment',
     folder: 'icon_folder',
     upload: 'icon_upload',
+    clear: 'icon_clear',
+    remove: 'icon_remove',
+    open: 'icon_open',
 
     arrowRight: 'icon_arrow_right',
     arrowDown: 'icon_arrow_down',

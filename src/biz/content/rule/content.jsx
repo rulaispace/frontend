@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
-import DefaultToolbar from '../../toolbar/default-toolbar'
-import DefaultTable from '../../table/default-table'
+import DefaultToolbar from '../../../component/toolbar/default-toolbar'
+import DefaultTable from '../../../component/table/default-table'
 import Paper from '@material-ui/core/Paper'
 import reducer from './reducer'
 import commonNames from "../../../common/config/common-name-config";
-import post from "../../../common/fetch/fetch";
+import {post} from "../../../common/network/network";
 import DefaultMainMenu from "../../app/default-main-menu";
 import menuNames from "../../../common/config/menu-name-config";
 

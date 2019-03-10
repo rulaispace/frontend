@@ -8,8 +8,8 @@ import DefaultMainMenu from './default-main-menu'
 import Content from '../content/content'
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles'
 import grey from '@material-ui/core/colors/grey'
-import CommonDialog from '../dialog/common-dialog'
-import LoginDialog from '../dialog/login-dialog'
+import CommonDialog from '../../component/dialog/common-dialog'
+import LoginDialog from '../../component/dialog/login-dialog'
 
 const theme = createMuiTheme({
     palette: {

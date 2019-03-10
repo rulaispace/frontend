@@ -3,7 +3,7 @@ import commonNames from "../../../common/config/common-name-config";
 import IconStore from "../../../common/base/icon-store";
 import PropTypes from "prop-types";
 import iconNames from "../../../common/config/icon-name-config";
-import DefaultListItem from "../../list/default-list-item";
+import DefaultListItem from "../../../component/list/default-list-item";
 
 export default function ListTextIcon({state, classes, handlers}) {
     let className = 'nestedListDefaultIcon'

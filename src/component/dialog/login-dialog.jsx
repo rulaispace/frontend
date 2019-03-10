@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import handler from './login-dialog-handler'
 import TextField from "@material-ui/core/TextField";
 import commonNames from "../../common/config/common-name-config";
-import post from "../../common/fetch/fetch";
+import {post} from "../../common/network/network";
 import message from "./common-dialog-handler";
 
 function Login({usernameRef, passwordRef, loginCallback, closeCallback}) {
@@ -108,7 +108,7 @@ class LoginDialog extends React.Component {
     }
 
     loginCallback() {
-        post('login', {username: this.usernameRef.current.value, password: this.passwordRef.current.value}, this.loginSuccess, this.submitFailed)
+        post('/login', {username: this.usernameRef.current.value, password: this.passwordRef.current.value}, this.loginSuccess, this.submitFailed)
     }
 
     closeCallback() {
@@ -143,7 +143,7 @@ class LoginDialog extends React.Component {
             return ;
         }
 
-        post('user/changePassword', {username: this.state.username, oldPassword: origin, newPassword: newPassword, token: this.state.token}, this.passwordChanged, this.submitFailed)
+        post('/user/changePassword', {username: this.state.username, oldPassword: origin, newPassword: newPassword, token: this.state.token}, this.passwordChanged, this.submitFailed)
     }
 
     storeAndReturn(payload) {

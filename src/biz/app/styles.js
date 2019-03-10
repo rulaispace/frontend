@@ -322,6 +322,9 @@ export function styles(theme) {
         formDefaultDense: {
             marginTop: 19,
         },
+        formDefaultSelectMenu: {
+            width: 200,
+        },
 
         // specific configuration for schedule
         scheduleBackgroundLightYellow: {
@@ -340,6 +343,81 @@ export function styles(theme) {
         // default common dialog
         commonDialogDefaultRoot: {
             minWidth: 320,
+        },
+
+        // file upload
+        fileUploadDefaultLabelContainer: {
+            marginTop: '16px',
+            marginBottom: '8px',
+        },
+        fileUploadDefaultLabel: {
+            color: 'rgba(0, 0, 0, 0.54)',
+            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+            fontSize: 'small',
+        },
+        fileUploadDefaultRoot: {
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            width: '100%',
+            margin: theme.spacing.unit * 1,
+        },
+        fileUploadFileSelectDefaultRoot: {
+            border: '1px solid #ccc',
+            borderBottom: '0px',
+            boxSizing: 'border-box',
+            display: 'flex',
+            width: '100%',
+        },
+        fileUploadFileSelectDefaultContent: {
+            backgroundColor: '#fff',
+            padding: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+        },
+        fileUploadedListDefaultRoot: {
+            border: '1px solid #ccc',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'row',
+            flex: 1,
+            flexWrap: 'wrap',
+            width: '100%',
+        },
+        fileUploadedListItemDefault: {
+            display: 'flex',
+            margin: theme.spacing.unit * 1,
+        },
+        fileUploadedListItemFileNameDefault: {
+            display: 'flex',
+            margin: theme.spacing.unit * 1,
+        },
+        fileUploadedListItemDeleteDefault: {
+            display: 'flex',
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: theme.spacing.unit * 1,
+            paddingRight: theme.spacing.unit * 1,
+        },
+        fileSelectInputDefault: {
+            display: 'none',
+        },
+        fileSelectOpenDialogButtonDefault: {
+            padding: 10,
+        },
+        fileSelectVisibleInputDefault: {
+            minWidth: '280px',
+            marginLeft: 8,
+            flex: 1,
+        },
+        fileSelectUploadButtonDefault: {
+            padding: 10,
+        },
+        fileSelectRightButtonDivider: {
+            width: 1,
+            height: 28,
+            margin: 4,
         }
     })
 }

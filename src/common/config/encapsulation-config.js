@@ -4,7 +4,6 @@ import commonNames from "./common-name-config";
 const boxing = {
     layout: {
         open: true,
-        navigator: 'welcome',
     },
     notification: {
         toolbar: {
@@ -94,7 +93,6 @@ const boxing = {
         }
     },
     resource: {
-        mode: commonNames.display,
         toolbar: {
             feature: {
                 disableGutters: true,
@@ -223,6 +221,7 @@ const boxing = {
                 disableGutters: true,
                 showInput: true,
                 showInputIcon: true,
+                showRightButtonGroup: true,
             },
             input: {
                 placeholder: '输入关键字查询',
@@ -236,27 +235,34 @@ const boxing = {
             pagination: {
             },
             filter: {
-                name: '',
+                title: '',
             },
             header: [
                 {
-                    id: 'name',
+                    id: 'title',
                     label: '公告名称',
                     width: '30%',
                 },
                 {
                     id: 'type',
                     label: '类型',
-                    width: '15%',
-                },
-                {
-                    id: 'releaseDate',
-                    label: '发布时间',
-                    width: '20%',
+                    width: '10%',
+                    disablePadding: true,
                 },
                 {
                     id: 'state',
                     label: '状态',
+                    width: '10%',
+                    disablePadding: true,
+                },
+                {
+                    id: 'updateDateTime',
+                    label: '更新时间',
+                    width: '15%',
+                },
+                {
+                    id: 'releaseDateTime',
+                    label: '发布时间',
                     width: '15%',
                 },
                 {
@@ -266,6 +272,18 @@ const boxing = {
                     linkable: true,
                 },
             ]
+        },
+        dialog: {
+            open: false,
+            toolbar: {
+                feature: {
+                    showInput: false,
+                    showRightButtonGroup: true,
+                    showLeftButton: true,
+                },
+                leftButton: {id: iconNames.close,}
+            },
+            form: {}
         }
     },
     regulation: {

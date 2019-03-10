@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import menuItems from "../../common/config/menu-items-config";
-import post from '../../common/fetch/fetch'
+import {post} from '../../common/network/network'
 import StoreFactory from "../../common/redux/store-factory";
 import commonNames from "../../common/config/common-name-config";
 
@@ -65,7 +65,7 @@ const loadFail = function(store) {
     return function(err) {
         store.tip({
             title: err.title,
-            message: err.details
+            message: err.detail
         })
     }
 }

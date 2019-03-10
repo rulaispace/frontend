@@ -13,7 +13,7 @@ import resourceReducer from "../../biz/content/resource/reducer";
 import ruleReducer from "../../biz/content/rule/reducer";
 import announcementReducer from "../../biz/content/announcement/reducer";
 import regulationReducer from "../../biz/content/regulation/reducer";
-import message from '../../biz/dialog/common-dialog-handler'
+import message from '../../component/dialog/common-dialog-handler'
 
 function createLoggerMiddleWare() {
     return (

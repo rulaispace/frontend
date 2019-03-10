@@ -1,4 +1,7 @@
 const commonNames = {
+    inputTypeSelect: 'select',
+    richTextEditor: 'editor',
+    fileUploader: 'uploader',
     token: 'token',
     name: 'name',
     username: 'username',
@@ -12,6 +15,9 @@ const commonNames = {
 
     display: 'display',
     add: 'add',
+    inEdit: 'inEdit',
+    view: 'view',
+    callback: 'callback',
     publish: 'publish',
     modify: 'modify',
     delete: 'delete',

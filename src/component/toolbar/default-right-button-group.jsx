@@ -48,16 +48,26 @@ InnerButton.propTypes = {
 }
 
 export default function DefaultRightButtonGroup({state, classes, handlers}) {
+    const proxy = (target, defVal) => {
+        if (target == null) return defVal
+
+        if (typeof target == 'function') return target()
+        return target
+    }
+
     if (state.feature.showRightButtonGroup) {
         return (
             <div className={classes[state.rightButtonGroup.rightButtonGroupClassName]}>
                 {
                     Object.keys(handlers).map(id => {
-                        return (
-                            <Tooltip key={uuid.v1()} title={handlers[id].tip ? handlers[id].tip : ''}>
-                                <InnerButton type={handlers[id].type} id={id} handlers={handlers} state={state}/>
-                            </Tooltip>
-                        )
+                        if (proxy(handlers[id].visible, true)) {
+                            return (
+                                <Tooltip key={uuid.v1()} title={handlers[id].tip ? handlers[id].tip : ''}>
+                                    <InnerButton type={handlers[id].type} id={id} handlers={handlers} state={state}/>
+                                </Tooltip>
+                            )
+                        }
+                        return null
                     })
                 }
             </div>

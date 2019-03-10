@@ -5,17 +5,17 @@ const menuItems = {
         items: [
             {
                 id: menuNames.notification,
-                loadingUrl: 'notification/query',
+                loadingUrl: '/notification/query',
                 label: '个人通知',
             },
             {
                 id: menuNames.schedule,
-                loadingUrl: 'schedule/query',
+                loadingUrl: '/schedule/query',
                 label: '日程管理',
             },
             {
                 id: menuNames.document,
-                loadingUrl: 'document/query',
+                loadingUrl: '/document/query',
                 label: '公司文献',
             },
             {
@@ -29,22 +29,22 @@ const menuItems = {
         items: [
             {
                 id: menuNames.org,
-                loadingUrl: 'org/query',
+                loadingUrl: '/org/query',
                 label: '组织架构管理',
             },
             {
                 id: menuNames.rule,
-                loadingUrl: 'user/query',
+                loadingUrl: '/user/query',
                 label: '系统权限开通',
             },
             {
                 id: menuNames.resource,
-                loadingUrl: 'resource/query',
+                loadingUrl: '/resource/query',
                 label: '资源管理',
             },
             {
                 id: menuNames.announcement,
-                loadingUrl: 'announcement/query',
+                loadingUrl: '/announcement/query',
                 label: '公告管理',
             },
             {
@@ -53,7 +53,7 @@ const menuItems = {
             },
             {
                 id: menuNames.regulation,
-                loadingUrl: 'regulation/query',
+                loadingUrl: '/regulation/query',
                 label: '公司章程管理',
             },
         ]

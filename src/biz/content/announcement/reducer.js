@@ -5,7 +5,12 @@ const types = {
     loading: 'loadingAnnouncementData',
     filter: 'filterAnnouncementData',
     changePage: 'changePageOfAnnouncementData',
-    changeRowsPerPage: 'changeRowsPerPageOfAnnouncementData'
+    changeRowsPerPage: 'changeRowsPerPageOfAnnouncementData',
+    openAddDialog: 'openAddDialogOfAnnouncement',
+    openEditDialog: 'openEditDialogOfAnnouncement',
+    openViewDialog: 'openViewDialogOfAnnouncement',
+    closeDialog: 'closeDialogOfAnnouncement',
+    modifyFormInput: 'modifyFormInputOfAnnouncement',
 }
 
 const reducers = [
@@ -15,15 +20,26 @@ const reducers = [
         reduce: (state, payload) => {
             for (const index in payload) {
                 const resource = payload[index]
-                resource.operator = [commonNames.modify, commonNames.publish, commonNames.delete]
+                if (resource.state === commonNames.inEdit) {
+                    resource.operator = [commonNames.modify, commonNames.publish, commonNames.delete]
+                } else {
+                    resource.operator = [commonNames.view, commonNames.callback]
+                }
             }
             state.table.body = payload
+
+            state.mode = commonNames.display
+            if (state.dialog) {
+                state.dialog.open = false
+                state.dialog.form = {}
+            }
+
             return state
         },
     }, {
         type: types.filter,
         action: ReducerBase.defaultAction(types.filter),
-        reduce: ReducerBase.defaultTableFilterReduce('name'),
+        reduce: ReducerBase.defaultTableFilterReduce('title'),
     }, {
         type: types.changePage,
         action: ReducerBase.defaultAction(types.changePage),
@@ -32,6 +48,30 @@ const reducers = [
         type: types.changeRowsPerPage,
         action: ReducerBase.defaultAction(types.changeRowsPerPage),
         reduce: ReducerBase.defaultChangeRowsPerPageOfTable(),
+    }, {
+        type: types.openAddDialog,
+        action: ReducerBase.defaultAction(types.openAddDialog),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.add),
+    }, {
+        type: types.closeDialog,
+        action: ReducerBase.defaultAction(types.closeDialog),
+        reduce: ReducerBase.defaultCloseEditDialog(),
+    }, {
+        type: types.openEditDialog,
+        action: ReducerBase.defaultAction(types.openEditDialog),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.modify),
+    }, {
+        type: types.openViewDialog,
+        action: ReducerBase.defaultAction(types.openViewDialog),
+        reduce: ReducerBase.defaultOpenDialog(commonNames.view),
+    }, {
+        type: types.modifyFormInput,
+        action: ReducerBase.defaultAction(types.modifyFormInput),
+        reduce: ReducerBase.defaultChangeDialogInput(),
+    }, {
+        type: types.closeDialog,
+        action: ReducerBase.defaultAction(types.closeDialog),
+        reduce: ReducerBase.defaultCloseEditDialog(),
     }
 ]
 

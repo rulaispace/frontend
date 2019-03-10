@@ -37,6 +37,9 @@ import DomainSharpIcon from '@material-ui/icons/DomainSharp'
 import AddIcon from '@material-ui/icons/PlaylistAddRounded'
 import iconNames from "../config/icon-name-config";
 import menuNames from "../config/menu-name-config";
+import OpenIcon from '@material-ui/icons/OpenInBrowser';
+import ClearIcon from '@material-ui/icons/Clear'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 export default function IconStore({iconKey, fontSize, className}) {
     switch (iconKey) {
@@ -116,6 +119,13 @@ export default function IconStore({iconKey, fontSize, className}) {
             return <DomainIcon fontSize={fontSize?fontSize:'default'} className={className}/>
         case iconNames.domainSharp:
             return <DomainSharpIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.open:
+            return <OpenIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.clear:
+            return <ClearIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+        case iconNames.remove:
+            return <RemoveIcon fontSize={fontSize?fontSize:'default'} className={className}/>
+
 
         default:
             return null

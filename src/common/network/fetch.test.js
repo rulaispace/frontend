@@ -1,4 +1,4 @@
-import post, {isMock, setMockMode} from './fetch'
+import {post}, {isMock, setMockMode} from './fetch'
 
 describe('Test Fetch with Mock Mode', () => {
     beforeAll(() => {
